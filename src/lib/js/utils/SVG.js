@@ -1,4 +1,3 @@
-//@ts-ignore
 export function colorElements(wrapper, id, color, type = "fill") {
     if (wrapper) {
       // const el = wrapper.querySelector(`#${id}`);
@@ -8,6 +7,3 @@ export function colorElements(wrapper, id, color, type = "fill") {
       }
     }
 }
-
-
-
