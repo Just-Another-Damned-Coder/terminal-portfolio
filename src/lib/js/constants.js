@@ -1,9 +1,5 @@
 import { writable, derived } from 'svelte/store';
 
-
-// The SVG file import, this is the main icon used in the home page.
-import svg from '$lib/assets/icon.svg?raw';
-
 // The JSON file contains the color themes for the pages, 
 // The colors are taken from : https://windowsterminalthemes.dev/
 // Add more to the JSON from the website.
@@ -23,4 +19,4 @@ export const svgcolors = derived(scheme, $scheme => ({
     group: COLORS[$scheme].background
   }
 }));
-export {svg, COLORS, version};
+export {COLORS, version};
