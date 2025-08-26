@@ -7,7 +7,7 @@ import COLORS from '$lib/color_schemes.json';
 // initialize with your default theme key
 export const scheme = writable('Argonaut');
 // The website/terminal version.
-const version = "v1.0.0a";
+const version = "v1.0.1a";
 export const svgcolors = derived(scheme, $scheme => ({
   fill: {
     glasses: COLORS[$scheme].cyan,
@@ -19,4 +19,6 @@ export const svgcolors = derived(scheme, $scheme => ({
     group: COLORS[$scheme].background
   }
 }));
+
+export const tableHeightStore = writable(0);
 export {COLORS, version};

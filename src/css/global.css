@@ -6,3 +6,13 @@ body {
     padding: 10px;
     overflow-y: auto;
   }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+  }

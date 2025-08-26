@@ -1,5 +1,5 @@
 <script >
-    import {scheme, COLORS, svgcolors} from '$lib/js/constants.js';
+    import {scheme, COLORS, svgcolors, tableHeightStore} from '$lib/js/constants.js';
     import {colorElements} from '$lib/js/utils/SVG.js';
     let tableHeight = 200;
     let svgWidth = 200;
@@ -16,11 +16,13 @@
                 colorElements(wrapper, id, color, 'stroke');
             });
         }
+        tableHeight = $tableHeightStore;
+        svgWidth = Math.floor(1.5 * $tableHeightStore);
     }
 </script>
 
 <div class="svg-container" bind:this={wrapper}>
-    <svg width="{svgWidth}px" height="{tableHeight}px" viewBox="1500 0 1000 3000" version="1.1" id="icon">
+    <svg width="{svgWidth}px" height="{tableHeight}px" viewBox="0 0 1001 3001" version="1.1" id="icon">
         <path
         fill-rule="evenodd"
         class = "glasses"
@@ -49,5 +51,11 @@
 </div>
 
 <style>
+.svg-container {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block; /* Removes extra bottom space in some layouts */
+}
 
 </style>

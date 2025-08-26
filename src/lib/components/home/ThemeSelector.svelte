@@ -23,9 +23,10 @@
 <style>
 .color-square{
     margin: 0%;
-    margin-top: 1%;
-    width: 2em;
-    height: 2em;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    width: 3rem;
+    height: 3rem;
     border: none;
     cursor: pointer;
     border-radius: 0;

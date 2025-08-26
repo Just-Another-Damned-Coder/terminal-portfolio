@@ -1,4 +1,4 @@
-//@ts-ignore
+
 function getBrowserAndOS(userAgent) {
   let browser = "Unknown";
   let os = "Unknown";
@@ -37,7 +37,7 @@ export function getUserDetails() {
   const screenWidth = window.screen.width;
   const screenHeight = window.screen.height;
   const cpuClass = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cores` : "unknown";
-  //@ts-ignore
+
   const memory = navigator.deviceMemory ? `${navigator.deviceMemory}GB` : "unknown";
   const nowString = new Date().toDateString()
   const nowTime = new Date().toTimeString();
@@ -45,6 +45,7 @@ export function getUserDetails() {
     { label: 'OS', value: os },
     { label: 'Browser', value: browser },
     { label: 'Kernel', value: 'Browser/JS' },
+    { label: 'Uptime', value: "0 sec"},
     { label: 'Language', value: language },
     { label: 'Resolution', value: `${screenWidth}x${screenHeight}` },
     { label: 'CPU', value: cpuClass },
@@ -54,7 +55,12 @@ export function getUserDetails() {
   ];
 }
 
-//@ts-ignore
+export function getDateTime() {
+    const nowString = new Date().toDateString()
+    const nowTime = new Date().toTimeString();
+    return [nowTime, nowString];
+}
+
 export function formatUptime(ms) {
     const totalSec = Math.floor(ms / 1000);
     const days = Math.floor(totalSec / 86400);

@@ -1,15 +1,25 @@
 <script>
-    import {Avatar, Title, ThemeSelector} from "$lib/components";
+    import {Avatar, Title, ThemeSelector, DisplayInfo, Installing} from "$lib/components";
+    import {tableHeightStore} from '$lib/js/constants.js';
+    let tableHeight;
+    $: if (tableHeight) {
+        tableHeightStore.set(tableHeight);
+        console.log("Table Height changed", tableHeight);
+    }
 </script>
 
 
 
 <div class="fetch">
     <Title />
-    <div>
+    <div class="row">
         <Avatar />
-        <div>
+        <div class="column" bind:clientHeight={tableHeight}>
+            <DisplayInfo />
             <ThemeSelector />
         </div>
     </div>
+</div>
+<div>
+    <Installing />
 </div>
