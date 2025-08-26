@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik+Broken+Fax&family=heading:wght@400;700&display=swap");
+
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+@import './css/global.css';
+@import './css/home.css';
+
+
+@font-face {
+  font-family: 'Karmatic Arcade';
+  src: url('lib/assets/fonts/ka1.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arcade';
+  src: url('lib/assets/fonts/ARCADE.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: '1982';
+  src: url('lib/assets/fonts/BACKTO1982.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+

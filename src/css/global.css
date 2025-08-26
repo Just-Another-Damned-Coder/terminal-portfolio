@@ -1,0 +1,8 @@
+body {
+    font-family: monospace;
+    background: #0e1019;
+    color: #00ff00;
+    height: 100vh;
+    padding: 10px;
+    overflow-y: auto;
+  }

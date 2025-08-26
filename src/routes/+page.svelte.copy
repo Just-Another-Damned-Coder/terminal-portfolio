@@ -1,0 +1,160 @@
+<script>
+  import { onMount, onDestroy } from 'svelte';
+
+  // Provided ASCII art
+  export let ascii-art;
+
+  // Startup timestamp (session start)
+  const start = Date.now();
+
+  // Reactive, auto-updating uptime string
+  let uptime = '';
+  let nowString = new Date().toLocaleString();
+  let timer;
+
+  // Other browser details (same as before)
+  const userAgent = navigator.userAgent;
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  const language = navigator.language;
+  const platform = navigator.platform;
+  const cpuClass = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cores` : 'unknown';
+  const memory = navigator.deviceMemory ? `${navigator.deviceMemory}GB` : 'unknown';
+
+  function formatUptime(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+
+    const parts = [];
+    if (days) parts.push(`${days} day${days>1?'s':''}`);
+    if (hours || days) parts.push(`${hours} hour${hours!==1?'s':''}`);
+    if (mins || hours || days) parts.push(`${mins} min${mins!==1?'s':''}`);
+    parts.push(`${secs} sec${secs!==1?'s':''}`);
+    return parts.join(', ');
+  }
+
+  onMount(() => {
+    // Tick immediately, then every second
+    const tick = () => {
+      const ms = Date.now() - start;
+      uptime = formatUptime(ms);
+      nowString = new Date().toLocaleString();
+    };
+    tick();
+    timer = setInterval(tick, 1000);
+  });
+
+  onDestroy(() => clearInterval(timer));
+
+  $: details = [
+    { label: 'OS', value: platform },
+    { label: 'Browser', value: userAgent },
+    { label: 'Kernel', value: 'Browser/JS' },
+    { label: 'Uptime', value: uptime },               // auto-updating
+    { label: 'Language', value: language },
+    { label: 'Resolution', value: `${screenWidth}x${screenHeight}` },
+    { label: 'CPU', value: cpuClass },
+    { label: 'Memory', value: memory },
+    { label: 'Date & Time', value: nowString },       // updates every second
+  ];
+
+const asciiArt = `
+
+
+-+--+.-.........................................--.+.
+-#.-+.-..--------------------------------------.--.+.
+-#+##-+-----------------------------------------++-#.
+.#.--.--------------------------------------------.-.
+.+.--------...............................----------.
+.----------.#############################.----------.
+.----------.#############################.----------.
+.--------...#############################...--------.
+.--------.#######..###..##...##........####.--------.
+.--------.##.............................##.--------.
+.--------.##.............................##.--------.
+.-----+##+#################################+##+-----.
+.-----#.....#######...##.....#######...##.....#-----.
+.-----#.....############.....############.....#-----.
+.-----#.....############.....############.....#-----.
+.-----#.....############.....############.....#-----.
+.-----+#####.............................#####+-----.
+.--------.##..........#########..........##.--------.
+.--------.####.....###.........###.....####.--------.
+.--------.####.....###.........###.....####.--------.
+.--------...#############################...--------.
+.----------......#####-#######-#####......----------.
+.---------------...#####.....#####...---------------.
+.----------+######+#####.....#####+######+----------.
+.--------+##.............................##+--------.
+.+.------#.................................#--------.
+.#-++----#.................................#-------+.
+.+.--.---#.................................#------.-.
+.+..-..............................................-.
+
+`
+const version = "v1.0.0a"
+
+
+// Count visible rows
+  $: rowCount = details.length;
+
+  // Count ASCII lines
+  $: artLines = (asciiArt || '').replace(/\n+$/,'').split('\n').length || 1;
+
+  // Base font-size for monospace; scale to fit heights
+  // Tweak constants to taste
+  const baseFont = 14; // px per line at 1rem-ish
+  $: scale = Math.min(1.5, Math.max(0.6, (rowCount / artLines)));
+  $: artFontPx = Math.round(baseFont * scale);
+
+</script>
+<!-- <div class="title">
+    <div class = "side"></div>
+    <div class = "middle">
+        <div class='ascii-container'> {asciiArt}</div>
+        <h1 class="name">Moris Johnson</h1>
+        <h5> {version}</h5>
+    </div>
+    <div class = "side"></div>
+</div> -->
+
+<div class="container">
+  <pre class="ascii-art" style="font-size: {artFontPx}px; line-height: 1.1">
+    {@html asciiArt}
+  </pre>
+  <div class="details">
+    <div class="username">moris@browser</div>
+    <div class="sys-title">-------------</div>
+    <table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each details as item}
+      <tr>
+        <td>{item.label}:</td>
+        <td>{item.value}</td>
+      </tr>
+    {/each}
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+<style>
+  .container { display:flex; gap:2rem; font-family: 'Fira Mono','Roboto Mono',monospace; padding:2rem; }
+  .ascii-art { white-space: pre; font-size: 1rem; }
+  .details { min-width:320px; }
+  .username { font-weight:700; margin-bottom:0.1rem; }
+  .sys-title { font-weight:700; margin-bottom:0.5rem; }
+  table { border-spacing:0 8px; }
+  td:first-child { padding-right:1rem; white-space: nowrap; }
+</style>
