@@ -16,4 +16,4 @@ The built files will be in the build/ directory, ready for deployment to any sta
 
 ## Contributing
 
-This project is maintained by a beginner web developer who welcomes contributions and feedback. Feel free to submit pull requests.
+I'm a beginner in web-development so any feedbacks and contributions are welcome. Feel free to submit pull requests.
