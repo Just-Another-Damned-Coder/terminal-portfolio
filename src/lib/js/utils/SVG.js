@@ -1,5 +1,4 @@
-
-export function colorElements(wrapper:HTMLElement, id, color, type = "fill") {
+export function colorElements(wrapper, id, color, type = "fill") {
     if (wrapper) {
       // const el = wrapper.querySelector(`#${id}`);
       const el = wrapper.querySelector(`.${id}`);
@@ -8,6 +7,3 @@ export function colorElements(wrapper:HTMLElement, id, color, type = "fill") {
       }
     }
 }
-
-
-

@@ -1,9 +1,25 @@
-<script lang="ts">
-    let tableHeight: number = 200;
-    let svgWidth: number = 200;
+<script >
+    import {scheme, COLORS, svgcolors} from '$lib/js/constants.js';
+    import {colorElements} from '$lib/js/utils/SVG.js';
+    let tableHeight = 200;
+    let svgWidth = 200;
+    let wrapper;
+
+    $: {
+        console.log( "Theme changed :", $scheme);
+        document.body.style.backgroundColor = COLORS[$scheme].background;
+        if (wrapper) {
+            Object.entries($svgcolors.fill).forEach(([id, color]) => {
+                colorElements(wrapper, id, color);
+            });
+            Object.entries($svgcolors.stroke).forEach(([id, color]) => {
+                colorElements(wrapper, id, color, 'stroke');
+            });
+        }
+    }
 </script>
 
-<div class="svg-container">
+<div class="svg-container" bind:this={wrapper}>
     <svg width="{svgWidth}px" height="{tableHeight}px" viewBox="1500 0 1000 3000" version="1.1" id="icon">
         <path
         fill-rule="evenodd"

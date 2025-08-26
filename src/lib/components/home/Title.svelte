@@ -1,13 +1,15 @@
 <script>
-	import { version } from '$lib/js/constants.js';
-
-
+	import { version, COLORS, scheme} from '$lib/js/constants.js';
 </script>
 
 
 <div class="title">
-        <h1 class="name">Moris Johnson</h1>
+    <div class="side"></div>
+    <div class="main" style="color:{COLORS[$scheme].yellow};">
+        <h1 class="name" >Moris Johnson</h1>
         <h6 class="version">{version}</h6>
+    </div>
+    <div class="side"></div>
 </div>
 
 
@@ -19,16 +21,22 @@
     align-items: center;
     width: 100%;
 }
+.side {
+    flex: 2;
+}
+.main{
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+}
 .name {
     font-family: '1982', sans-serif;
-    position: relative;
-    display: inline-block;
+    margin-top: 1vh;
+    font-size: 2vw;
 }
 .version {
     font-family: 'SilkScreen', sans-serif;
-    align-self: first baseline;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    align-self: flex-end;
+    font-size: 0.6vw;
 }
 </style>

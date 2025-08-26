@@ -1,5 +1,5 @@
 <script>
-    import {Avatar, Title} from "$lib/components";
+    import {Avatar, Title, ThemeSelector} from "$lib/components";
 </script>
 
 
@@ -8,5 +8,8 @@
     <Title />
     <div>
         <Avatar />
+        <div>
+            <ThemeSelector />
+        </div>
     </div>
 </div>
