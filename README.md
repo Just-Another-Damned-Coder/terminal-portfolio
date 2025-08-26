@@ -1,5 +1,5 @@
 # terminal-portfolio
-A static website meant as a portfolio and blog, built with SvelteKit. Visit the live site at [morisjonhson.in](morisjonhson.in) .
+A static website meant as a portfolio and blog, built with SvelteKit. Visit the live site at [morisjonhson.in](https://morisjohnson.in/) .
 
 ## 🎨 Customization
 ---
