@@ -16,7 +16,7 @@
                 colorElements(wrapper, id, color, 'stroke');
             });
         }
-        tableHeight = $tableHeightStore;
+        tableHeight = 1 * $tableHeightStore;
         svgWidth = Math.floor(1.5 * $tableHeightStore);
     }
 </script>
@@ -55,7 +55,8 @@
   margin: 0;
   padding: 0;
   border: 0;
-  display: block; /* Removes extra bottom space in some layouts */
+  display: flex;
+  justify-content: center;
 }
 
 </style>
