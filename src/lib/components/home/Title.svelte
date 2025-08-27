@@ -39,4 +39,22 @@
     align-self: flex-end;
     font-size: 0.6vw;
 }
+/* Mobile Screen CSS */
+@media (max-width: 599px) {
+    .name {
+        font-size: 6vw;
+    }
+    .version {
+        font-size: 2vw;
+    }
+}
+/* Tab Screen CSS */
+@media (min-width: 600px) and (max-width: 899px) {
+    .name {
+        font-size: 6vw;
+    }
+    .version {
+        font-size: 2vw;
+    }
+}
 </style>

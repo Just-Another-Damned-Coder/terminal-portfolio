@@ -40,4 +40,19 @@
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Mobile Screen CSS */
+@media (max-width: 599px) {
+    .color-square {
+        width: 3vw;
+        height: 3vw;
+    }
+}
+/* Tab Screen CSS */
+@media (min-width: 600px) and (max-width: 899px) {
+    .color-square {
+        width: 3vw;
+        height: 3vw;
+    }
+}
+
 </style>
