@@ -32,7 +32,7 @@
 .name {
     font-family: '1982', sans-serif;
     margin-top: 1vh;
-    font-size: 2vw;
+    font-size: 2.5vw;
 }
 .version {
     font-family: 'SilkScreen', sans-serif;

@@ -40,7 +40,7 @@ export function getUserDetails() {
 
   const memory = navigator.deviceMemory ? `${navigator.deviceMemory}GB` : "unknown";
   const nowString = new Date().toDateString()
-  const nowTime = new Date().toTimeString();
+  const nowTime = new Date().toTimeString().slice(0, 8);
   return [
     { label: 'OS', value: os },
     { label: 'Browser', value: browser },
@@ -57,8 +57,20 @@ export function getUserDetails() {
 
 export function getDateTime() {
     const nowString = new Date().toDateString()
-    const nowTime = new Date().toTimeString();
+    const nowTime = new Date().toTimeString().slice(0, 8);
     return [nowTime, nowString];
+}
+
+export function getGMT() {
+  const d = new Date();
+  const offsetMin = -d.getTimezoneOffset(); // invert sign: ahead of UTC => positive
+  const sign = offsetMin >= 0 ? '+' : '-';
+  const abs = Math.abs(offsetMin);
+  const hh = String(Math.floor(abs / 60)).padStart(2, '0');
+  const mm = String(abs % 60).padStart(2, '0');
+  const gmtOffset = `GMT${sign}${hh}${mm}`; // e.g., "GMT+0530"
+
+  return gmtOffset;
 }
 
 export function formatUptime(ms) {

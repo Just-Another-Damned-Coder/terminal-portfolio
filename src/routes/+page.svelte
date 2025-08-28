@@ -10,7 +10,7 @@
 
 
 
-<div class="fetch">
+<div class="column">
     <Title />
     <div class="row">
         <Avatar />
