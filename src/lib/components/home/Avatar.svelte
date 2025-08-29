@@ -4,7 +4,6 @@
     let tableHeight = 200;
     let svgWidth = 200;
     $: {
-        console.log( "Theme changed :", $scheme);
         document.body.style.backgroundColor = COLORS[$scheme].background;
         document.body.style.color = COLORS[$scheme].foreground;
         tableHeight = 1 * $tableHeightStore;

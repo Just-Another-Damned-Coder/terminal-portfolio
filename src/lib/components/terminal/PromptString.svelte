@@ -1,7 +1,10 @@
 <script>
-    import {COLORS, scheme, username, pwd} from '$lib/js/constants.js';
+    import {COLORS, scheme, username, pwd, history, past_commands} from '$lib/js/constants.js';
+    import {echo} from '$lib/js/parser/parser.js'
+    import {add} from '$lib/js/parser/terminal.js';
     import {onMount, tick} from 'svelte';
-    let area, prompt;
+    let area, prompt, input;
+    let editable = true;
     onMount (async () => {
         await tick();
         if (prompt) prompt.addEventListener('click', () => {
@@ -11,6 +14,10 @@
             if (event.key == "Enter") {
                 event.preventDefault();
                 const content = event.target.innerText.trim();
+                const result = echo(content)
+                add(content, result);
+                console.log("Input", $history, $past_commands);
+                event.target.contentEditable = "false";
             }
         });
     })
@@ -18,11 +25,18 @@
     
 </script>
 
-<span class="prompt-string" bind:this={prompt}>
-  <span contenteditable="false" style="color:{COLORS[$scheme].green}">{$username}@morisjohnson.in</span>
-  <span contenteditable="false" style="color:{COLORS[$scheme].brightBlue}">:{$pwd}</span>
-  <span contenteditable="false" style="color:{COLORS[$scheme].brightBlack}">$</span>
-  <span bind:this={area} contenteditable="true" class="command"></span>
+<span class="prompt-string" contenteditable="false" bind:this={prompt}>
+  <span style="color:{COLORS[$scheme].green}">{$username}@morisjohnson.in</span>
+  <span style="color:{COLORS[$scheme].brightBlue}">:{$pwd}</span>
+  <span style="color:{COLORS[$scheme].brightBlack}">$</span>
+  <span bind:this={area} contenteditable="{editable ? "true" : undefined}" class="command"></span>
+   <!-- <input
+        bind:this={area}
+        readonly={!editable}
+        class="command"
+        value={input}
+        on:input={(e) => input = e.target.value}
+    /> -->
 </span>
 
 <style>
