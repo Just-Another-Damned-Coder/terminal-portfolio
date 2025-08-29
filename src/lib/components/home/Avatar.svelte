@@ -1,12 +1,12 @@
 <script >
-    import {scheme, COLORS, svgcolors, tableHeightStore} from '$lib/js/constants.js';
+    import {scheme, COLORS, tableHeightStore} from '$lib/js/constants.js';
     import {colorElements} from '$lib/js/utils/SVG.js';
-	import tab from 'daisyui/components/tab';
     let tableHeight = 200;
     let svgWidth = 200;
     $: {
         console.log( "Theme changed :", $scheme);
         document.body.style.backgroundColor = COLORS[$scheme].background;
+        document.body.style.color = COLORS[$scheme].foreground;
         tableHeight = 1 * $tableHeightStore;
         svgWidth = Math.floor(0.7 * $tableHeightStore);
     }

@@ -1,5 +1,5 @@
 <script>
-    import {Avatar, Title, ThemeSelector, DisplayInfo, Installing} from "$lib/components";
+    import {Avatar, Title, ThemeSelector, DisplayInfo, PromptString} from "$lib/components";
     import {tableHeightStore} from '$lib/js/constants.js';
     let tableHeight;
     $: if (tableHeight) {
@@ -21,5 +21,5 @@
     </div>
 </div>
 <div>
-    <Installing />
+    <PromptString />
 </div>

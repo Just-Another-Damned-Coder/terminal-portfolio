@@ -3,7 +3,6 @@
 
 
 @import "tailwindcss";
-@plugin "daisyui";
 
 
 @import './css/global.css';

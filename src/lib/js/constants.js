@@ -8,17 +8,7 @@ import COLORS from '$lib/color_schemes.json';
 export const scheme = writable('Argonaut');
 // The website/terminal version.
 const version = "v1.0.1a";
-export const svgcolors = derived(scheme, $scheme => ({
-  fill: {
-    glasses: COLORS[$scheme].cyan,
-    moustache: COLORS[$scheme].foreground,
-    hair: COLORS[$scheme].foreground,
-    group: COLORS[$scheme].foreground
-  },
-  stroke: {
-    group: COLORS[$scheme].background
-  }
-}));
-
 export const tableHeightStore = writable(0);
+export const username = writable("visitor");
+export const pwd = writable("~/home");
 export {COLORS, version};

@@ -4,3 +4,6 @@ export {default as Title} from './home/Title.svelte';
 export {default as ThemeSelector} from './home/ThemeSelector.svelte';
 export {default as DisplayInfo} from './home/DisplayInfo.svelte';
 export {default as Installing} from './home/Installing.svelte';
+
+
+export {default as PromptString} from './terminal/PromptString.svelte';
