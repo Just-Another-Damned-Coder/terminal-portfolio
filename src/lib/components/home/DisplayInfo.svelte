@@ -1,15 +1,15 @@
 <script>
     import { onMount, tick, onDestroy  } from 'svelte';
     import { tableHeightStore, COLORS, scheme } from '$lib/js/constants.js';
-    import {getUserDetails, formatUptime, getDateTime} from '$lib/js/displayinfo.js';
+    import {getUserDetails, formatUptime, getDateTime, getGMT} from '$lib/js/displayinfo.js';
     let  uptime, timer, now;
     let start = Date.now()
     let details = getUserDetails();
-
+    const GMT = getGMT();
     function updateDetails() {
         now = getDateTime();
         details[3] = { label: 'Uptime', value: uptime };
-        details[9] = { label: 'Time', value: now[0] };
+        details[9] = { label: 'Time', value: now[0] + " " +  GMT };
         details[8] = { label: 'Date', value: now[1] };
     }
 

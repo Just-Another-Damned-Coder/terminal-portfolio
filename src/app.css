@@ -3,11 +3,11 @@
 
 
 @import "tailwindcss";
-@plugin "daisyui";
 
 
 @import './css/global.css';
 @import './css/home.css';
+@import './css/terminal.css';
 
 
 @font-face {
