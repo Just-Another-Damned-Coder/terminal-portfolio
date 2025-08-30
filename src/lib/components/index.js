@@ -7,3 +7,4 @@ export {default as Installing} from './home/Installing.svelte';
 
 
 export {default as PromptString} from './terminal/PromptString.svelte';
+export {default as Terminal} from './terminal/Terminal.svelte';

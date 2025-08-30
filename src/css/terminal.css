@@ -1,0 +1,55 @@
+.prompt-string {
+    display: flex;
+    flex-direction: row;
+    margin-right: 2%;
+    margin-left: 2%;
+    font-size: calc(1vw);
+    justify-content: left;
+    align-items: baseline;
+    outline: none;
+    box-shadow: none;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+.command {
+    flex: 1;
+    margin-left: 0.5%;
+    white-space: pre-wrap; 
+    text-overflow: wrap;
+    height: 1em;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    cursor: pointer;
+    max-width: 100%;
+}
+
+.command:focus {
+    /* Remove any default focus styling */
+    outline: none;
+    box-shadow: none;
+    border-color: inherit
+}
+.prompt-output {
+    margin-right: 2%;
+    margin-left: 2%;
+    font-size: calc(1vw);
+    justify-content: left;
+    align-items: baseline;
+    outline: none;
+    box-shadow: none;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mobile Screen CSS */
+@media (max-width: 599px) {
+    .prompt-string {
+      font-size: 2vw;
+    }
+}
+/* Tab Screen CSS */
+@media (min-width: 600px) and (max-width: 899px) {
+    .prompt-string {
+        font-size: 2vw;
+    }
+}
