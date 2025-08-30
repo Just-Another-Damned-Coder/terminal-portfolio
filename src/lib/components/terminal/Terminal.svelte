@@ -7,7 +7,10 @@
       history.set([]);
       let text = document.querySelector(".command");
       text.textContent = "";
-      text.innerHTML = text.innerHTML.replace(/<br>/g, ''); // Remove all <br> tags
+      // Remove all <br> tags, it's introduced when clearing the past_commands variable - why ? 
+      // editable areas all behaves like these ? 
+      // TODO : Change the editable span area to work with text-area.
+      text.innerHTML = text.innerHTML.replace(/<br>/g, '');
       console.log(text.innerHTML);
       clear.set(false);
     }
