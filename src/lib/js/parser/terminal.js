@@ -1,5 +1,7 @@
-import { history, past_commands } from "$lib/js/constants.js";
+import { history, past_commands, clear } from "$lib/js/constants.js";
 import { echo } from "$lib/js/parser/parser.js";
+import { tick } from "svelte";
+import { get } from "svelte/store";
 
 export function add(input, output) {
   history.update(h => [...h, input]);
@@ -12,46 +14,38 @@ export function add(input, output) {
   });
 }
 
-export function handler(element) {
+export function handler(element, params) {
+  element.setAttribute('contenteditable', params.active ? 'true' : 'false');
+  if (params.active) element.focus();
 
-  element.setAttribute('contenteditable', 'true');
-  element.focus();
-  console.log("Editable set to true.")
+  function onKeydown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // avoid newline in contenteditable
+      const content = element.innerText.trim();
 
-  function autofocus(event) {
-    console.log("You clicked");
-    element.focus();
-  }
-
-  function handleEnter(event) {
-    if (event.key === 'Enter') {
-      console.log("You clicked enter", event.target.innerText.trim());
-      let content = event.target.innerText.trim()
-      event.preventDefault();
-      if (content.match('clear')) {
-          
-          console.log("Clear was invoked.");
-          history.set([]);
-          past_commands.set([['', null, false]]);
-          return;
-      } else {
-        let result = echo(content);
-        add(content, result);
-        element.removeAttribute('contenteditable');
-        element.removeEventListener('keydown', handleEnter);
-        element.removeEventListener('click', autofocus);
-        element.blur();
+      if (/^clear$/i.test(content)) {
+        clear.set(true);
       }
+      else {
+        const result = echo(content);
+        add(content, result);
+        element.contentEditable = 'false';
+        element.removeEventListener('keydown', onKeydown);
+        element.blur();
+      } 
     }
   }
 
-  element.addEventListener('keydown', handleEnter);
-  element.addEventListener('click', autofocus);
+  element.addEventListener('keydown', onKeydown);
 
   return {
+    update(params) {
+      element.setAttribute('contenteditable', params.active ? 'true' : 'false');
+      if (params.active) element.focus();
+      element.addEventListener('keydown', onKeydown);
+    },
     destroy() {
-      element.removeEventListener('keydown', handleEnter);
-      element.removeEventListener('click', autofocus);
+      element.removeEventListener('keydown', onKeydown);
     }
   };
 }

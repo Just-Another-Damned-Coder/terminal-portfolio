@@ -18,5 +18,6 @@ export const tableHeightStore = writable(0);
 */
 export const username = writable("visitor");
 export const pwd = writable("~/home");
-export var history = writable([]);
-export var past_commands = writable([['', null, false]])
+export const clear = writable(false);
+export const history = writable([]);
+export const past_commands = writable([['', null, true]])

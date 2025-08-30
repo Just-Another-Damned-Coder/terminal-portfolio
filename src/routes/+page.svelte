@@ -5,6 +5,7 @@
     $: if (tableHeight) {
         tableHeightStore.set(tableHeight);
     }
+
 </script>
 
 
