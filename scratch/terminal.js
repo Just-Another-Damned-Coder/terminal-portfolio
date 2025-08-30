@@ -1,28 +1,7 @@
-let history = [];
-let past_commands = [['', null]];
+const user_pattern = /username (\w+)/; // Define the pattern as a regex
+let string = "usernmoris";
 
-function echo(string) {
-    return string;
-}
+// Now use the regex to match against the string
+let result = string.match(user_pattern);
 
-// console.log(history, past_commands);
-let count = 0;
-while (true) {
-    if (count == 10) {
-        break;
-    }
-    let command = "hi" + count;
-    history.push(command);
-    let result = echo(command)
-    past_commands[past_commands.length -1] = [command, result]
-    past_commands.push(['', null])
-    count = count + 1
-}
-// console.log(history, past_commands);
-// past_commands = []
-// console.log(history, past_commands);
-
-let string = "rm -r1";
-if (string.match('rm -rf')) {
-    console.log("yes");
-}
+console.log(result);

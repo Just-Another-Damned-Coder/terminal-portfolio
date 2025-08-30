@@ -1,7 +1,7 @@
 <script>
     import { past_commands, history, clear } from '$lib/js/constants.js';
     import {PromptString} from '$lib/components';
-    // Log past_commands whenever it changes
+
     $: if ($clear){
       past_commands.set([['', null, true]]);
       history.set([]);

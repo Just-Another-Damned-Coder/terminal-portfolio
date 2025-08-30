@@ -10,7 +10,7 @@ export {COLORS};
 // initialize with your default theme key
 export const scheme = writable('Argonaut');
 // The website/terminal version.
-export const version = "v1.0.1a";
+export const version = "v1.1.1a";
 export const tableHeightStore = writable(0);
 
 /*
