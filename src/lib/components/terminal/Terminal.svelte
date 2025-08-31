@@ -1,19 +1,31 @@
 <script>
     import { past_commands, history, clear } from '$lib/js/constants.js';
+	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants.js';
     import {PromptString} from '$lib/components';
 
-    $: if ($clear){
-      past_commands.set([['', null, true]]);
-      history.set([]);
-      let text = document.querySelector(".command");
-      text.textContent = "";
-      // Remove all <br> tags, it's introduced when clearing the past_commands variable - why ? 
-      // editable areas all behaves like these ? 
-      // TODO : Change the editable span area to work with text-area.
-      text.innerHTML = text.innerHTML.replace(/<br>/g, '');
-      console.log(text.innerHTML);
-      clear.set(false);
-    }
+    $: {
+		if ($clear){
+			past_commands.set([['', null, true]]);
+			history.set([]);
+			let text = document.querySelector(".command");
+			text.textContent = "";
+			clear.set(false);
+		}
+		// limit on past_commands (clear if > LIMIT_PAST)
+		if ($past_commands.length > LIMIT_PAST) {
+			past_commands.set([['', null, true]]);
+			console.log("clearing past commands", $past_commands) ;
+			let text = document.querySelector(".command");
+			text.textContent = "";
+		}
+
+		// max size of LIMIT_HISTORY for history
+		if ($history.length > LIMIT_HISTORY) {
+			// Keep last LIMIT_HISTORY entries
+			history.set($history.slice(-LIMIT_HISTORY));
+			console.log("history reset.", $history) ;
+		}
+      }
 </script>
 
 {#each $past_commands as data, i (i)}

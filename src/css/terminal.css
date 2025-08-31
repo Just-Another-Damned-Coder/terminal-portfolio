@@ -43,13 +43,15 @@
 
 /* Mobile Screen CSS */
 @media (max-width: 599px) {
-    .prompt-string {
+    .prompt-string,
+    .prompt-output {
       font-size: 2vw;
     }
 }
 /* Tab Screen CSS */
 @media (min-width: 600px) and (max-width: 899px) {
-    .prompt-string {
+    .prompt-string,
+    .prompt-output {
         font-size: 2vw;
     }
 }
