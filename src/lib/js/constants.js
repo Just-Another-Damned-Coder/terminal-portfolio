@@ -10,7 +10,7 @@ export {COLORS};
 // initialize with your default theme key
 export const scheme = writable('Argonaut');
 // The website/terminal version.
-export const version = "v1.0.1a";
+export const version = "v1.1.0";
 export const tableHeightStore = writable(0);
 
 /*
@@ -18,5 +18,8 @@ export const tableHeightStore = writable(0);
 */
 export const username = writable("visitor");
 export const pwd = writable("~/home");
-export var history = writable([]);
-export var past_commands = writable([['', null, false]])
+export const clear = writable(false);
+export const history = writable([]);
+export const past_commands = writable([['', null, true]])
+export const LIMIT_HISTORY = 10;
+export const LIMIT_PAST = 10;

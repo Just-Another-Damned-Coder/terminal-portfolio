@@ -5,13 +5,14 @@
     $: if (tableHeight) {
         tableHeightStore.set(tableHeight);
     }
+
 </script>
 
 
 
 <div class="column">
     <Title />
-    <div class="row">
+    <div class="row" style="margin-bottom: 1%;">
         <Avatar />
         <div class="column" bind:clientHeight={tableHeight}>
             <DisplayInfo />

@@ -1,12 +1,36 @@
 <script>
-    import { past_commands } from '$lib/js/constants.js';
+    import { past_commands, history, clear } from '$lib/js/constants.js';
+	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants.js';
     import {PromptString} from '$lib/components';
+
+    $: {
+		if ($clear){
+			past_commands.set([['', null, true]]);
+			history.set([]);
+			let text = document.querySelector(".command");
+			text.textContent = "";
+			clear.set(false);
+		}
+		// limit on past_commands (clear if > LIMIT_PAST)
+		if ($past_commands.length > LIMIT_PAST) {
+			past_commands.set([['', null, true]]);
+			console.log("clearing past commands", $past_commands) ;
+			let text = document.querySelector(".command");
+			text.textContent = "";
+		}
+
+		// max size of LIMIT_HISTORY for history
+		if ($history.length > LIMIT_HISTORY) {
+			// Keep last LIMIT_HISTORY entries
+			history.set($history.slice(-LIMIT_HISTORY));
+			console.log("history reset.", $history) ;
+		}
+      }
 </script>
 
-{#each $past_commands as data}
+{#each $past_commands as data, i (i)}
   <PromptString
-    input={data[0]}
-    readonly={data[2] ? "true" : "false"}
+    editable={data[2] ? "false" : "true"}
   />
   {#if data[1]}
     <div class="prompt-output">
