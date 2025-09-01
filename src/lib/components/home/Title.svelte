@@ -1,12 +1,12 @@
 <script>
-	import { version, COLORS, scheme} from '$lib/js/constants.js';
+	import { version, COLORS, scheme, name} from '$lib/js/constants.js';
 </script>
 
 
 <div class="title">
     <div class="side"></div>
     <div class="main" style="color:{COLORS[$scheme].yellow};">
-        <h1 class="name" >Moris Johnson</h1>
+        <h1 class="name" >{name}</h1>
         <h6 class="version">{version}</h6>
     </div>
     <div class="side"></div>

@@ -1,7 +1,7 @@
 <script>
     import { past_commands, history, clear } from '$lib/js/constants';
 	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants';
-    import {PromptString} from '$lib/components';
+    import {PromptString, Help} from '$lib/components';
 
     $: {
 		if ($clear){
@@ -33,8 +33,12 @@
     editable={data[2] ? "false" : "true"}
   />
   {#if data[1]}
-    <div class="prompt-output">
-        {data[1]}
-    </div>
+	{#if data[1] == 'help'}
+		<Help />
+	{:else}
+		<div class="prompt-output">
+			{data[1]}
+		</div>
+	{/if}
   {/if}
 {/each}
