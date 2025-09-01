@@ -7,7 +7,7 @@ import { writable, derived } from 'svelte/store';
 // Add more to the JSON from the website.
 import COLORS from '$lib/color_schemes.json';
 export {COLORS};
-type SchemeType = keyof typeof COLORS;
+export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
 export const scheme = writable<SchemeType>('Nvim');
 // The website/terminal version.

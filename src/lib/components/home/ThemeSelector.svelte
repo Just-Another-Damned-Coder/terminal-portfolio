@@ -1,9 +1,11 @@
-<script>
-    import {COLORS, scheme, tableHeightStore} from '$lib/js/constants';
-    const themeKeys = Object.keys(COLORS);
-
-    function setTheme(key) {
-        scheme.set(key)
+<script lang='ts'>
+    import {COLORS, scheme, tableHeightStore} from '$lib/js/constants'
+    import type {SchemeType} from '$lib/js/constants';
+    import { applyTheme } from '$lib/js/utils/SVG';
+    const themeKeys = Object.keys(COLORS) as SchemeType[];
+    $: {
+        applyTheme(COLORS[$scheme]);
+        console.log($scheme)
     }
 
 </script>
@@ -15,7 +17,7 @@
             style="background-color: {COLORS[key].cyan}; width:{$tableHeightStore/9}px;height:{$tableHeightStore/9}px"
             aria-label="Select theme {key}"
             class:selected={$scheme === key}
-            on:click={() => setTheme(key)}
+            on:click={() => (scheme.set(key))}
         ></button>
     {/each}
 </div>

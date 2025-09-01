@@ -39,6 +39,7 @@
     box-shadow: none;
     word-break: break-word;
     overflow-wrap: break-word;
+    color: var(--foreground);
 }
 
 /* Mobile Screen CSS */
