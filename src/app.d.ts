@@ -7,6 +7,8 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
+		type PastCommands = [string, string, false];
+		type SchemeType = keyof typeof COLORS;
 	}
 }
 

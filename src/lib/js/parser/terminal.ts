@@ -1,9 +1,7 @@
 import { history, past_commands, clear } from "$lib/js/constants.js";
 import { echo } from "$lib/js/parser/parser.js";
-import { tick } from "svelte";
-import { get } from "svelte/store";
 
-export function add(input, output) {
+export function add(input: string, output: string): void{
   history.update(h => [...h, input]);
   past_commands.update(pc => {
     const last = pc.length - 1;
@@ -14,11 +12,11 @@ export function add(input, output) {
   });
 }
 
-export function handler(element, params) {
-  element.setAttribute('contenteditable', params.active ? 'true' : 'false');
+export function handler(element: HTMLElement, params: {active: boolean}) {
+  element.setAttribute('contenteditable', params?.active ? 'true' : 'false');
   if (params.active) element.focus();
 
-  function onKeydown(e) {
+  function onKeydown(e: KeyboardEvent) {
     if (e.key === 'Enter') {
       e.preventDefault(); // avoid newline in contenteditable
       const content = element.innerText.trim();
@@ -28,7 +26,7 @@ export function handler(element, params) {
       }
       else {
         const result = echo(content);
-        add(content, result);
+        add(content, result?? "");
         element.contentEditable = 'false';
         element.removeEventListener('keydown', onKeydown);
         element.blur();
@@ -39,7 +37,7 @@ export function handler(element, params) {
   element.addEventListener('keydown', onKeydown);
 
   return {
-    update(params) {
+    update(params: {active: boolean}) {
       element.setAttribute('contenteditable', params.active ? 'true' : 'false');
       if (params.active) element.focus();
       element.addEventListener('keydown', onKeydown);

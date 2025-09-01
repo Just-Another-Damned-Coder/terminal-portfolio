@@ -1,6 +1,6 @@
 <script>
-    import { past_commands, history, clear } from '$lib/js/constants.js';
-	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants.js';
+    import { past_commands, history, clear } from '$lib/js/constants';
+	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants';
     import {PromptString} from '$lib/components';
 
     $: {
@@ -8,7 +8,7 @@
 			past_commands.set([['', null, true]]);
 			history.set([]);
 			let text = document.querySelector(".command");
-			text.textContent = "";
+			if (text !== null) text.textContent = "";
 			clear.set(false);
 		}
 		// limit on past_commands (clear if > LIMIT_PAST)
@@ -16,7 +16,7 @@
 			past_commands.set([['', null, true]]);
 			console.log("clearing past commands", $past_commands) ;
 			let text = document.querySelector(".command");
-			text.textContent = "";
+			if (text !== null) text.textContent = "";
 		}
 
 		// max size of LIMIT_HISTORY for history

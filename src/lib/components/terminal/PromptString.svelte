@@ -1,7 +1,6 @@
-<script>
-    import {COLORS, scheme, username, pwd} from '$lib/js/constants.js';
-    import {handler} from '$lib/js/parser/terminal.js';
-    import { onMount } from 'svelte';
+<script lang='ts'>
+    import {COLORS, scheme, username, pwd} from '$lib/js/constants';
+    import {handler} from '$lib/js/parser/terminal';
     export let editable;
 </script>
 

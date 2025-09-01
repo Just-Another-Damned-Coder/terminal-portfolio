@@ -7,8 +7,9 @@ import { writable, derived } from 'svelte/store';
 // Add more to the JSON from the website.
 import COLORS from '$lib/color_schemes.json';
 export {COLORS};
+type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
-export const scheme = writable('Nvim');
+export const scheme = writable<SchemeType>('Nvim');
 // The website/terminal version.
 export const version = "v1.1.0";
 export const tableHeightStore = writable(0);
@@ -19,7 +20,7 @@ export const tableHeightStore = writable(0);
 export const username = writable("visitor");
 export const pwd = writable("~/home");
 export const clear = writable(false);
-export const history = writable([]);
+export const history = writable<string[]>([]);
 export const past_commands = writable([['', null, true]])
 export const LIMIT_HISTORY = 10;
 export const LIMIT_PAST = 10;

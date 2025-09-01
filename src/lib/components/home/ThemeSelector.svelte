@@ -1,5 +1,5 @@
 <script>
-    import {COLORS, scheme, tableHeightStore} from '$lib/js/constants.js';
+    import {COLORS, scheme, tableHeightStore} from '$lib/js/constants';
     const themeKeys = Object.keys(COLORS);
 
     function setTheme(key) {

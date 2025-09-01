@@ -1,8 +1,8 @@
-<script>
+<script lang='ts'>
     import { onMount, tick, onDestroy  } from 'svelte';
-    import { tableHeightStore, COLORS, scheme } from '$lib/js/constants.js';
-    import {getUserDetails, formatUptime, getDateTime, getGMT} from '$lib/js/displayinfo.js';
-    let  uptime, timer, now;
+    import { COLORS, scheme } from '$lib/js/constants';
+    import {getUserDetails, formatUptime, getDateTime, getGMT} from '$lib/js/displayinfo';
+    let  uptime: string, timer, now;
     let start = Date.now()
     let details = getUserDetails();
     const GMT = getGMT();
