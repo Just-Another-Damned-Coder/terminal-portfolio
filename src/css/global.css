@@ -1,7 +1,7 @@
 body {
     font-family: monospace;
-    background: #0e1019;
-    color: #fffaf4;
+    background: var(--background);
+    color: var(--foreground);
     height: 100vh;
     padding: 10px;
     overflow-y: auto;
@@ -17,4 +17,28 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+:root {
+  --black: #07080d;
+  --red: #ffc0b9;
+  --green: #b3f6c0;
+  --yellow: #fce094;
+  --blue: #a6dbff;
+  --purple: #ffcaff;
+  --cyan: #8cf8f7;
+  --white: #eef1f8;
+
+  --bright-black: #4f5258;
+  --bright-red: #ffc0b9;
+  --bright-green: #b3f6c0;
+  --bright-yellow: #fce094;
+  --bright-blue: #a6dbff;
+  --bright-purple: #ffcaff;
+  --bright-cyan: #8cf8f7;
+  --bright-white: #eef1f8;
+
+  --background: #14161b;
+  --foreground: #e0e2ea;
+  --selection-background: #4f5258;
+  --cursor-color: #9b9ea4;
 }

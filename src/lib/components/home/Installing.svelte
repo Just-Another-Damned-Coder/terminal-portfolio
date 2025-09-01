@@ -1,5 +1,5 @@
 <script>
-    import {COLORS, scheme, tableHeightStore} from '$lib/js/constants.js';
+    import {COLORS, scheme} from '$lib/js/constants.js';
 </script>
 
 <div class="terminal">

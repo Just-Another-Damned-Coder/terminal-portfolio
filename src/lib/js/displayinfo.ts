@@ -1,5 +1,5 @@
 
-function getBrowserAndOS(userAgent) {
+function getBrowserAndOS(userAgent: string){
   let browser = "Unknown";
   let os = "Unknown";
 
@@ -38,7 +38,7 @@ export function getUserDetails() {
   const screenHeight = window.screen.height;
   const cpuClass = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cores` : "unknown";
 
-  const memory = navigator.deviceMemory ? `${navigator.deviceMemory}GB` : "unknown";
+  const memory = (navigator as any).deviceMemory ? `${(navigator as any).deviceMemory}GB` : "unknown";
   const nowString = new Date().toDateString()
   const nowTime = new Date().toTimeString().slice(0, 8);
   return [
@@ -73,7 +73,7 @@ export function getGMT() {
   return gmtOffset;
 }
 
-export function formatUptime(ms) {
+export function formatUptime(ms: number) {
     const totalSec = Math.floor(ms / 1000);
     const days = Math.floor(totalSec / 86400);
     const hours = Math.floor((totalSec % 86400) / 3600);

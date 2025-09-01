@@ -1,6 +1,5 @@
-<script >
+<script lang='ts'>
     import {scheme, COLORS, tableHeightStore} from '$lib/js/constants.js';
-    import {colorElements} from '$lib/js/utils/SVG.js';
     let tableHeight = 200;
     let svgWidth = 200;
     $: {
