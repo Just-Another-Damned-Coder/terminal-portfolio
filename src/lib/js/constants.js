@@ -8,7 +8,7 @@ import { writable, derived } from 'svelte/store';
 import COLORS from '$lib/color_schemes.json';
 export {COLORS};
 // initialize with your default theme key
-export const scheme = writable('Argonaut');
+export const scheme = writable('Nvim');
 // The website/terminal version.
 export const version = "v1.1.0";
 export const tableHeightStore = writable(0);
