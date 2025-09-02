@@ -10,3 +10,5 @@ export {default as PromptString} from './terminal/PromptString.svelte';
 export {default as Terminal} from './terminal/Terminal.svelte';
 export {default as Help} from './help.svelte';
 export {default as Ls} from './home/terminal-output/ls.svelte';
+
+export {default as ErrorCodes} from './terminal/ErrorCodes.svelte';

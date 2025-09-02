@@ -35,6 +35,7 @@ export const LIMIT_PAST = 10;
 
 export const command_docs = {
       "clear": "Clear the output of the terminal.",
+      "ls": "List the files and directories in current path.",
       "username": "Set your name as username Eg. username moris",
       "whoami": "Prints out your name, 'visitor' by default."
 }
