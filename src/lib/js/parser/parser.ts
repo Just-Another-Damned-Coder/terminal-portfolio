@@ -1,22 +1,103 @@
-import {history, past_commands, username} from '$lib/js/constants.js';
+import {username, empty, ls_home, available_commands} from '$lib/js/constants.js';
 import { get } from 'svelte/store';
-export function echo(command: string): string | null {
-    if (command.match('rm -rf')) {
-        return "lol!";
+
+class CommandParser {
+    available_commands: string[];
+    pattern: RegExp; 
+
+    constructor () {
+        this.available_commands = available_commands;
+        // Create a case-insensitive regex pattern from available commands
+        this.pattern = new RegExp(`^(${this.available_commands.join('|')})$`, 'i');
     }
-    if (command.match(/username (\w+)/)) {
-        const result = command.match(/username (\w+)/);
-        if (!result) return null;
-        username.set(result[1] ?? "visitor");
-        return "Username changed to " + (result[1] ?? "visitor");
+    hasCapitalLetters(text: string) {
+        return /[A-Z]/.test(text);
     }
-    if (command.match(/whoami/)) {;
-        return get(username);
+    check(text: string): [boolean, string[]] | [boolean, string] {
+        text = text.trim().split(/\s+/)[0];
+        if (text == '') {
+            return [true, 'enter'];
+        }
+        if (this.pattern.test(text)) {
+            if (this.hasCapitalLetters(text)){
+                return [false, ["ERROR", "2", "Misuse of shell builtins. Did you mean '" + text.match(this.pattern)![1].toLocaleLowerCase() + "' ?" ]];
+            }
+            else return [true, text.match(this.pattern)![1]];
+        }
+        else{
+            return [false, ["ERROR", "127", "Command not found."]]
+        }
     }
-    if (command.match('clear')) {
-        history.set([]);
-        past_commands.set([['', null, false]]);
-        return null;
+    parse(text: string): App.CommandOutput {
+        let value = this.check(text);
+        console.log(value, text);
+        // let var result;
+        if (value[0]) {
+            
+            switch (value[1]) {
+                case 'username':
+                    const newname = text.match(/username (\w+)/);
+                    if (!newname) return empty;
+                    username.set(newname[1] ?? "visitor");
+                    // return [true, ["SUCCESS", 0, "Username changed to" + result[1]]];
+                    return {
+                        type: "component",
+                        name: "ErrorCodes",
+                        parameters: { codeType : "SUCCESS", code : "", message: "Username changed to " + newname[1]}
+                    };
+                case 'whoami':
+                    return {
+                        type: "text",
+                        name: null,
+                        parameters: get(username)
+                    };
+                case 'help':
+                    return {
+                        type: "component",
+                        name: "Help",
+                        parameters: {}
+                    };
+                case 'ls':
+                    return {
+                        type: "component",
+                        name: "Ls",
+                        parameters: {list: ls_home}
+                    };
+                default:
+                    return {
+                        type: "text",
+                        name: null,
+                        parameters: ''
+                    };
+                }
+        }
+        return {
+                type: "component",
+                name: "ErrorCodes",
+                parameters: { codeType : value[1][0], code : value[1][1] , message: value[1][2]}
+            };
     }
-    return command
 }
+
+
+export let command_parser = new CommandParser();
+
+
+// export function echo(command: string) {
+//     return command_parser.parse(command);
+// }
+// export function echo(command: string): string | null {
+//     if (command.match('rm -rf')) {
+//         return "lol!";
+//     }
+//     if (command.match(/username (\w+)/)) {
+//         const result = command.match(/username (\w+)/);
+//         if (!result) return null;
+//         username.set(result[1] ?? "visitor");
+//         return "Username changed to " + (result[1] ?? "visitor");
+//     }
+//     if (command.match(/whoami/)) {;
+//         return get(username);
+//     }
+//     return command
+// }

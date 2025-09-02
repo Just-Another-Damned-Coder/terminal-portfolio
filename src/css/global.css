@@ -41,4 +41,27 @@ body {
   --foreground: #e0e2ea;
   --selection-background: #4f5258;
   --cursor-color: #9b9ea4;
+
+
+  /* Font Size Variables */
+  --font-size: calc(1vw);
+  --title-size: 2.5vw;
+  --version-text: 0.6vw;
+}
+
+/* Mobile Screen CSS */
+@media (max-width: 599px) {
+    :root {
+      --font-size: 2.5vw;
+      --title-size: 6vw;
+      --version-text: 3vw;
+    }
+}
+/* Tab Screen CSS */
+@media (min-width: 600px) and (max-width: 899px) {
+    :root {
+      --font-size: 2vw;
+      --title-size: 6vw;
+      --version-text: 3vw;
+    }
 }

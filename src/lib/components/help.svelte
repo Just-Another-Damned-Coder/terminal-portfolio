@@ -21,7 +21,7 @@
 
 <style>
     .command-list {
-        font-size: calc(1vw); /* match your terminal font size */
+        font-size: var(--font-size); /* match your terminal font size */
         margin-left: 2%;
         color: var(--foreground);
     }
@@ -33,20 +33,8 @@
         white-space: nowrap;
     }
     .cmd {
-        min-width: 10%; /* Adjust based on your longest command */
+        min-width: 15vw;
         flex-shrink: 0;
     }
 
-    /* Mobile Screen CSS */
-    @media (max-width: 599px) {
-        .command-list {
-        font-size: 2vw;
-        }
-    }
-    /* Tab Screen CSS */
-    @media (min-width: 600px) and (max-width: 899px) {
-        .command-list{
-            font-size: 2vw;
-        }
-    }
 </style>

@@ -59,9 +59,6 @@
 
 <style>
 .svg-container {
-  /* margin: 0;
-  padding: 0;
-  border: 0; */
   display: flex;
   flex: 0 0 max-content;
   justify-content: center;

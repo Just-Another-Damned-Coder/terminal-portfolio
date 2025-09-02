@@ -7,7 +7,8 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
-		type PastCommands = [string, string, false];
+		type CommandOutput = {type: string, name: string | null, parameters: object | string} 
+		type PastCommands = [string, CommandOutput, false];
 		type SchemeType = keyof typeof COLORS;
 	}
 }

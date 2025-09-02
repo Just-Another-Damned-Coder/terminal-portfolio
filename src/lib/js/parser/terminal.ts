@@ -1,13 +1,13 @@
-import { history, past_commands, clear } from "$lib/js/constants.js";
-import { echo } from "$lib/js/parser/parser.js";
+import { history, past_commands, clear, empty } from "$lib/js/constants.js";
+import { command_parser } from "$lib/js/parser/parser.js";
 
-export function add(input: string, output: string): void{
+export function add(input: string, output: App.CommandOutput): void{
   history.update(h => [...h, input]);
   past_commands.update(pc => {
     const last = pc.length - 1;
     const next = pc.slice();
     next[last] = [input, output, false];
-    next.push(['', null, true]);
+    next.push(['', empty, true]);
     return next;
   });
 }
@@ -25,8 +25,9 @@ export function handler(element: HTMLElement, params: {active: boolean}) {
         clear.set(true);
       }
       else {
-        const result = echo(content);
-        add(content, result?? "");
+        const result = command_parser.parse(content);
+        add(content, result?? empty);
+        console.log(result);
         element.contentEditable = 'false';
         element.removeEventListener('keydown', onKeydown);
         element.blur();

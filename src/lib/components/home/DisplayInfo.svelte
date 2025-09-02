@@ -52,19 +52,7 @@
         margin-bottom: 0;
     }
     .metric {
-        font-size: 1vw;
+        font-size: var(--font-size);
     }
 
-/* Mobile Screen CSS */
-@media (max-width: 599px) {
-    .metric {
-        font-size: 2vw;
-    }
-}
-/* Tab Screen CSS */
-@media (min-width: 600px) and (max-width: 899px) {
-    .metric {
-        font-size: 1.8vw;
-    }
-}
 </style>

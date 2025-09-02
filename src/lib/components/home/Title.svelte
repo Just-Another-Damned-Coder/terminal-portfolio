@@ -32,29 +32,11 @@
 .name {
     font-family: '1982', sans-serif;
     margin-top: 1vh;
-    font-size: 2.5vw;
+    font-size: var(--title-size);
 }
 .version {
     font-family: 'SilkScreen', sans-serif;
     align-self: flex-end;
-    font-size: 0.6vw;
-}
-/* Mobile Screen CSS */
-@media (max-width: 599px) {
-    .name {
-        font-size: 6vw;
-    }
-    .version {
-        font-size: 2vw;
-    }
-}
-/* Tab Screen CSS */
-@media (min-width: 600px) and (max-width: 899px) {
-    .name {
-        font-size: 6vw;
-    }
-    .version {
-        font-size: 2vw;
-    }
+    font-size: var(--version-text);
 }
 </style>
