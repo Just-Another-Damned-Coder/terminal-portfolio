@@ -6,14 +6,14 @@ import { writable, derived } from 'svelte/store';
 // The colors are taken from : https://windowsterminalthemes.dev/
 // Add more to the JSON from the website.
 // The website/terminal version.
-export const version = "v1.1.0";
+export const version = "v1.2.0";
 // The title of the username;
 export const name = "Moris Johnson";
 import COLORS from '$lib/color_schemes.json';
 export {COLORS};
 export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
-export const scheme = writable<SchemeType>('Nvim');
+export const scheme = writable<SchemeType>('Argonaut');
 
 export const tableHeightStore = writable(0);
 
@@ -24,7 +24,8 @@ export const username = writable("visitor");
 export const pwd = writable("~/home");
 export const clear = writable(false);
 export const history = writable<string[]>([]);
-export const past_commands = writable([['', null, true]])
+export let empty: App.CommandOutput = {type: "text", name: null, parameters: ""} 
+export const past_commands = writable([['', empty, true]])
 export const LIMIT_HISTORY = 10;
 export const LIMIT_PAST = 10;
 
@@ -40,5 +41,5 @@ export const command_docs = {
       "whoami": "Prints out your name, 'visitor' by default."
 }
 export type CommandType = keyof typeof command_docs;
-
+export const available_commands = ['ls','username', 'clear', 'whoami', 'help'];
 export const ls_home = ["blogs/", "about.md", "contact.md", "github/"]
