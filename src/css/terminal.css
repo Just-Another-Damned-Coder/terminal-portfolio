@@ -46,7 +46,7 @@
 @media (max-width: 599px) {
     .prompt-string,
     .prompt-output {
-      font-size: 2vw;
+      font-size: 2.5vw;
     }
 }
 /* Tab Screen CSS */

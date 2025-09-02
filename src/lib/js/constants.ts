@@ -27,9 +27,17 @@ export const history = writable<string[]>([]);
 export const past_commands = writable([['', null, true]])
 export const LIMIT_HISTORY = 10;
 export const LIMIT_PAST = 10;
+
+
+/* Documentation
++ Available commands, links paths and other constants
+*/
+
 export const command_docs = {
       "clear": "Clear the output of the terminal.",
       "username": "Set your name as username Eg. username moris",
       "whoami": "Prints out your name, 'visitor' by default."
 }
 export type CommandType = keyof typeof command_docs;
+
+export const ls_home = ["blogs/", "about.md", "contact.md", "github/"]

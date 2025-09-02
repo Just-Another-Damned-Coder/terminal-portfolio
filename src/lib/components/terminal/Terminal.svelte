@@ -1,7 +1,7 @@
 <script>
-    import { past_commands, history, clear } from '$lib/js/constants';
+    import { past_commands, history, clear, ls_home } from '$lib/js/constants';
 	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants';
-    import {PromptString, Help} from '$lib/components';
+    import {PromptString, Help, Ls} from '$lib/components';
 
     $: {
 		if ($clear){
@@ -35,6 +35,8 @@
   {#if data[1]}
 	{#if data[1] == 'help'}
 		<Help />
+	{:else if data[1] == 'ls'}
+		<Ls list={ls_home} />
 	{:else}
 		<div class="prompt-output">
 			{data[1]}
