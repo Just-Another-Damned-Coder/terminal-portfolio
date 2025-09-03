@@ -49,7 +49,7 @@
 		{/if}
 		{#if ((data[1] as App.CommandOutput).parameters as { codeType: string }).codeType == 'ERROR'}
 			<div class="prompt-output">
-				Type 'help' to find more about available commands and use cases.
+				💡 Type 'help' to find more about available commands and use cases.
 			</div>
 		{/if}
 	{:else}

@@ -1,4 +1,4 @@
-import {username, empty, ls_home, available_commands} from '$lib/js/constants.js';
+import {username, empty, ls_home, available_commands, clear} from '$lib/js/constants.js';
 import { get } from 'svelte/store';
 
 class CommandParser {
@@ -20,7 +20,7 @@ class CommandParser {
         }
         if (this.pattern.test(text)) {
             if (this.hasCapitalLetters(text)){
-                return [false, ["ERROR", "2", "Misuse of shell builtins. Did you mean '" + text.match(this.pattern)![1].toLocaleLowerCase() + "' ?" ]];
+                return [false, ["ERROR", "2", "Misuse of shell built-ins. Did you mean '" + text.match(this.pattern)![1].toLocaleLowerCase() + "' ?" ]];
             }
             else return [true, text.match(this.pattern)![1]];
         }
@@ -35,6 +35,8 @@ class CommandParser {
         if (value[0]) {
             
             switch (value[1]) {
+                case 'clear':
+                    clear.set(true);
                 case 'username':
                     const newname = text.match(/username (\w+)/);
                     if (!newname) return empty;
@@ -81,23 +83,3 @@ class CommandParser {
 
 
 export let command_parser = new CommandParser();
-
-
-// export function echo(command: string) {
-//     return command_parser.parse(command);
-// }
-// export function echo(command: string): string | null {
-//     if (command.match('rm -rf')) {
-//         return "lol!";
-//     }
-//     if (command.match(/username (\w+)/)) {
-//         const result = command.match(/username (\w+)/);
-//         if (!result) return null;
-//         username.set(result[1] ?? "visitor");
-//         return "Username changed to " + (result[1] ?? "visitor");
-//     }
-//     if (command.match(/whoami/)) {;
-//         return get(username);
-//     }
-//     return command
-// }

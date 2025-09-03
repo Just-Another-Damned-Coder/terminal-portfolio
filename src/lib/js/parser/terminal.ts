@@ -20,18 +20,12 @@ export function handler(element: HTMLElement, params: {active: boolean}) {
     if (e.key === 'Enter') {
       e.preventDefault(); // avoid newline in contenteditable
       const content = element.innerText.trim();
-
-      if (/^clear$/i.test(content)) {
-        clear.set(true);
-      }
-      else {
-        const result = command_parser.parse(content);
-        add(content, result?? empty);
-        console.log(result);
-        element.contentEditable = 'false';
-        element.removeEventListener('keydown', onKeydown);
-        element.blur();
-      } 
+      const result = command_parser.parse(content);
+      add(content, result?? empty);
+      console.log(result);
+      element.contentEditable = 'false';
+      element.removeEventListener('keydown', onKeydown);
+      element.blur();
     }
   }
 
