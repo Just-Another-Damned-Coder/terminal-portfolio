@@ -40,6 +40,8 @@ export const command_docs = {
       "username": "Set your name as username Eg. username moris",
       "whoami": "Prints out your name, 'visitor' by default."
 }
+export const animation_text = "Click and type here or Type 'help'.";
+export const animation_speed = 200; // This is speed in milliseconds, speed per character I believe.
 export type CommandType = keyof typeof command_docs;
-export const available_commands = ['ls','username', 'clear', 'whoami', 'help'];
-export const ls_home = ["blogs/", "about.md", "contact.md", "github/"]
+export const available_commands = ['ls','username', 'clear', 'whoami', 'help', 'rm7'];
+export const ls_home = [["blog/", "link", "/blog"], ["about.md", "text"], ["contact.md", "text"], ["github/", "link", "https://github.com/Just-Another-Damned-Coder"]]

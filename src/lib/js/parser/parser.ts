@@ -38,14 +38,19 @@ class CommandParser {
                 case 'clear':
                     clear.set(true);
                 case 'username':
-                    const newname = text.match(/username (\w+)/);
-                    if (!newname) return empty;
-                    username.set(newname[1] ?? "visitor");
-                    // return [true, ["SUCCESS", 0, "Username changed to" + result[1]]];
+                    const match = text.match(/username (?:(\w+)|'(.+)')/);
+                    var newname = match?.[1] || match?.[2];
+                    newname = newname?.toLocaleLowerCase().replace(/\s+/, '');
+                    if (!newname) return  {
+                        type: "component",
+                        name: "ErrorCodes",
+                        parameters: { codeType : "ERROR", code : " EINVAL 22", message: "Invalid argument."}
+                        };;
+                    username.set(newname ?? "visitor");
                     return {
                         type: "component",
                         name: "ErrorCodes",
-                        parameters: { codeType : "SUCCESS", code : "", message: "Username changed to " + newname[1]}
+                        parameters: { codeType : "SUCCESS", code : "", message: "Username changed to " + newname}
                     };
                 case 'whoami':
                     return {
@@ -64,6 +69,12 @@ class CommandParser {
                         type: "component",
                         name: "Ls",
                         parameters: {list: ls_home}
+                    };
+                case 'rm':
+                    return{
+                        type: "component",
+                        name: "ErrorCodes",
+                        parameters: { codeType : "ERROR", code : " EACCES 13", message: "Lol! Get good nerd."}
                     };
                 default:
                     return {

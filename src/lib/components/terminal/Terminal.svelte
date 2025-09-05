@@ -33,18 +33,10 @@
 </script>
 
 {#each $past_commands as data: App.PastCommands}
-  <PromptString
-    editable={data[2] ? "false" : "true"}
-  />
-
-  <!-- type App.CommandOutput = {
-    type: string;
-    name: string | null;
-    parameters: string[] | null;
-} -->
+  <PromptString editable={data[2] ? "false" : "true"} />
 	{#if (data[1] as App.CommandOutput).type === 'component'}
 		<!-- Render the mapped component -->
-		{#if data[1]?.name && data[1]?.name in mapping}
+		{#if (data[1] as App.CommandOutput).name && (data[1] as App.CommandOutput).name in mapping}
 			<svelte:component this={mapping[data[1].name]} {...data[1].parameters} />
 		{/if}
 		{#if ((data[1] as App.CommandOutput).parameters as { codeType: string }).codeType == 'ERROR'}
