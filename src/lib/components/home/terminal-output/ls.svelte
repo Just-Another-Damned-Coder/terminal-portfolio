@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {Modal} from "$lib/components";
     export let list: string[];
 </script>
 
