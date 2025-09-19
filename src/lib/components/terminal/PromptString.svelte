@@ -8,6 +8,7 @@
   <span contenteditable="false" style="color:{COLORS[$scheme].green}">{$username}@morisjohnson.in</span>
   <span contenteditable="false" style="color:{COLORS[$scheme].brightBlue}">:{$pwd}</span>
   <span contenteditable="false" style="color:{COLORS[$scheme].brightBlack}">$</span>
-  <span use:handler={{ active: editable !== 'true' }} class="command">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <!-- <span bind:this={area} contenteditable="{editable ? "true" : undefined}" class="command">&nbsp;</span> -->
+   <span use:handler={{ active: editable !== 'true' }} class="command">&nbsp;</span>
 </span>
 
