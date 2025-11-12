@@ -18,7 +18,7 @@
             </div>
         {:else if value.type === 'modal'}
             <div>
-                <About/>
+                <About link="/api/about" triggerText={key} />
             </div>
         {/if}
     {/each}
