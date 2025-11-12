@@ -42,4 +42,20 @@ export const command_docs = {
 }
 export type CommandType = keyof typeof command_docs;
 export const available_commands = ['ls','username', 'clear', 'whoami', 'help'];
-export const ls_home = ["blogs/", "about.md", "contact.md", "github/"]
+// export const ls_home = ["blogs/", "about.md", "contact.md", "github/"];
+export const ls_home = {
+      "blogs/": {
+            "type": "link",
+            "href": "https://www.linkedin.com/in/morisjhonson/"
+      },
+      "about.md": {
+            "type": "modal"
+      },
+      "contact.md": {
+            "type": "modal"
+      },
+      "github/": {
+            "type": "link",
+            "href": "https://github.com/Just-Another-Damned-Coder"
+      }
+}
