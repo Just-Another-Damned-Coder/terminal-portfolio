@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {About} from '$lib/components';
+    import {About, FullscreenModal} from '$lib/components';
     export let list: Record<string, { type: string; href?: string }>;
     const entries = Object.entries(list);
     function openModal(filename: string) {
@@ -19,6 +19,7 @@
         {:else if value.type === 'modal'}
             <div>
                 <About link="/api/about" triggerText={key} />
+                <!-- <FullscreenModal triggerText={key} /> -->
             </div>
         {/if}
     {/each}

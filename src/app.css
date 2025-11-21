@@ -8,7 +8,8 @@
 @import './css/global.css';
 @import './css/home.css';
 @import './css/terminal.css';
-
+@import './css/modal.css';
+@import './css/markdown.css';
 
 @font-face {
   font-family: 'Karmatic Arcade';
