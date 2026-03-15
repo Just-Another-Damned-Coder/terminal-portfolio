@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Dialog, Separator } from 'bits-ui';
-  import RenderMarkdown from '$lib/components/modals/markdown.svelte';
+  import RenderMarkdown from '$lib/docs/about.svx';
   import { X } from '@lucide/svelte';
   import { onDestroy } from 'svelte';
 

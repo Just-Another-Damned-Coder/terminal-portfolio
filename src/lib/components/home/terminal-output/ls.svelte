@@ -1,10 +1,7 @@
 <script lang="ts">
-    import {About, FullscreenModal} from '$lib/components';
-    export let list: Record<string, { type: string; href?: string }>;
+    import { Modal } from '$lib/components';
+    export let list: Record<string, { type: string; href?: string; doc?: string }>;
     const entries = Object.entries(list);
-    function openModal(filename: string) {
-        alert(`Open modal: ${filename}`);
-    }
 </script>
 
 <div class="row prompt-output ls">
@@ -16,10 +13,9 @@
                     {key}
                 </a>
             </div>
-        {:else if value.type === 'modal'}
+        {:else if value.type === 'modal' && value.doc}
             <div>
-                <About link="/api/about" triggerText={key} />
-                <!-- <FullscreenModal triggerText={key} /> -->
+                <Modal doc={value.doc} triggerText={key} />
             </div>
         {/if}
     {/each}

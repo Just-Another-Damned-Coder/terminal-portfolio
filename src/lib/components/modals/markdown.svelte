@@ -1,9 +1,8 @@
 <!-- src/lib/components/RenderMarkdown.svelte -->
-<script lang="ts">
-  import { marked } from 'marked';
-
-  export let content = '';
-  $: html = marked.parse(content ?? '');
+<script>
+  import Post from '$lib/docs/about.svx';
 </script>
 
-<div class="prose">{@html html}</div>
+<article class="prose">
+  <Post />
+</article>

@@ -49,10 +49,12 @@ export const ls_home = {
             "href": "https://www.linkedin.com/in/morisjhonson/"
       },
       "about.md": {
-            "type": "modal"
+            "type": "modal",
+            "doc": "about"
       },
       "contact.md": {
-            "type": "modal"
+            "type": "modal",
+            "doc": "contact"
       },
       "github/": {
             "type": "link",

@@ -9,6 +9,9 @@ slug: about
 layout: post
 toc: false
 ---
+<script>
+  import { Avatar } from "$lib/components";
+</script>
 
 ### Help
 ---
@@ -18,6 +21,11 @@ Need to update documentation.
 for i in range(0, 10):
     print(i)
 ```
+<div class="callout" style="margin: 1rem;">
+  <strong>Important:</strong> This section is styled with HTML.
+</div>
+
+<Avatar />
 
 > This is a blovkquite
 
