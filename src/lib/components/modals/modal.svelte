@@ -23,19 +23,19 @@
       {triggerText}
   </Dialog.Trigger>
   <Dialog.Portal>
-      <Dialog.Overlay class="fullscreen-overlay" />
-      <Dialog.Content class="fullscreen-content">
-          <Dialog.Title />
-          <Dialog.Description />
-          {#if MdComponent}
-            <div class="md">
-              <svelte:component this={MdComponent} />
-            </div>
-          {:else}
-              <!-- <p>Loading...</p> -->
-          {/if}
+      <Dialog.Overlay class="dialog-overlay" />
+      <Dialog.Content class="dialog-content">
+          <div class="dialog-desc">
+            {#if MdComponent}
+              <div class="md">
+                <svelte:component this={MdComponent} />
+              </div>
+            {:else}
+                <!-- <p>Loading...</p> -->
+            {/if}
+          </div>
 
-          <Dialog.Close class="doc-close"><X /></Dialog.Close>
+          <Dialog.Close class="dialog-close"><X /></Dialog.Close>
       </Dialog.Content>
   </Dialog.Portal>
 </Dialog.Root>

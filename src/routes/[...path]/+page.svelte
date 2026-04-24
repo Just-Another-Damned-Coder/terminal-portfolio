@@ -1,84 +1,72 @@
 <script lang="ts">
-  import { Dialog, Separator } from 'bits-ui';
   import { X } from '@lucide/svelte';
+  import { COLORS, scheme } from '$lib/js/constants';
+  import { applyTheme } from '$lib/js/utils/SVG';
 
   /** @type {import('./$types').PageData} */
   export let data;
 
   $: component = data.component;
   $: meta = data.meta ?? {};
+
+  $: {
+    // Ensures global CSS variables like var(--background) are injected into the root on this standalone page
+    if (typeof document !== 'undefined') {
+      applyTheme(COLORS[$scheme]);
+    }
+  }
 </script>
 
 <svelte:head>
   <title>{meta.title ?? 'Document'}</title>
 </svelte:head>
 
-<Dialog.Root open={true}>
-  <Dialog.Portal>
-    <Dialog.Overlay class="page-overlay" />
-    <Dialog.Content class="page-content">
-      <header class="page-header">
-        <Dialog.Title class="page-title">
-          {meta.title ?? 'Document'}
-        </Dialog.Title>
-        <Dialog.Close class="page-close" aria-label="Close">
-          <a href="/">
-            <X size={20} />
-          </a>
-        </Dialog.Close>
-      </header>
-      <Separator.Root />
-      <Dialog.Description class="page-body">
-        {#if component}
-          <div class="prose">
-            <svelte:component this={component} />
-          </div>
-        {/if}
-      </Dialog.Description>
-    </Dialog.Content>
-  </Dialog.Portal>
-</Dialog.Root>
+<div class="fullscreen-content">
+  <a href="/" class="doc-close" aria-label="Back to Terminal">
+    <X size={24} />
+  </a>
+  
+  <div class="dialog-desc">
+    {#if component}
+      <div class="md">
+        <svelte:component this={component} />
+      </div>
+    {/if}
+  </div>
+</div>
 
 <style>
-  :global(.page-overlay) {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.7);
+  /* Mirror exact classes from modal.css for 1:1 parity */
+  
+  .fullscreen-content {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;     
+      overflow: auto;
+      padding: 3rem 1rem;
+      background-color: var(--background);
+      color: var(--foreground);
   }
 
-  :global(.page-content) {
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+  .doc-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--foreground);
+      padding: 0.5rem;
+      text-decoration: none;
   }
 
-  .page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-  }
-
-  :global(.page-title) {
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-
-  :global(.page-close) {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: inherit;
-  }
-
-  :global(.page-body) {
-    padding: 1rem 1.5rem;
-    overflow-y: auto;
-    flex: 1;
+  .doc-close:hover {
+      opacity: 0.7;
   }
 </style>
