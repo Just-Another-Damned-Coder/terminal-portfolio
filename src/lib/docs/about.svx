@@ -10,9 +10,10 @@ layout: post
 toc: false
 ---
 <script>
-  import { Avatar, Timeline, List } from "$lib/components";
+  import { Avatar} from "$lib/components";
 </script>
 
 <Avatar />
 
-<List />
+
+Yeah this is some dummy text
