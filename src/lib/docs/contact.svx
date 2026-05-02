@@ -10,12 +10,12 @@ layout: post
 toc: false
 ---
 
-### Help
+### Connection Established
 ---
-Need to update documentation.
+Initiate contact through any of the following verified channels.
 
-```python
-for i in range(0, 10):
-    print(i)
-```
-So This is actual documentationss
+**[ Email ]**    morisjohn2019iiit@gmail.com[cite: 1]
+**[ Phone ]**    +91 7339669315[cite: 1]
+**[ GitHub ]**   [Just-Another-Damned-Coder](https://github.com/Just-Another-Damned-Coder)[cite: 1]
+**[ LinkedIn ]** [morisjhonson](https://linkedin.com/in/morisjhonson)[cite: 1]
+**[ Location ]** Tamil Nadu, India[cite: 1]

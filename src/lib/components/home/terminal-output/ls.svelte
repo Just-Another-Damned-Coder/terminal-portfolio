@@ -15,7 +15,7 @@
             </div>
         {:else if value.type === 'modal' && value.doc}
             <div>
-                <Modal doc={value.doc} triggerText={key} />
+                <Modal doc={value.doc} docPath={value.docPath} triggerText={key} />
             </div>
         {:else if value.type === 'directory'}
             <div>

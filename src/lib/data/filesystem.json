@@ -8,11 +8,13 @@
         },
         "about.md": {
             "type": "modal",
-            "doc": "about"
+            "doc": "about",
+            "docPath": "/src/lib/docs/about.svx"
         },
         "contact.md": {
             "type": "modal",
-            "doc": "contact"
+            "doc": "contact",
+            "docPath": "/src/lib/docs/contact.svx"
         },
         "github/": {
             "type": "link",
@@ -22,11 +24,11 @@
     "~/home/blogs": {
         "my-first-post.md": {
             "type": "modal",
-            "doc": "contact"
+            "doc": "blogs/sample.md"
         },
         "terminal-tutorial.md": {
             "type": "modal",
-            "doc": "contact"
+            "doc": "blogs/sample.md"
         },
         "..": {
             "type": "directory",

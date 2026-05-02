@@ -9,11 +9,99 @@ slug: about
 layout: post
 toc: false
 ---
-<script>
-  import { Avatar} from "$lib/components";
-</script>
 
-<Avatar />
+Building scalable speech and conversational architectures.
 
+### Profile
+Senior Speech Application Engineer with 3 years of experience in developing advanced chatbots and voicebots using transformer models and LLMs[cite: 1]. I specialize in designing and deploying microservices architectures and conversational systems, enhancing capabilities in handling bulk interactions[cite: 1].
 
-Yeah this is some dummy text
+### Experience
+
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h4>Senior Speech Application Engineer</h4>
+      <span class="timeline-meta">GoVivace | Remote, India | 11/2023 - present[cite: 1]</span>
+      <ul>
+        <li>Designed and deployed custom chat-bot and voice-bot pipelines, including NLU and NLP frameworks using LLMs and transformer-based models[cite: 1].</li>
+        <li>Led the development of a campaign calling system for bulk/campaign calls, significantly increasing call volume from 4K/hour to 7.8K/hour (doubled)[cite: 1].</li>
+        <li>Successfully deployed the system on cloud machines, achieving a current capacity of 70,000 calls over 8 hours per day[cite: 1].</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h4>Speech Recognition Engineer</h4>
+      <span class="timeline-meta">08/2021 - 10/2023 | Remote, India[cite: 1]</span>
+      <ul>
+        <li>Designed and deployed chat-bot pipelines for web and voice, trained transformer models for NLU/NLP, and deployed APIs for voicebots[cite: 1].</li>
+        <li>Developed a comprehensive FAQ conversational system with a dashboard-configurable architecture that scrapes websites, uses vector databases, and retrieves context (30% latency reduction)[cite: 1].</li>
+        <li>Lead Technical Architect (Chat/Voice Bot Framework): Developed a custom framework from scratch with NLU/NER pipelines, optimizing architecture for vertical scaling to achieve 30,000 daily calls[cite: 1].</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+      <h4>Speech Recognition Intern</h4>
+      <span class="timeline-meta">01/2021 - 07/2021 | Remote, India[cite: 1]</span>
+      <ul>
+        <li>Prepared audio and text data, wrote scripts to clean and transform datasets for training, and created pipelines for training/testing Language Models using PocoLM and KenLM[cite: 1].</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+### Education & Awards
+* **B.Tech Electronics and Communication Engineering (92%)** - Indian Institute of Information Technology, Dharwad (08/2017 - 05/2021)[cite: 1].
+* **Best Outgoing Student Award** - IIIT Dharwad[cite: 1].
+
+### Technical Arsenal
+* **Languages:** C, C++, Python, Rust (intermediate), bash, perl[cite: 1].
+* **Frameworks & Tools:** SpaCy, Huggingface, PyTorch, Tensorflow, Fastapi, Falcon, Flask, RabbitMQ, Langchain, Langflow, Asterisk, ONNX[cite: 1].
+* **Deployments & DBs:** Docker, Azure, Oracle, MongoDB, MySQL, Redis[cite: 1].
+
+<style>
+  .timeline {
+    border-left: 2px solid var(--accent-color, #4a90e2);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-family: inherit;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .timeline-marker {
+    position: absolute;
+    left: -1.9rem; /* Adjust based on padding/border */
+    top: 0.4rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--bg-color, #1a1a1a);
+    border: 2px solid var(--accent-color, #4a90e2);
+  }
+  .timeline-content h4 {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.1rem;
+    color: var(--text-highlight, #ffffff);
+  }
+  .timeline-meta {
+    font-size: 0.9rem;
+    color: var(--text-muted, #888888);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+  .timeline-content ul {
+    margin: 0;
+    padding-left: 1rem;
+  }
+  .timeline-content li {
+    margin-bottom: 0.4rem;
+  }
+</style>

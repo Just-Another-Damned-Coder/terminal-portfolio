@@ -1,19 +1,54 @@
 <script lang="ts">
   import { Dialog, Label, Separator } from "bits-ui";
   import { onMount } from "svelte";
-  import { X} from '@lucide/svelte';
+  import { X } from '@lucide/svelte';
+  import { marked } from 'marked';
+  import { readMarkdownFile } from '$lib/js/markdown';
   
   export let triggerText;
   export let doc; 
-
+  export let docPath = null; // Added to receive docPath from ls.svelte
+  
   let MdComponent: any = null;
+  let errorMsg: string | null = null;
+  let isSvx = false;
+  let parsedHtml: string = ""; // Added to store raw markdown HTML
+
+  const svxModules = import.meta.glob('/src/lib/docs/**/*.svx');
 
   onMount(async () => {
-      if (doc) {
-          // Assuming all files are .svx and located in src/lib/docs/
-          const module = await import(`../../../lib/docs/${doc}.svx`);
-          console.log(module);
-          MdComponent = module.default;
+      if (!doc) return;
+
+      // Determine if it's an SVX based on whether docPath exists and ends with .svx
+      isSvx = Boolean(docPath && docPath.endsWith('.svx'));
+
+      if (isSvx) {
+          // --- ROUTE A: Handle Interactive .svx Components ---
+          if (svxModules[docPath]) { // Use docPath to grab the correct module key
+              try {
+                  const module: any = await svxModules[docPath]();
+                  MdComponent = module.default;
+              } catch (error) {
+                  console.error(`[Terminal Error] Failed to load .svx at ${docPath}:`, error);
+                  errorMsg = "Error 500: Interactive component failed to mount.";
+              }
+          } else {
+              console.error(`[Terminal Error] .svx path '${docPath}' not found. Available:`, Object.keys(svxModules));
+              errorMsg = "Error 404: Component not found in Vite bundle.";
+          }
+      } else {
+          // --- ROUTE B: Handle Raw .md Files (from static folder) ---
+            try {
+                const rawText = await readMarkdownFile(doc);
+                // Ensure rawText isn't your custom "ERROR: File not found." string
+                if (rawText && !rawText.startsWith("ERROR")) {
+                    parsedHtml = await marked.parse(rawText);
+                } else {
+                    throw new Error("File not found");
+                }
+            } catch {
+                errorMsg = "Error 404: Text file could not be loaded.";
+            }
       }
   });
 </script>
@@ -26,12 +61,23 @@
       <Dialog.Overlay class="dialog-overlay" />
       <Dialog.Content class="dialog-content">
           <div class="dialog-desc">
-            {#if MdComponent}
-              <div class="md">
-                <svelte:component this={MdComponent} />
-              </div>
+            {#if errorMsg}
+               <p class="text-red-500 font-mono">{errorMsg}</p>
+               
+            {:else if isSvx && MdComponent}
+               <!-- Render the Interactive Svelte Component -->
+               <div class="svx-container text-white">
+                 <svelte:component this={MdComponent} />
+               </div>
+               
+            {:else if !isSvx && parsedHtml}
+               <!-- Render the Parsed Raw Text -->
+               <div class="md text-white">
+                 {@html parsedHtml}
+               </div>
+               
             {:else}
-                <!-- <p>Loading...</p> -->
+               <p>Loading {doc}...</p>
             {/if}
           </div>
 
