@@ -4,12 +4,12 @@
 
 @import "tailwindcss";
 
-
-@import './css/global.css';
-@import './css/home.css';
-@import './css/terminal.css';
-@import './css/modal.css';
-@import './css/markdown.css';
+@layer components {
+  @import './css/global.css';   /* Defines your variables cite: 14, 16 */
+  @import './css/markdown.css'; /* Your cleaned Markdown styles cite: 14, 15 */
+  @import './css/terminal.css'; /* cite: 14, 17 */
+  @import './css/modal.css';    /* cite: 14 */
+}
 
 @font-face {
   font-family: 'Karmatic Arcade';

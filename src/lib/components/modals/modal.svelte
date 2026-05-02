@@ -66,15 +66,15 @@
                
             {:else if isSvx && MdComponent}
                <!-- Render the Interactive Svelte Component -->
-               <div class="svx-container text-white">
+               <div id="terminal-md-render" class="svx-container md">
                  <svelte:component this={MdComponent} />
                </div>
                
             {:else if !isSvx && parsedHtml}
                <!-- Render the Parsed Raw Text -->
-               <div class="md text-white">
-                 {@html parsedHtml}
-               </div>
+               <div id="terminal-md-render" class="md">
+                    {@html parsedHtml}
+                </div>
                
             {:else}
                <p>Loading {doc}...</p>
@@ -134,5 +134,6 @@
       color: var(--foreground);
       padding: 0.5rem;
   }
+
 
 </style>

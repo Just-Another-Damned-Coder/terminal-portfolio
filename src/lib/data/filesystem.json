@@ -19,6 +19,10 @@
             "type": "modal",
             "doc": "about",
             "docPath": "/src/lib/docs/contact.svx"
+        },
+        "sample.md": {
+            "type": "modal",
+            "doc": "blogs/sample.md"
         }
     },
     "~/home/blogs": {
