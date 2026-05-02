@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 /*
         COLOUR SCHEMES & TITLE PAGE
 */
@@ -30,7 +30,7 @@ export const pwd = writable("~/home");
 export const clear = writable(false);
 export const history = writable<string[]>([]);
 export let empty: App.CommandOutput = {type: "text", name: null, parameters: ""} 
-export const past_commands = writable([['', empty, true]])
+export const past_commands = writable([[get(username), get(pwd), '', empty, true]])
 export const LIMIT_HISTORY = 10;
 export const LIMIT_PAST = 10;
 

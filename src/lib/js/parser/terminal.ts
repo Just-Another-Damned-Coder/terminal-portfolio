@@ -1,13 +1,25 @@
-import { history, past_commands, clear, empty } from "$lib/js/constants.js";
+import { get } from "svelte/store";
+import { history, past_commands, username, pwd, empty } from "$lib/js/constants.js";
 import { command_parser } from "$lib/js/parser/parser.js";
 
-export function add(input: string, output: App.CommandOutput): void{
+export function add(input: string, output: App.CommandOutput): void {
+  // 1. Update the plain text history for up/down arrow usage
   history.update(h => [...h, input]);
+
   past_commands.update(pc => {
-    const last = pc.length - 1;
-    const next = pc.slice();
-    next[last] = [input, output, false];
-    next.push(['', empty, true]);
+    const lastIndex = pc.length - 1;
+    const next = [...pc];
+    
+    // 2. Extract the user and path that were active when this line started.
+    // This prevents "visitor" from changing to "mors" on the same line.
+    const [originalUser, originalPath] = next[lastIndex];
+
+    // 3. Close the previous line using its original metadata
+    next[lastIndex] = [originalUser, originalPath, input, output, false];
+
+    // 4. Push the new line using the CURRENT store values (which the parser may have changed)
+    next.push([get(username), get(pwd), '', empty, true]);
+
     return next;
   });
 }

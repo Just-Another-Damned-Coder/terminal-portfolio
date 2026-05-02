@@ -21,14 +21,14 @@ class Parser {
         
         if (!cmd) return [true, 'enter'];
 
-        const lowerCmd = cmd.toLowerCase();
+        const lowercase_command = cmd.toLowerCase();
 
-        if (this.available_commands.has(lowerCmd)) {
+        if (this.available_commands.has(lowercase_command)) {
             // checking for strict lowercase usage
             if (this.hasCapitalLetters(cmd)) {
-                return [false, ["ERROR", "2", `Misuse of shell built-ins. Did you mean '${lowerCmd}'?`]];
+                return [false, ["ERROR", "2", `Misuse of shell built-ins. Did you mean '${lowercase_command}'?`]];
             }
-            return [true, lowerCmd];
+            return [true, lowercase_command];
         }
 
         return [false, ["ERROR", "127", "Command not found."]];
@@ -46,13 +46,13 @@ class Parser {
             };
         }
 
-        const cmdName = payload as string;
-        if (cmdName === 'enter') return Constants.empty;
+        const command_name = payload as string;
+        if (command_name === 'enter') return Constants.empty;
 
-        const config = (Constants.COMMANDS as any)[cmdName];
+        const config = (Constants.COMMANDS as any)[command_name];
         if (!config) return Constants.empty;
 
-        // extract Arguments
+        // extract Arguments for the output of the command.
         let extractedArg: string | null = config.defaultArg || null;
         if (config.argRegex) {
             const match = text.match(new RegExp(config.argRegex));
@@ -82,8 +82,11 @@ class Parser {
                     params[config.injectConstant.paramKey] = (Constants as any)[config.injectConstant.constantName];
                 }
 
-                if (config.messageTemplate && extractedArg !== null) {
-                    params.message = config.messageTemplate.replace('{arg}', extractedArg);
+                if (config.messageTemplate) {
+                    // If we have an arg, replace it; otherwise, just use the template string
+                    params.message = extractedArg !== null 
+                        ? config.messageTemplate.replace('{arg}', extractedArg) 
+                        : config.messageTemplate;
                 }
 
                 return {

@@ -18,6 +18,16 @@
         "storeValue": true,
         "returns": "empty"
     },
+    "rm": {
+        "returns": "component",
+        "componentName": "ErrorCodes",
+        "parameters": {
+            "codeType": "ERROR",
+            "code": "LOL"
+        },
+        "defaultArg": "",
+        "messageTemplate": "Get good nerd."
+    },
     "username": {
         "argRegex": "username (\\w+)",
         "defaultArg": "visitor",
