@@ -16,6 +16,45 @@ class Parser {
         return /[A-Z]/.test(text);
     }
 
+    private check_directory(current: string, target: string): string {
+        if (!target || target === "~" || target === "~/home") return "~/home";
+
+        // Determine starting point based on absolute (~/) or relative path
+        const baseParts = target.startsWith('~/') ? ['~', 'home'] : current.split('/');
+        const targetParts = target.startsWith('~/') ? target.slice(2).split('/') : target.split('/');
+
+        // Resolve each segment of the path
+        for (const part of targetParts) {
+            if (part === '' || part === '.') continue; // Ignore empty segments and current dir (./)
+            
+            if (part === '..') {
+                // Pop the last directory, but prevent escaping the root '~/home'
+                if (baseParts.length > 1) {
+                    baseParts.pop();
+                }
+            } else {
+                baseParts.push(part);
+            }
+        }
+
+        return baseParts.join('/');
+    }
+
+    /**
+     * Standardizes directory error generation.
+     */
+    private dirError(cmd: string, target: string, type: 'not_found' | 'not_dir' = 'not_found', code: string) {
+        const errorMsg = type === 'not_dir' 
+            ? `${cmd}: ${target}: Not a directory` 
+            : `${cmd}: ${target}: No such file or directory`;
+
+        return {
+            type: "component",
+            name: "ErrorCodes",
+            parameters: { codeType: "ERROR", code: code, message: errorMsg }
+        };
+    }
+
     check(text: string): CheckResult {
         const cmd = text.trim().split(/\s+/)[0];
         
@@ -48,6 +87,54 @@ class Parser {
 
         const command_name = payload as string;
         if (command_name === 'enter') return Constants.empty;
+        
+        // Extract context for dynamic commands
+        const currentPath = get(Constants.pwd);
+        const args = text.trim().split(/\s+/).slice(1);
+        const target = args[0];
+
+        // --- Dynamic CD Implementation ---
+        if (command_name === 'cd') {
+            const newPath = this.check_directory(currentPath, target);
+            
+            // 1. Check if it is a valid directory
+            if ((Constants as any).FILELIST[newPath]) {
+                Constants.pwd.set(newPath);
+                return Constants.empty;
+            }
+
+            // 2. If it's not a directory, check if it exists as a file
+            const lastSlashIndex = newPath.lastIndexOf('/');
+            const parentPath = lastSlashIndex > 0 ? newPath.substring(0, lastSlashIndex) : "~/home";
+            const itemName = newPath.substring(lastSlashIndex + 1);
+            
+            const parentDir = (Constants as any).FILELIST[parentPath];
+            const isFile = parentDir && (parentDir[itemName] || parentDir[`${itemName}/`]);
+
+            if (isFile) {
+                // Target is a file, throw "Not a directory"
+                return this.dirError('cd', target, 'not_dir', '20');
+            }
+
+            // 3. Target doesn't exist at all
+            return this.dirError('cd', target || '~', 'not_found', '2');
+        }
+
+        // --- Dynamic LS Implementation ---
+        if (command_name === 'ls') {
+            const lookupPath = target ? this.check_directory(currentPath, target) : currentPath;
+            
+            // Verify path exists before listing
+            if (!(Constants as any).FILELIST[lookupPath]) {
+                return this.dirError('ls', target);
+            }
+
+            return {
+                type: "component",
+                name: "Ls",
+                parameters: { list: (Constants as any).FILELIST[lookupPath] }
+            };
+        }
 
         const config = (Constants.COMMANDS as any)[command_name];
         if (!config) return Constants.empty;

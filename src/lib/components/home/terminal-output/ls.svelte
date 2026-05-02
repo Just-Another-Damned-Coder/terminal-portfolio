@@ -17,6 +17,10 @@
             <div>
                 <Modal doc={value.doc} triggerText={key} />
             </div>
+        {:else if value.type === 'directory'}
+            <div>
+                {key}
+            </div>
         {/if}
     {/each}
 </div>

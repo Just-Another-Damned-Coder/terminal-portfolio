@@ -1,0 +1,46 @@
+{
+    "~/home": {
+        "blogs/": {
+            "type": "directory"
+        },
+        "projects/": {
+            "type": "directory"
+        },
+        "about.md": {
+            "type": "modal",
+            "doc": "about"
+        },
+        "contact.md": {
+            "type": "modal",
+            "doc": "contact"
+        },
+        "github/": {
+            "type": "link",
+            "href": "https://github.com/Just-Another-Damned-Coder"
+        }
+    },
+    "~/home/blogs": {
+        "my-first-post.md": {
+            "type": "modal",
+            "doc": "contact"
+        },
+        "terminal-tutorial.md": {
+            "type": "modal",
+            "doc": "contact"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home"
+        }
+    },
+    "~/home/projects": {
+        "portfolio-site/": {
+            "type": "link",
+            "href": "https://github.com/..."
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home"
+        }
+    }
+}

@@ -16,7 +16,8 @@ export const name = "Moris Johnson";
 import COLORS from '$lib/data/color_schemes.json';
 import COMMANDS from '$lib/data/commands.json';
 import command_docs from '$lib/data/help.json';
-export {COLORS, COMMANDS, command_docs};
+import FILELIST from '$lib/data/filesystem.json';
+export {COLORS, COMMANDS, command_docs, FILELIST};
 export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
 export const scheme = writable<SchemeType>('Argonaut');
@@ -44,21 +45,3 @@ export const LIMIT_PAST = 10;
 */
 
 export const available_commands = Object.keys(command_docs)
-export const ls_home = {
-      "blogs/": {
-            "type": "link",
-            "href": ""
-      },
-      "about.md": {
-            "type": "modal",
-            "doc": "about"
-      },
-      "contact.md": {
-            "type": "modal",
-            "doc": "contact"
-      },
-      "github/": {
-            "type": "link",
-            "href": "https://github.com/Just-Another-Damned-Coder"
-      }
-}

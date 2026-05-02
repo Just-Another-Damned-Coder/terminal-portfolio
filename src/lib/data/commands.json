@@ -7,7 +7,12 @@
     "ls": {
         "returns": "component",
         "componentName": "Ls",
-        "injectConstant": { "paramKey": "list", "constantName": "ls_home" }
+        "argRegex": "ls\\s+(.*)"
+    },
+    "cd": {
+        "returns": "empty",
+        "argRegex": "cd\\s+(.*)",
+        "updateStore": "pwd"
     },
     "whoami": {
         "returns": "text",
