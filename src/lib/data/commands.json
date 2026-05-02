@@ -1,0 +1,33 @@
+{
+    "help": {
+        "returns": "component",
+        "componentName": "Help",
+        "parameters": {}
+    },
+    "ls": {
+        "returns": "component",
+        "componentName": "Ls",
+        "injectConstant": { "paramKey": "list", "constantName": "ls_home" }
+    },
+    "whoami": {
+        "returns": "text",
+        "readStore": "username"
+    },
+    "clear": {
+        "updateStore": "clear",
+        "storeValue": true,
+        "returns": "empty"
+    },
+    "username": {
+        "argRegex": "username (\\w+)",
+        "defaultArg": "visitor",
+        "updateStore": "username",
+        "returns": "component",
+        "componentName": "ErrorCodes",
+        "parameters": {
+            "codeType": "SUCCESS",
+            "code": ""
+        },
+        "messageTemplate": "Username changed to {arg}"
+    }
+}

@@ -1,85 +1,103 @@
-import {username, empty, ls_home, available_commands, clear} from '$lib/js/constants.js';
+import * as Constants from '$lib/js/constants.js';
 import { get } from 'svelte/store';
 
-class CommandParser {
-    available_commands: string[];
-    pattern: RegExp; 
+// Type aliases.
+type ErrorData = [string, string, string];
+type CheckResult = [true, string] | [false, ErrorData];
 
-    constructor () {
-        this.available_commands = available_commands;
-        // Create a case-insensitive regex pattern from available commands
-        this.pattern = new RegExp(`^(${this.available_commands.join('|')})$`, 'i');
+class Parser {
+    private available_commands: Set<string>;
+
+    constructor() {
+        this.available_commands = new Set(Object.keys(Constants.COMMANDS));
     }
-    hasCapitalLetters(text: string) {
+
+    private hasCapitalLetters(text: string): boolean {
         return /[A-Z]/.test(text);
     }
-    check(text: string): [boolean, string[]] | [boolean, string] {
-        text = text.trim().split(/\s+/)[0];
-        if (text == '') {
-            return [true, 'enter'];
-        }
-        if (this.pattern.test(text)) {
-            if (this.hasCapitalLetters(text)){
-                return [false, ["ERROR", "2", "Misuse of shell built-ins. Did you mean '" + text.match(this.pattern)![1].toLocaleLowerCase() + "' ?" ]];
+
+    check(text: string): CheckResult {
+        const cmd = text.trim().split(/\s+/)[0];
+        
+        if (!cmd) return [true, 'enter'];
+
+        const lowerCmd = cmd.toLowerCase();
+
+        if (this.available_commands.has(lowerCmd)) {
+            // checking for strict lowercase usage
+            if (this.hasCapitalLetters(cmd)) {
+                return [false, ["ERROR", "2", `Misuse of shell built-ins. Did you mean '${lowerCmd}'?`]];
             }
-            else return [true, text.match(this.pattern)![1]];
+            return [true, lowerCmd];
         }
-        else{
-            return [false, ["ERROR", "127", "Command not found."]]
-        }
+
+        return [false, ["ERROR", "127", "Command not found."]];
     }
+
     parse(text: string): App.CommandOutput {
-        let value = this.check(text);
-        console.log(value, text);
-        // let var result;
-        if (value[0]) {
-            
-            switch (value[1]) {
-                case 'clear':
-                    clear.set(true);
-                case 'username':
-                    const newname = text.match(/username (\w+)/);
-                    if (!newname) return empty;
-                    username.set(newname[1] ?? "visitor");
-                    // return [true, ["SUCCESS", 0, "Username changed to" + result[1]]];
-                    return {
-                        type: "component",
-                        name: "ErrorCodes",
-                        parameters: { codeType : "SUCCESS", code : "", message: "Username changed to " + newname[1]}
-                    };
-                case 'whoami':
-                    return {
-                        type: "text",
-                        name: null,
-                        parameters: get(username)
-                    };
-                case 'help':
-                    return {
-                        type: "component",
-                        name: "Help",
-                        parameters: {}
-                    };
-                case 'ls':
-                    return {
-                        type: "component",
-                        name: "Ls",
-                        parameters: {list: ls_home}
-                    };
-                default:
-                    return {
-                        type: "text",
-                        name: null,
-                        parameters: ''
-                    };
-                }
-        }
-        return {
+        const [isValid, payload] = this.check(text);
+        
+        if (!isValid) {
+            const [codeType, code, message] = payload as ErrorData;
+            return {
                 type: "component",
                 name: "ErrorCodes",
-                parameters: { codeType : value[1][0], code : value[1][1] , message: value[1][2]}
+                parameters: { codeType, code, message }
             };
+        }
+
+        const cmdName = payload as string;
+        if (cmdName === 'enter') return Constants.empty;
+
+        const config = (Constants.COMMANDS as any)[cmdName];
+        if (!config) return Constants.empty;
+
+        // extract Arguments
+        let extractedArg: string | null = config.defaultArg || null;
+        if (config.argRegex) {
+            const match = text.match(new RegExp(config.argRegex));
+            if (match) extractedArg = match[1];
+        }
+
+        if (config.updateStore) {
+            const store = (Constants as any)[config.updateStore]; 
+            store?.set?.(extractedArg !== null ? extractedArg : config.storeValue);
+        }
+
+        switch (config.returns) {
+            case 'empty':
+                return Constants.empty;
+
+            case 'text': {
+                const textOutput = config.readStore 
+                    ? get((Constants as any)[config.readStore]) 
+                    : config.textContent || '';
+                return { type: "text", name: null, parameters: textOutput };
+            }
+
+            case 'component': {
+                const params: Record<string, any> = { ...config.parameters };
+
+                if (config.injectConstant) {
+                    params[config.injectConstant.paramKey] = (Constants as any)[config.injectConstant.constantName];
+                }
+
+                if (config.messageTemplate && extractedArg !== null) {
+                    params.message = config.messageTemplate.replace('{arg}', extractedArg);
+                }
+
+                return {
+                    type: "component",
+                    name: config.componentName,
+                    parameters: params
+                };
+            }
+
+            default:
+                return Constants.empty;
+        }
     }
 }
 
 
-export let command_parser = new CommandParser();
+export const command_parser = new Parser();

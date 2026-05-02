@@ -1,4 +1,4 @@
-import { writable, derived } from 'svelte/store';
+import { writable } from 'svelte/store';
 /*
         COLOUR SCHEMES & TITLE PAGE
 */
@@ -9,8 +9,13 @@ import { writable, derived } from 'svelte/store';
 export const version = "v1.2.0";
 // The title of the username;
 export const name = "Moris Johnson";
-import COLORS from '$lib/color_schemes.json';
-export {COLORS};
+
+
+// Constants for the application, color schemes and command list
+// Used for theme switching and command parser.
+import COLORS from '$lib/data/color_schemes.json';
+import COMMANDS from '$lib/data/commands.json'
+export {COLORS, COMMANDS};
 export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
 export const scheme = writable<SchemeType>('Argonaut');
@@ -42,11 +47,10 @@ export const command_docs = {
 }
 export type CommandType = keyof typeof command_docs;
 export const available_commands = ['ls','username', 'clear', 'whoami', 'help'];
-// export const ls_home = ["blogs/", "about.md", "contact.md", "github/"];
 export const ls_home = {
       "blogs/": {
             "type": "link",
-            "href": "https://www.linkedin.com/in/morisjhonson/"
+            "href": ""
       },
       "about.md": {
             "type": "modal",

@@ -51,8 +51,7 @@
   }
   
   :global(.doc-trigger:hover) {
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    text-decoration: none;
   }
 
   :global(.fullscreen-overlay) {
@@ -89,4 +88,5 @@
       color: var(--foreground);
       padding: 0.5rem;
   }
+
 </style>
