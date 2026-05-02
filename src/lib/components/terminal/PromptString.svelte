@@ -5,8 +5,6 @@
     export let latest_username;
     export let latest_pwd;
 
-    console.log("Current Data Type:", typeof latest_username);
-    console.log("Current Data Content:", latest_pwd);
 </script>
 
 <span class="prompt-string" spellcheck="false">

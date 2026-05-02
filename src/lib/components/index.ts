@@ -15,3 +15,4 @@ export {default as ErrorCodes} from './terminal/ErrorCodes.svelte';
 export {default as Modal} from './modals/modal.svelte';
 
 export {default as List} from './home/terminal-output/Accordion.svelte';
+export {default as History} from './home/terminal-output/History.svelte';

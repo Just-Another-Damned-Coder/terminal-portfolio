@@ -81,6 +81,12 @@ class Parser {
                 if (config.injectConstant) {
                     params[config.injectConstant.paramKey] = (Constants as any)[config.injectConstant.constantName];
                 }
+                
+                if (config.injectStore) {
+                    const store = (Constants as any)[config.injectStore.storeName];
+                    params[config.injectStore.paramKey] = get(store);
+                }
+                
 
                 if (config.messageTemplate) {
                     // If we have an arg, replace it; otherwise, just use the template string

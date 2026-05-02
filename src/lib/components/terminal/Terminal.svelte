@@ -1,15 +1,17 @@
 <script lang="ts">
     import { past_commands, history, clear, empty, username, pwd} from '$lib/js/constants';
 	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants';
-    import {PromptString, Help, Ls, ErrorCodes} from '$lib/components';
+    import {PromptString, Help, Ls, ErrorCodes, History} from '$lib/components';
 	const mapping = {
 		'ErrorCodes': ErrorCodes,
 		"Help" : Help,
-		"Ls": Ls
+		"Ls": Ls,
+		"History": History
 	};
     $: {
 		if ($clear){
-			past_commands.set([[$username, $pwd, '', empty, true]]);
+			let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
+			past_commands.set([[$username, $pwd, '', empty, true, date]]);
 			history.set([]);
 			let text = document.querySelector(".command");
 			if (text !== null) text.textContent = "";
@@ -17,7 +19,8 @@
 		}
 		// limit on past_commands (clear if > LIMIT_PAST)
 		if ($past_commands.length > LIMIT_PAST) {
-			past_commands.set([[$username, $pwd, '', empty, true]]);
+			let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
+			past_commands.set([[$username, $pwd, '', empty, true, date]]);
 			console.log("clearing past commands", $past_commands) ;
 			let text = document.querySelector(".command");
 			if (text !== null) text.textContent = "";

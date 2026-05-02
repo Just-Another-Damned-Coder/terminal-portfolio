@@ -14,13 +14,16 @@ export const name = "Moris Johnson";
 // Constants for the application, color schemes and command list
 // Used for theme switching and command parser.
 import COLORS from '$lib/data/color_schemes.json';
-import COMMANDS from '$lib/data/commands.json'
-export {COLORS, COMMANDS};
+import COMMANDS from '$lib/data/commands.json';
+import command_docs from '$lib/data/help.json';
+export {COLORS, COMMANDS, command_docs};
 export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
 export const scheme = writable<SchemeType>('Argonaut');
 
 export const tableHeightStore = writable(0);
+
+
 
 /*
       TERMINAL
@@ -29,8 +32,9 @@ export const username = writable("visitor");
 export const pwd = writable("~/home");
 export const clear = writable(false);
 export const history = writable<string[]>([]);
+let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
 export let empty: App.CommandOutput = {type: "text", name: null, parameters: ""} 
-export const past_commands = writable([[get(username), get(pwd), '', empty, true]])
+export const past_commands = writable([[get(username), get(pwd), '', empty, true, date]])
 export const LIMIT_HISTORY = 10;
 export const LIMIT_PAST = 10;
 
@@ -39,14 +43,7 @@ export const LIMIT_PAST = 10;
 + Available commands, links paths and other constants
 */
 
-export const command_docs = {
-      "clear": "Clear the output of the terminal.",
-      "ls": "List the files and directories in current path.",
-      "username": "Set your name as username Eg. username moris",
-      "whoami": "Prints out your name, 'visitor' by default."
-}
-export type CommandType = keyof typeof command_docs;
-export const available_commands = ['ls','username', 'clear', 'whoami', 'help'];
+export const available_commands = Object.keys(command_docs)
 export const ls_home = {
       "blogs/": {
             "type": "link",

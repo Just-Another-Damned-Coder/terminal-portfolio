@@ -28,6 +28,11 @@
         "defaultArg": "",
         "messageTemplate": "Get good nerd."
     },
+    "history": {
+        "returns": "component",
+        "componentName": "History",
+        "injectStore": { "paramKey": "command_history", "storeName": "past_commands" }
+    },
     "username": {
         "argRegex": "username (\\w+)",
         "defaultArg": "visitor",

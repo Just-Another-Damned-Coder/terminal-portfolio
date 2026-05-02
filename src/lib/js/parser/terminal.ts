@@ -12,13 +12,14 @@ export function add(input: string, output: App.CommandOutput): void {
     
     // 2. Extract the user and path that were active when this line started.
     // This prevents "visitor" from changing to "mors" on the same line.
-    const [originalUser, originalPath] = next[lastIndex];
+    const [originalUser, originalPath, _c, _o, _e, originalTime] = next[lastIndex];
 
     // 3. Close the previous line using its original metadata
-    next[lastIndex] = [originalUser, originalPath, input, output, false];
+    next[lastIndex] = [originalUser, originalPath, input, output, false, originalTime];
 
     // 4. Push the new line using the CURRENT store values (which the parser may have changed)
-    next.push([get(username), get(pwd), '', empty, true]);
+    let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
+    next.push([get(username), get(pwd), '', empty, true, date]);
 
     return next;
   });
