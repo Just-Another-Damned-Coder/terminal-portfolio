@@ -1,7 +1,11 @@
 {
     "~/home": {
-        "blogs/": {
+        "blogs": {
             "type": "directory"
+        },
+        "github/": {
+            "type": "link",
+            "href": "https://github.com/Just-Another-Damned-Coder"
         },
         "projects/": {
             "type": "directory"
@@ -13,20 +17,38 @@
         },
         "contact.md": {
             "type": "modal",
-            "doc": "contact",
+            "doc": "about",
             "docPath": "/src/lib/docs/contact.svx"
-        },
-        "github/": {
-            "type": "link",
-            "href": "https://github.com/Just-Another-Damned-Coder"
         }
     },
     "~/home/blogs": {
+        "some-topic": {
+            "type": "directory"
+        },
         "my-first-post.md": {
             "type": "modal",
             "doc": "blogs/sample.md"
         },
-        "terminal-tutorial.md": {
+        "..": {
+            "type": "directory",
+            "target": "~/home"
+        }
+    },
+    "~/home/blogs/some-topic": {
+        "post-inside-topic.md": {
+            "type": "modal",
+            "doc": "blogs/nested.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs"
+        }
+    },
+    "~/home/projects": {
+        "some-topic": {
+            "type": "directory"
+        },
+        "my-first-post.md": {
             "type": "modal",
             "doc": "blogs/sample.md"
         },
@@ -35,14 +57,7 @@
             "target": "~/home"
         }
     },
-    "~/home/projects": {
-        "portfolio-site/": {
-            "type": "link",
-            "href": "https://github.com/..."
-        },
-        "..": {
-            "type": "directory",
-            "target": "~/home"
-        }
-    }
+     "~/home/projects/some-topic": {
+     }
+     
 }

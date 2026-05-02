@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Modal } from '$lib/components';
     export let list: Record<string, { type: string; href?: string; doc?: string }>;
-    const entries = Object.entries(list);
+    const entries = Object.entries(list).filter(([key]) => key !== '.' && key !== '..');
 </script>
 
 <div class="row prompt-output ls">
