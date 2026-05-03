@@ -58,7 +58,7 @@ Senior Speech Application Engineer with 5 years of experience in developing adva
   }
   .timeline-item {
     position: relative;
-    margin-bottom: 2rem;
+    margin-bottom: 1vh;
   }
   .timeline-marker {
     position: absolute;
@@ -71,8 +71,6 @@ Senior Speech Application Engineer with 5 years of experience in developing adva
     border: 2px solid var(--bright-green, #4a90e2);
   }
   .timeline-content h4 {
-    margin: 0 0 0.2rem 0;
-    font-size: 1.1rem;
     color: var(--text-highlight, #ffffff);
   }
   .timeline-meta {

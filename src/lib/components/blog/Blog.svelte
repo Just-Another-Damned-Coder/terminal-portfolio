@@ -8,15 +8,22 @@
 
     // Calculate word count and read time
     $: wordCount = rawText.trim().split(/\s+/).length;
-    $: readTime = Math.ceil(wordCount / 150); // Avg reading speed is ~150 wpm
+    // Avg reading speed is ~150 wpm
+    $: readTime = Math.ceil(wordCount / 150); 
+    // Format date to a more readable form if it's in ISO format
+    $: formattedDate = date ? new Date(date).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }) : "";
 </script>
 
 <article class="blog-container">
-    <header class="blog-header">
-        <h1>{title}</h1>
+    <header class="blog-header markdown-body">
+        <h1 class="name">{title}</h1>
         <div class="metadata">
             <span>[ Author: {author} ]</span>
-            {#if date}<span>[ Date: {date} ]</span>{/if}
+            {#if date}<span>[ Date: {formattedDate} ]</span>{/if}
             <span>[ {wordCount} words | {readTime} min read ]</span>
         </div>
     </header>
@@ -28,6 +35,13 @@
 </article>
 
 <style>
+
+    /* Remove default borders from headings and horizontal rules */
+    :global(.markdown-body hr) {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0.5rem; /* Adjust spacing as needed without the line */
+    }
     .blog-container {
         width: 100%;
         /* max-width: 800px; */
@@ -36,26 +50,25 @@
     }
 
     .blog-header {
-        border-bottom: 1px solid rgba(156, 163, 175, 0.6);
         margin-bottom: 1rem;
         padding-bottom: 0.5rem;
     }
 
-    .blog-header h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #4ade80;
-        margin: 0;
-    }
-
     .metadata {
-        color: var(--foreground);
-        font-size: calc(1vw);
+        color: var(--white);
+        font-size: calc(0.7em);
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        margin-top: 0.5rem;
+        margin-top: 1rem;
         word-break: break-word;
         overflow-wrap: break-word;
     }
+    .name {
+        font-family: 'Press Start 2P', sans-serif;
+        margin-top: 5vh;
+        color: var(--yellow);
+        font-size: calc(var(--title-size) * 0.8);
+    }
+    
 </style>

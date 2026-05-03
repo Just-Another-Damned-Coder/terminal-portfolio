@@ -19,7 +19,6 @@
 
 /* The ID outranks Tailwind's base resets automatically */
 #markdown-content h1 {
-  font-size: var(--title-size);
   color: var(--bright-yellow);
   margin: 0 0 0.75rem 0;
   border-bottom: 1px solid var(--selection-background);

@@ -37,18 +37,23 @@ body {
 }
 
 .markdown-body h1 {
-    font-size: var(--title-size);
+    font-size: calc(var(--title-size) * 0.8);
     color: var(--green); /* Uses your global green */
 }
 
 .markdown-body h2 {
-    font-size: calc(var(--title-size) * 0.8);
+    font-size: calc(var(--title-size) * 0.6);
     color: var(--blue);
 }
 
 .markdown-body h3 {
-    font-size: calc(var(--title-size) * 0.6);
+    font-size: calc(var(--title-size) * 0.4);
     color: var(--cyan);
+}
+
+.markdown-body h4 {
+    font-size: calc(var(--title-size) * 0.3);
+    color: var(--yellow);
 }
 
 .markdown-body p, 

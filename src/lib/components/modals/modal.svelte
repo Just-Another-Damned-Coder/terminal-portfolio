@@ -6,8 +6,7 @@
   import fm from 'front-matter';
   import { readMarkdownFile } from '$lib/js/markdown';
   import {Blog, ModalTitle} from '$lib/components';
-	import Modal from "../ui/modal/modal.svelte";
-  
+
   export let triggerText;
   export let doc; 
   export let docPath: string;// Added to receive docPath from ls.svelte
@@ -95,20 +94,15 @@
       
       <Dialog.Content class="dialog-content">
           <!-- 1. The Title Bar: Fixed at the top -->
-          <div class="dialog-header">
-              <Dialog.Title>
-                 {#if isSvx && blogProps?.title}
-                    <ModalTitle title={blogProps.title} />
-                 {:else if !isSvx && blogProps?.title}
-                    <ModalTitle title={blogProps.title} />
-                 {:else}
-                    <span class="default-title">viewing: {doc}</span>
-                 {/if}
-              </Dialog.Title>
-              
-              <Dialog.Close class="dialog-close"><X /></Dialog.Close>
-          </div>
-
+           {#if isSvx && blogProps?.title}
+            <div class="dialog-header">
+                <Dialog.Title>
+                        <ModalTitle title={blogProps.title} />
+                </Dialog.Title>
+                
+            </div>
+            {/if}
+            <Dialog.Close class="dialog-close"><X /></Dialog.Close>
           <!-- 2. The Content Body: Scrollable area -->
           <Dialog.Description class="dialog-desc">
             {#if errorMsg}
