@@ -3,7 +3,9 @@
   import { onMount } from "svelte";
   import { X } from '@lucide/svelte';
   import { marked } from 'marked';
+  import fm from 'front-matter';
   import { readMarkdownFile } from '$lib/js/markdown';
+  import {Blog} from '$lib/components';
   
   export let triggerText;
   export let doc; 
@@ -13,6 +15,7 @@
   let errorMsg: string | null = null;
   let isSvx = false;
   let parsedHtml: string = ""; // Added to store raw markdown HTML
+  let blogProps: any = null;
 
   const svxModules = import.meta.glob('/src/lib/docs/**/*.svx');
 
@@ -37,16 +40,32 @@
               errorMsg = "Error 404: Component not found in Vite bundle.";
           }
       } else {
-          // --- ROUTE B: Handle Raw .md Files (from static folder) ---
+          // --- ROUTE B: Handle Raw .md Files ---
             try {
                 const rawText = await readMarkdownFile(doc);
-                // Ensure rawText isn't your custom "ERROR: File not found." string
+                console.log(`[Terminal] Raw markdown loaded for ${doc}:`, rawText);
                 if (rawText && !rawText.startsWith("ERROR")) {
-                    parsedHtml = await marked.parse(rawText);
+                    // 1. Extract frontmatter and body
+                    // Remove Byte Order Mark (\uFEFF) and trim leading/trailing invisible newlines/spaces
+                    const cleanedText = rawText.replace(/^\uFEFF/, '').trim();
+                    const parsedData = fm(cleanedText);
+                    console.log(`[Terminal] Frontmatter parsed for ${doc}:`, parsedData.attributes);
+                    // 2. Parse the body markdown to HTML
+                    const htmlContent = await marked.parse(parsedData.body);
+                    
+                    // 3. Package everything up into an object for the Blog component
+                    blogProps = {
+                        title: parsedData.attributes.title || doc, // Fallback to filename
+                        author: parsedData.attributes.author || "Unknown",
+                        date: parsedData.attributes.date || "",
+                        rawText: parsedData.body, // Used for word count
+                        contentHtml: htmlContent
+                    };
                 } else {
                     throw new Error("File not found");
                 }
             } catch {
+                console.error(`[Terminal Error] Failed to load markdown file at ${doc}`);
                 errorMsg = "Error 404: Text file could not be loaded.";
             }
       }
@@ -65,15 +84,14 @@
                <p class="text-red-500 font-mono">{errorMsg}</p>
                
             {:else if isSvx && MdComponent}
-               <!-- Render the Interactive Svelte Component -->
-               <div id="terminal-md-render" class="svx-container md">
+               <div id="markdown-content" class="svx-container md">
                  <svelte:component this={MdComponent} />
                </div>
                
-            {:else if !isSvx && parsedHtml}
-               <!-- Render the Parsed Raw Text -->
-               <div id="terminal-md-render" class="md">
-                    {@html parsedHtml}
+            {:else if !isSvx && blogProps}
+               <!-- Render your custom Blog component with the extracted props -->
+               <div id="markdown-content" class="md">
+                    <Blog {...blogProps} />
                 </div>
                
             {:else}

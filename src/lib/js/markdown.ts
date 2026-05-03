@@ -32,7 +32,7 @@ export async function readMarkdownFile(targetPath: string) {
     const rawMarkdownText = await response.text();
     
     // Strip the YAML frontmatter (everything between the top --- and the next ---)
-    const cleanText = rawMarkdownText.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+    // const cleanText = rawMarkdownText.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
     
-    return cleanText;
+    return rawMarkdownText;
 }

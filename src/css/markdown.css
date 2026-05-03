@@ -18,11 +18,14 @@
 }
 
 /* The ID outranks Tailwind's base resets automatically */
-#terminal-md-render h1 {
-  font-size: 2.5rem;
+#markdown-content h1 {
+  font-size: var(--title-size);
   color: var(--bright-yellow);
+  margin: 0 0 0.75rem 0;
+  border-bottom: 1px solid var(--selection-background);
+  padding-bottom: 0.25rem;
 }
 
-#terminal-md-render p {
+#markdown-content p {
   color: var(--foreground);
 }
