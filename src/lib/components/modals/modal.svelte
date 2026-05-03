@@ -89,32 +89,47 @@
   <Dialog.Trigger class="doc-trigger">
       {triggerText}
   </Dialog.Trigger>
+  
   <Dialog.Portal>
-      <Dialog.Overlay class="dialog-overlay" />
+      <Dialog.Overlay class="dialog-overlay" /> 
+      
       <Dialog.Content class="dialog-content">
-          <div class="dialog-desc">
+          <!-- 1. The Title Bar: Fixed at the top -->
+          <div class="dialog-header">
+              <Dialog.Title>
+                 {#if isSvx && blogProps?.title}
+                    <ModalTitle title={blogProps.title} />
+                 {:else if !isSvx && blogProps?.title}
+                    <ModalTitle title={blogProps.title} />
+                 {:else}
+                    <span class="default-title">viewing: {doc}</span>
+                 {/if}
+              </Dialog.Title>
+              
+              <Dialog.Close class="dialog-close"><X /></Dialog.Close>
+          </div>
+
+          <!-- 2. The Content Body: Scrollable area -->
+          <Dialog.Description class="dialog-desc">
             {#if errorMsg}
-               <p class="text-red-500 font-mono">{errorMsg}</p>
+               <p class="error-text">{errorMsg}</p>
                
             {:else if isSvx && MdComponent}
-                <!-- Render the interactive .svx component -->
-                 <ModalTitle title={blogProps.title} />
-               <div id="markdown-content" class="svx-container md">
+               <div id="markdown-content" class="markdown-body">
                  <svelte:component this={MdComponent} />
                </div>
                
             {:else if !isSvx && blogProps}
-               <!-- Render your custom Blog component with the extracted props -->
                <div id="markdown-content" class="md">
+                    <!-- Assuming your Blog component handles the rest of the layout -->
                     <Blog {...blogProps} />
                 </div>
                
             {:else}
-               <p>Loading {doc}...</p>
+               <p class="loading-text">Fetching {doc}...</p>
             {/if}
-          </div>
-
-          <Dialog.Close class="dialog-close"><X /></Dialog.Close>
+          </Dialog.Description>
+          
       </Dialog.Content>
   </Dialog.Portal>
 </Dialog.Root>

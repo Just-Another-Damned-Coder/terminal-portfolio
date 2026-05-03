@@ -31,7 +31,7 @@
 }
 .name {
     font-family: 'Press Start 2P', sans-serif;
-    margin-top: 1vh;
+    margin-top: 5vh;
     font-size: var(--title-size);
 }
 </style>

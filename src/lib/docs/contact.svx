@@ -10,12 +10,13 @@ layout: post
 toc: false
 ---
 
-# Connection Established
----
-Initiate contact through any of the following verified channels.
+## Connection Established;;
 
-**[ Email ]**    morisjohn2019iiit@gmail.com[cite: 1]
-**[ Phone ]**    +91 7339669315[cite: 1]
-**[ GitHub ]**   [Just-Another-Damned-Coder](https://github.com/Just-Another-Damned-Coder)[cite: 1]
-**[ LinkedIn ]** [morisjhonson](https://linkedin.com/in/morisjhonson)[cite: 1]
-**[ Location ]** Tamil Nadu, India[cite: 1]
+---
+&nbsp;  
+Initiate contact through any of the following verified channels.
+<ul>
+<li> <b>[  Email   ]</b> : luv1tusmaximus@outlook.com </li>
+<li> <b>[  GitHub  ]</b> : <a href="https://github.com/Just-Another-Damned-Coder">Just-Another-Damned-Coder</a></li>
+<li> <b>[ LinkedIn ]</b>  : <a href="https://linkedin.com/in/morisjhonson">morisjhonson</a></li>
+</ul>

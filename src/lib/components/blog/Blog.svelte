@@ -30,7 +30,7 @@
 <style>
     .blog-container {
         width: 100%;
-        max-width: 800px;
+        /* max-width: 800px; */
         margin: 0 auto;
         padding: 0 1rem;
     }
@@ -49,15 +49,13 @@
     }
 
     .metadata {
-        color: #9ca3af;
-        font-size: 0.9rem;
+        color: var(--foreground);
+        font-size: calc(1vw);
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
         margin-top: 0.5rem;
-    }
-
-    .markdown-body {
-        line-height: 1.75;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 </style>

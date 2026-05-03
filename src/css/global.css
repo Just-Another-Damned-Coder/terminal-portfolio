@@ -18,6 +18,46 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+
+.markdown-body {
+    line-height: 1.75;
+    font-size: var(--font-size);
+    color: var(--foreground);
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Fix heading sizes and apply terminal colors */
+.markdown-body h1, 
+.markdown-body h2, 
+.markdown-body h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+}
+
+.markdown-body h1 {
+    font-size: var(--title-size);
+    color: var(--green); /* Uses your global green */
+}
+
+.markdown-body h2 {
+    font-size: calc(var(--title-size) * 0.8);
+    color: var(--blue);
+}
+
+.markdown-body h3 {
+    font-size: calc(var(--title-size) * 0.6);
+    color: var(--cyan);
+}
+
+.markdown-body p, 
+.markdown-body ul, 
+.markdown-body li {
+    font-size: var(--font-size);
+    margin-bottom: 1rem;
+}
+
 :root {
   --black: #07080d;
   --red: #ffc0b9;
