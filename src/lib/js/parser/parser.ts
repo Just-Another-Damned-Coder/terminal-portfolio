@@ -43,7 +43,7 @@ class Parser {
     /**
      * Standardizes directory error generation.
      */
-    private dirError(cmd: string, target: string, type: 'not_found' | 'not_dir' = 'not_found', code: string) {
+    private dirError(cmd: string, target: string, code: string, type: 'not_found' | 'not_dir' = 'not_found', ) {
         const errorMsg = type === 'not_dir' 
             ? `${cmd}: ${target}: Not a directory` 
             : `${cmd}: ${target}: No such file or directory`;
@@ -113,11 +113,11 @@ class Parser {
 
             if (isFile) {
                 // Target is a file, throw "Not a directory"
-                return this.dirError('cd', target, 'not_dir', '20');
+                return this.dirError('cd', target, '20', 'not_dir');
             }
 
             // 3. Target doesn't exist at all
-            return this.dirError('cd', target || '~', 'not_found', '2');
+            return this.dirError('cd', target || '~', '2', 'not_found');
         }
 
         // --- Dynamic LS Implementation ---
@@ -126,7 +126,7 @@ class Parser {
             
             // Verify path exists before listing
             if (!(Constants as any).FILELIST[lookupPath]) {
-                return this.dirError('ls', target);
+                return this.dirError('ls', target, '2', 'not_found');
             }
 
             return {

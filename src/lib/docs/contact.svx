@@ -1,5 +1,5 @@
 ---
-title: "Contact"
+title: "Contact me"
 date: 2025-10-05
 author: "Moris Johnson"
 tags: [contact, email]

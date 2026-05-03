@@ -5,16 +5,16 @@
   import { marked } from 'marked';
   import fm from 'front-matter';
   import { readMarkdownFile } from '$lib/js/markdown';
-  import {Blog} from '$lib/components';
+  import {Blog, ModalTitle} from '$lib/components';
+	import Modal from "../ui/modal/modal.svelte";
   
   export let triggerText;
   export let doc; 
-  export let docPath = null; // Added to receive docPath from ls.svelte
+  export let docPath: string;// Added to receive docPath from ls.svelte
   
   let MdComponent: any = null;
   let errorMsg: string | null = null;
   let isSvx = false;
-  let parsedHtml: string = ""; // Added to store raw markdown HTML
   let blogProps: any = null;
 
   const svxModules = import.meta.glob('/src/lib/docs/**/*.svx');
@@ -27,16 +27,29 @@
 
       if (isSvx) {
           // --- ROUTE A: Handle Interactive .svx Components ---
-          if (svxModules[docPath]) { // Use docPath to grab the correct module key
+          if (svxModules[docPath]) {
               try {
                   const module: any = await svxModules[docPath]();
                   MdComponent = module.default;
+                  
+                  // Extract mdsvex frontmatter from the exported metadata object
+                  const metadata = module.metadata || {}; 
+                  
+                  blogProps = {
+                      title: metadata.title || doc,
+                      author: metadata.author || "Unknown",
+                      date: metadata.date || "",
+                      rawText: "", // .svx components handle their own rendering
+                      contentHtml: "" 
+                  };
+                  
+                  console.log(`[Terminal] Metadata captured for .svx:`, metadata);
               } catch (error) {
                   console.error(`[Terminal Error] Failed to load .svx at ${docPath}:`, error);
                   errorMsg = "Error 500: Interactive component failed to mount.";
               }
           } else {
-              console.error(`[Terminal Error] .svx path '${docPath}' not found. Available:`, Object.keys(svxModules));
+              console.error(`[Terminal Error] .svx path '${docPath}' not found.`);
               errorMsg = "Error 404: Component not found in Vite bundle.";
           }
       } else {
@@ -48,7 +61,7 @@
                     // 1. Extract frontmatter and body
                     // Remove Byte Order Mark (\uFEFF) and trim leading/trailing invisible newlines/spaces
                     const cleanedText = rawText.replace(/^\uFEFF/, '').trim();
-                    const parsedData = fm(cleanedText);
+                    const parsedData: { attributes: any; body: string } = fm(cleanedText);
                     console.log(`[Terminal] Frontmatter parsed for ${doc}:`, parsedData.attributes);
                     // 2. Parse the body markdown to HTML
                     const htmlContent = await marked.parse(parsedData.body);
@@ -64,8 +77,8 @@
                 } else {
                     throw new Error("File not found");
                 }
-            } catch {
-                console.error(`[Terminal Error] Failed to load markdown file at ${doc}`);
+            } catch (error) {
+                console.error(`[Terminal Error] Failed to load markdown file at ${doc}`, error);
                 errorMsg = "Error 404: Text file could not be loaded.";
             }
       }
@@ -84,6 +97,8 @@
                <p class="text-red-500 font-mono">{errorMsg}</p>
                
             {:else if isSvx && MdComponent}
+                <!-- Render the interactive .svx component -->
+                 <ModalTitle title={blogProps.title} />
                <div id="markdown-content" class="svx-container md">
                  <svelte:component this={MdComponent} />
                </div>

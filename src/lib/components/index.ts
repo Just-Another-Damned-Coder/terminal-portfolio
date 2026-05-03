@@ -13,6 +13,7 @@ export {default as Ls} from './home/terminal-output/ls.svelte';
 
 export {default as ErrorCodes} from './terminal/ErrorCodes.svelte';
 export {default as Modal} from './modals/modal.svelte';
+export {default as ModalTitle} from './modals/ModalTitle.svelte';
 
 export {default as List} from './home/terminal-output/Accordion.svelte';
 export {default as History} from './home/terminal-output/History.svelte';
