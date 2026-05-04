@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik+Broken+Fax&family=heading:wght@400;700&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
 
 @import "tailwindcss";
 
-
-@import './css/global.css';
-@import './css/home.css';
-@import './css/terminal.css';
-
+@layer components {
+  @import './css/global.css';   /* Defines your variables cite: 14, 16 */
+  @import './css/markdown.css'; /* Your cleaned Markdown styles cite: 14, 15 */
+  @import './css/terminal.css'; 
+  @import './css/modal.css';    
+}
 
 @font-face {
   font-family: 'Karmatic Arcade';
@@ -29,5 +31,24 @@
   src: url('lib/assets/fonts/BACKTO1982.TTF') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.bitcount-single {
+  font-family: "Bitcount Single", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0;
 }
 

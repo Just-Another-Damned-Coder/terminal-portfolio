@@ -1,0 +1,44 @@
+/* Scope everything to the .md class without :global() */
+.md h1, .md h2, .md h3, .md p, .md a, .md li {
+  color: var(--bright-yellow); /*cite: 15, 16*/
+}
+
+.dialog-desc .md h1 {
+  font-size: 2.5rem; /* Avoid massive 9.75rem unless intended */
+  font-weight: 700;
+  color: var(--bright-yellow); /*cite: 15, 16*/
+  border-bottom: 1px solid var(--selection-background);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.dialog-desc .md p {
+  margin: 0.75rem 0;
+  line-height: 1.6;
+}
+
+/* The ID outranks Tailwind's base resets automatically */
+#markdown-content h1 {
+  color: var(--green);
+  margin: 0 0 0.75rem 0;
+  padding-bottom: 0.25rem;
+}
+
+#markdown-content p {
+  color: var(--foreground);
+}
+
+#markdown-content h2 {
+    font-size: calc(var(--title-size) * 0.6);
+    color: var(--blue);
+}
+
+#markdown-content  h3 {
+    font-size: calc(var(--title-size) * 0.4);
+    color: var(--cyan);
+}
+
+#markdown-content h4 {
+    font-size: calc(var(--title-size) * 0.3);
+    color: var(--yellow);
+}

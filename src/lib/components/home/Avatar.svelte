@@ -5,8 +5,8 @@
     $: {
         document.body.style.backgroundColor = COLORS[$scheme].background;
         document.body.style.color = COLORS[$scheme].foreground;
-        tableHeight = 1 * $tableHeightStore;
-        svgWidth = Math.floor(0.7 * $tableHeightStore);
+        tableHeight = $tableHeightStore > 0 ? $tableHeightStore : 200;
+        svgWidth = Math.floor(0.7 * tableHeight);
     }
 </script>
 

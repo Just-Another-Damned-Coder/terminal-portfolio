@@ -1,0 +1,67 @@
+{
+    "~/home": {
+        "blogs": {
+            "type": "directory"
+        },
+        "github/": {
+            "type": "link",
+            "href": "https://github.com/Just-Another-Damned-Coder"
+        },
+        "projects/": {
+            "type": "directory"
+        },
+        "about.md": {
+            "type": "modal",
+            "doc": "about",
+            "docPath": "/src/lib/docs/about.svx"
+        },
+        "contact.md": {
+            "type": "modal",
+            "doc": "about",
+            "docPath": "/src/lib/docs/contact.svx"
+        },
+        "sample.md": {
+            "type": "modal",
+            "doc": "blogs/sample.md"
+        }
+    },
+    "~/home/blogs": {
+        "some-topic": {
+            "type": "directory"
+        },
+        "my-first-post.md": {
+            "type": "modal",
+            "doc": "blogs/sample.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home"
+        }
+    },
+    "~/home/blogs/some-topic": {
+        "post-inside-topic.md": {
+            "type": "modal",
+            "doc": "blogs/nested.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs"
+        }
+    },
+    "~/home/projects": {
+        "some-topic": {
+            "type": "directory"
+        },
+        "my-first-post.md": {
+            "type": "modal",
+            "doc": "blogs/sample.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home"
+        }
+    },
+     "~/home/projects/some-topic": {
+     }
+     
+}

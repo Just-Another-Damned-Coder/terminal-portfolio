@@ -13,4 +13,16 @@ declare global {
 	}
 }
 
+declare module '*.svx' {
+	import { Component } from 'svelte';
+	const component: Component;
+	export default component;
+}
+
+declare module '*.md' {
+	import { Component } from 'svelte';
+	const component: Component;
+	export default component;
+}
+
 export {};

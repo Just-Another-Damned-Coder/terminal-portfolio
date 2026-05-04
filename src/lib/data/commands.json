@@ -1,0 +1,53 @@
+{
+    "help": {
+        "returns": "component",
+        "componentName": "Help",
+        "parameters": {}
+    },
+    "ls": {
+        "returns": "component",
+        "componentName": "Ls",
+        "argRegex": "ls\\s+(.*)"
+    },
+    "cd": {
+        "returns": "empty",
+        "argRegex": "cd\\s+(.*)",
+        "updateStore": "pwd"
+    },
+    "whoami": {
+        "returns": "text",
+        "readStore": "username"
+    },
+    "clear": {
+        "updateStore": "clear",
+        "storeValue": true,
+        "returns": "empty"
+    },
+    "rm": {
+        "returns": "component",
+        "componentName": "ErrorCodes",
+        "parameters": {
+            "codeType": "ERROR",
+            "code": "LOL"
+        },
+        "defaultArg": "",
+        "messageTemplate": "Get good nerd."
+    },
+    "history": {
+        "returns": "component",
+        "componentName": "History",
+        "injectStore": { "paramKey": "command_history", "storeName": "past_commands" }
+    },
+    "username": {
+        "argRegex": "username (\\w+)",
+        "defaultArg": "visitor",
+        "updateStore": "username",
+        "returns": "component",
+        "componentName": "ErrorCodes",
+        "parameters": {
+            "codeType": "SUCCESS",
+            "code": ""
+        },
+        "messageTemplate": "Username changed to {arg}"
+    }
+}

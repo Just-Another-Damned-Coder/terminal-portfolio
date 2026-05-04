@@ -1,10 +1,7 @@
 <script lang="ts">
-    import {About} from '$lib/components';
-    export let list: Record<string, { type: string; href?: string }>;
-    const entries = Object.entries(list);
-    function openModal(filename: string) {
-        alert(`Open modal: ${filename}`);
-    }
+    import { Modal } from '$lib/components';
+    export let list: Record<string, { type: string; href?: string; doc?: string }>;
+    const entries = Object.entries(list).filter(([key]) => key !== '.' && key !== '..');
 </script>
 
 <div class="row prompt-output ls">
@@ -16,9 +13,13 @@
                     {key}
                 </a>
             </div>
-        {:else if value.type === 'modal'}
+        {:else if value.type === 'modal' && value.doc}
             <div>
-                <About link="/api/about" triggerText={key} />
+                <Modal doc={value.doc} docPath={value.docPath} triggerText={key} />
+            </div>
+        {:else if value.type === 'directory'}
+            <div>
+                {key}
             </div>
         {/if}
     {/each}

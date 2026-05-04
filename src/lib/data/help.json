@@ -1,0 +1,9 @@
+{
+    "clear": "Clear the output of the terminal.",
+    "ls": "List the files and directories in current path.",
+    "username": "Set your name as username Eg. username moris",
+    "whoami": "Prints out your name, 'visitor' by default.",
+    "history": "Shows the past commands you have entered,",
+    "cd": "Change directory. Eg. cd about",
+    "help": "Show this message."
+}

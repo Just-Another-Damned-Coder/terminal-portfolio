@@ -1,13 +1,24 @@
-import { history, past_commands, clear, empty } from "$lib/js/constants.js";
+import { get } from "svelte/store";
+import { history, past_commands, username, pwd, empty } from "$lib/js/constants.js";
 import { command_parser } from "$lib/js/parser/parser.js";
 
-export function add(input: string, output: App.CommandOutput): void{
+export function add(input: string, output: App.CommandOutput): void {
+  // 1. Update the plain text history for up/down arrow usage
   history.update(h => [...h, input]);
+
   past_commands.update(pc => {
-    const last = pc.length - 1;
-    const next = pc.slice();
-    next[last] = [input, output, false];
-    next.push(['', empty, true]);
+    const lastIndex = pc.length - 1;
+    const next = [...pc];
+    
+    const [originalUser, originalPath, _c, _o, _e, originalTime] = next[lastIndex];
+
+    // Close the previous line using its original metadata
+    next[lastIndex] = [originalUser, originalPath, input, output, false, originalTime];
+
+    // new line using the CURRENT store values (which the parser may have changed)
+    let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
+    next.push([get(username), get(pwd), '', empty, true, date]);
+
     return next;
   });
 }

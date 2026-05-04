@@ -1,0 +1,21 @@
+---
+title: "Contact me"
+date: 2025-10-05
+author: "Moris Johnson"
+tags: [contact, email]
+draft: false
+description: "How to contact."
+slug: contact
+layout: post
+toc: false
+---
+
+## Connection Established;;
+
+---
+&nbsp;  
+Initiate contact through any of the following verified channels.
+<ul>
+<li> <b>[  Email   ]</b> : luv1tusmaximus@outlook.com </li>
+<li> <b>[ LinkedIn ]</b>  : <a href="https://linkedin.com/in/morisjhonson">morisjhonson</a></li>
+</ul>
