@@ -6,7 +6,7 @@ import { get, writable } from 'svelte/store';
 // The colors are taken from : https://windowsterminalthemes.dev/
 // Add more to the JSON from the website.
 // The website/terminal version.
-export const version = "v1.2.0";
+export const version = "v1.3.0";
 // The title of the username;
 export const name = "Moris Johnson";
 

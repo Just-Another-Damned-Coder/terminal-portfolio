@@ -63,6 +63,19 @@ body {
     margin-bottom: 1rem;
 }
 
+.shiki {
+  /* Let the theme's inline styles win */
+  background-color: transparent !important; 
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'Your-Terminal-Font', monospace;
+}
+
+/* Ensure no global span rules are breaking the highlighter */
+.shiki span {
+  color: inherit; /* Should default to the inline style provided by Shiki */
+}
+
 :root {
   --black: #07080d;
   --red: #ffc0b9;

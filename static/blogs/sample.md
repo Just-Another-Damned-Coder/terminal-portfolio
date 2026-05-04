@@ -32,9 +32,15 @@ toc: false
 
 ### Code Samples
 
-```js
-const greeting = 'Hello, terminal portfolio!';
-console.log(greeting);
+```python
+import os
+print(f"This is a sample print statement")
+def add(a: int, b: int) -> int:
+  try:
+    return a + b
+  except Exception as e:
+    print(f"Some error: {e})
+    return 0
 ```
 
 ### Table
@@ -47,7 +53,7 @@ console.log(greeting);
 
 ### Image
 
-![Sample screenshot](https://via.placeholder.com/640x240.png?text=Markdown+Image+Test)
+![Sample screenshot](images/sample.svg)
 
 ### Inline formatting
 

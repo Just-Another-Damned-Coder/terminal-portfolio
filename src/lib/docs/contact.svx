@@ -17,6 +17,5 @@ toc: false
 Initiate contact through any of the following verified channels.
 <ul>
 <li> <b>[  Email   ]</b> : luv1tusmaximus@outlook.com </li>
-<li> <b>[  GitHub  ]</b> : <a href="https://github.com/Just-Another-Damned-Coder">Just-Another-Damned-Coder</a></li>
 <li> <b>[ LinkedIn ]</b>  : <a href="https://linkedin.com/in/morisjhonson">morisjhonson</a></li>
 </ul>

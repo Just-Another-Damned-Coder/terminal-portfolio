@@ -2,9 +2,8 @@
   import { Dialog, Label, Separator } from "bits-ui";
   import { onMount } from "svelte";
   import { X } from '@lucide/svelte';
-  import { marked } from 'marked';
   import fm from 'front-matter';
-  import { readMarkdownFile } from '$lib/js/markdown';
+  import { readMarkdownFile , parseWithHighlights} from '$lib/js/markdown';
   import {Blog, ModalTitle} from '$lib/components';
 
   export let triggerText;
@@ -63,7 +62,9 @@
                     const parsedData: { attributes: any; body: string } = fm(cleanedText);
                     console.log(`[Terminal] Frontmatter parsed for ${doc}:`, parsedData.attributes);
                     // 2. Parse the body markdown to HTML
-                    const htmlContent = await marked.parse(parsedData.body);
+                    // Use the new client-side highlighter function
+                    const htmlContent = await parseWithHighlights(parsedData.body);
+                    // const htmlContent = await marked.parse(parsedData.body);
                     
                     // 3. Package everything up into an object for the Blog component
                     blogProps = {

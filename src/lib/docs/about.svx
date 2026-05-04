@@ -41,8 +41,8 @@ Senior Speech Application Engineer with 5 years of experience in developing adva
 </div>
 
 ## Education & Awards
-* **B.Tech Electronics and Communication Engineering (92%)** - Indian Institute of Information Technology, Dharwad (08/2017 - 05/2021).
-* **Best Outgoing Student Award** - Indian Institute of Information Technology, Dharwad (08/2017 - 05/2021).
+* **B.Tech Electronics and Communication Engineering (92%)** - (08/2017 - 05/2021).
+* **Best Outgoing Student Award** - (08/2017 - 05/2021).
 
 ## Technical Arsenal
 * **Languages:** Python, Rust (intermediate), bash, perl.
