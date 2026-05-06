@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.1] - 2026-06-06
+
+### Added
+- New terminal commands: `pwd`, `echo`, and `date` for enhanced interactivity.
+- Added `ArrowDown` and `ArrowUp` key support for navigating through command history in the terminal.
+
+### Fixed
+- Resolved isssue where `whoami` command would not display anything in the terminal output.
+
+
 ## [1.3.0] - 2026-05-04
 
 ### Added

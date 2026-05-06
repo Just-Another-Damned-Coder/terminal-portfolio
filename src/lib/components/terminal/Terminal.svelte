@@ -52,15 +52,14 @@
 		{#if data[3].name && data[3].name in mapping}
 			<svelte:component this={mapping[data[3].name]} {...data[3].parameters} />
 		{/if}
-		
-		{#if data[1] && ((data[1] as App.CommandOutput).parameters as { codeType?: string })?.codeType === 'ERROR'}
-			<div class="prompt-output">
-				💡 Type 'help' to find more about available commands and use cases.
-			</div>
-		{/if}
+			{#if data[3] && ((data[3] as App.CommandOutput).parameters as { codeType?: string })?.codeType === 'ERROR'}
+				<div class="prompt-output">
+					💡 Type 'help' to find more about available commands and use cases.
+				</div>
+			{/if}
 		{:else}
 			<div class="prompt-output">
-				{data[1] ? (data[1] as App.CommandOutput).parameters : ''}
+				{data[3] ? (data[3] as App.CommandOutput).parameters : ''}
 			</div>
 	{/if}
 {/each}

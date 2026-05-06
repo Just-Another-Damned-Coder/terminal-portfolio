@@ -27,7 +27,41 @@ export function handler(element: HTMLElement, params: {active: boolean}) {
   element.setAttribute('contenteditable', params?.active ? 'true' : 'false');
   if (params.active) element.focus();
 
+  let historyIndex = -1;
+
   function onKeydown(e: KeyboardEvent) {
+
+    const historyList = get(history);
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (historyList.length > 0) {
+        // Move back in history
+        if (historyIndex === -1) {
+          historyIndex = historyList.length - 1;
+        } else if (historyIndex > 0) {
+          historyIndex--;
+        }
+        element.innerText = historyList[historyIndex];
+        placeCaretAtEnd(element);
+      }
+    } 
+    
+    else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex !== -1) {
+        if (historyIndex < historyList.length - 1) {
+          // Move forward in history
+          historyIndex++;
+          element.innerText = historyList[historyIndex];
+        } else {
+          // Reached end; return ''
+          historyIndex = -1;
+          element.innerText = '';
+        }
+        placeCaretAtEnd(element);
+      }
+    }
     if (e.key === 'Enter') {
       e.preventDefault(); // avoid newline in contenteditable
       const content = element.innerText.trim();
@@ -38,6 +72,16 @@ export function handler(element: HTMLElement, params: {active: boolean}) {
       element.removeEventListener('keydown', onKeydown);
       element.blur();
     }
+  }
+
+  // ensure the cursor stays at the end of the text
+  function placeCaretAtEnd(el: HTMLElement) {
+    const range = document.createRange();
+    const sel = globalThis.getSelection();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    sel?.removeAllRanges();
+    sel?.addRange(range);
   }
 
   element.addEventListener('keydown', onKeydown);
