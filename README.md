@@ -18,13 +18,16 @@ Visit the live site at [morisjohnson.in](https://morisjohnson.in/).
 - Extended terminal command data and filesystem configuration.
 - Syntax highlighting via Shiki with the Material theme.
 - System information display showing OS, browser, uptime, resolution, CPU, and memory.
+- New terminal commands: `pwd`, `echo`, and `date` for enhanced interactivity.
+- Added `ArrowDown` and `ArrowUp` key support for navigating through command history in the terminal.
+- Resolved issue where `whoami` command would not display anything in the terminal output.
 
 ## Features
 
 ### Terminal Interface
 - **Interactive command-line**: Fully functional terminal with editable prompt and command history.
 - **Virtual filesystem**: Navigate using `cd` and `ls` commands with a configurable directory structure.
-- **Command history**: Type `history` to view past commands with timestamps.
+- **Command history**: Type `history` to view past commands with timestamps. Use ArrowUp and ArrowDown keys to navigate through command history.
 - **Dynamic prompt**: Shows current username and working directory.
 - **Error handling**: Unix-style error codes and messages for invalid commands.
 
