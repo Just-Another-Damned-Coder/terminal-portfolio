@@ -48,7 +48,7 @@
         "injectStore": { "paramKey": "command_history", "storeName": "past_commands" }
     },
     "username": {
-        "argRegex": "username (\\w+)",
+        "argRegex": "username\\s+(.*)",
         "defaultArg": "visitor",
         "updateStore": "username",
         "returns": "component",

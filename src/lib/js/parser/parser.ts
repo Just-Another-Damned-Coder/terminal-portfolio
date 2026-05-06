@@ -154,6 +154,11 @@ class Parser {
             if (match) extractedArg = match[1];
         }
 
+        if (command_name === 'username' && extractedArg) {
+            // Remove quotes, lowercase everything, and remove all spaces
+            extractedArg = extractedArg.replace(/['"]/g, '').toLowerCase().replace(/\s+/g, '');
+        }
+
         if (config.updateStore) {
             const store = (Constants as any)[config.updateStore]; 
             store?.set?.(extractedArg !== null ? extractedArg : config.storeValue);
