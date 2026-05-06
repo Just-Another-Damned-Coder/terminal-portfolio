@@ -5,5 +5,9 @@
     "whoami": "Prints out your name, 'visitor' by default.",
     "history": "Shows the past commands you have entered,",
     "cd": "Change directory. Eg. cd about",
+    "pwd": "Print the current directory path.",
+    "echo": "Echo the input text. Eg. echo Hello World!",
+    "rm": "Remove a file. (Try it with 'rm important_file.txt')",
+    "date": "Print the current date and time.",
     "help": "Show this message."
 }
