@@ -136,6 +136,14 @@ class Parser {
             };
         }
 
+        if (command_name === 'date') {
+            return { 
+                type: "text", 
+                name: null, 
+                parameters: new Date().toString() 
+            };
+        }
+
         const config = (Constants.COMMANDS as any)[command_name];
         if (!config) return Constants.empty;
 
@@ -144,6 +152,11 @@ class Parser {
         if (config.argRegex) {
             const match = text.match(new RegExp(config.argRegex));
             if (match) extractedArg = match[1];
+        }
+
+        if (command_name === 'username' && extractedArg) {
+            // Remove quotes, lowercase everything, and remove all spaces
+            extractedArg = extractedArg.replace(/['"]/g, '').toLowerCase().replace(/\s+/g, '');
         }
 
         if (config.updateStore) {
@@ -156,6 +169,10 @@ class Parser {
                 return Constants.empty;
 
             case 'text': {
+                // If the textContent is a placeholder, return the argument
+                if (config.textContent === "{arg}") {
+                    return { type: "text", name: null, parameters: extractedArg || '' };
+                }
                 const textOutput = config.readStore 
                     ? get((Constants as any)[config.readStore]) 
                     : config.textContent || '';

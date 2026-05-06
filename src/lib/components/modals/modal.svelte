@@ -41,7 +41,6 @@
                       contentHtml: "" 
                   };
                   
-                  console.log(`[Terminal] Metadata captured for .svx:`, metadata);
               } catch (error) {
                   console.error(`[Terminal Error] Failed to load .svx at ${docPath}:`, error);
                   errorMsg = "Error 500: Interactive component failed to mount.";
@@ -54,13 +53,11 @@
           // --- ROUTE B: Handle Raw .md Files ---
             try {
                 const rawText = await readMarkdownFile(doc);
-                console.log(`[Terminal] Raw markdown loaded for ${doc}:`, rawText);
                 if (rawText && !rawText.startsWith("ERROR")) {
                     // 1. Extract frontmatter and body
                     // Remove Byte Order Mark (\uFEFF) and trim leading/trailing invisible newlines/spaces
                     const cleanedText = rawText.replace(/^\uFEFF/, '').trim();
                     const parsedData: { attributes: any; body: string } = fm(cleanedText);
-                    console.log(`[Terminal] Frontmatter parsed for ${doc}:`, parsedData.attributes);
                     // 2. Parse the body markdown to HTML
                     // Use the new client-side highlighter function
                     const htmlContent = await parseWithHighlights(parsedData.body);

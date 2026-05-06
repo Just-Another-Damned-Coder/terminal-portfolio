@@ -33,13 +33,22 @@
         "defaultArg": "",
         "messageTemplate": "Get good nerd."
     },
+    "pwd": {
+        "returns": "text",
+        "readStore": "pwd"
+    },
+    "echo": {
+        "argRegex": "echo\\s+(.*)",
+        "returns": "text",
+        "textContent": "{arg}"
+    },
     "history": {
         "returns": "component",
         "componentName": "History",
         "injectStore": { "paramKey": "command_history", "storeName": "past_commands" }
     },
     "username": {
-        "argRegex": "username (\\w+)",
+        "argRegex": "username\\s+(.*)",
         "defaultArg": "visitor",
         "updateStore": "username",
         "returns": "component",
@@ -49,5 +58,9 @@
             "code": ""
         },
         "messageTemplate": "Username changed to {arg}"
+    },
+    "date": {
+        "returns": "text",
+        "textContent": "{arg}"
     }
 }
