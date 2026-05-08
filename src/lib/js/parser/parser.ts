@@ -168,7 +168,8 @@ class Parser {
                         doc: fileData.doc, 
                         docPath: fileData.docPath, 
                         triggerText: fileName,
-                        open: true // Pass a prop to open it automatically
+                        open: true, // Pass a prop to open it automatically
+                        hideTrigger: true // Hide the trigger button
                     }
                 };
             }

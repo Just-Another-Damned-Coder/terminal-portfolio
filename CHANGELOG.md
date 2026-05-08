@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.2] - 2026-06-10
+
+### Added
+- Added `vim` command to terminal for editing files in a simple text editor interface.
+
+### Fixed
+- Fixed an issue where the `clear` command would not properly clear the terminal output in some cases.
+
+
+## Changed
+- Refactored terminal command handling to improve performance and maintainability, including better error handling as well.
+
 ## [1.3.1] - 2026-06-06
 
 ### Added
