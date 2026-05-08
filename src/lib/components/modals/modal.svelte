@@ -9,6 +9,7 @@
   export let triggerText;
   export let doc; 
   export let docPath: string;// Added to receive docPath from ls.svelte
+  export let open = false;
   
   let MdComponent: any = null;
   let errorMsg: string | null = null;
@@ -82,10 +83,12 @@
   });
 </script>
 
-<Dialog.Root>
-  <Dialog.Trigger class="doc-trigger">
-      {triggerText}
-  </Dialog.Trigger>
+<Dialog.Root bind:open>
+  {#if !open}
+      <Dialog.Trigger class="doc-trigger">
+          {triggerText}
+      </Dialog.Trigger>
+  {/if}
   
   <Dialog.Portal>
       <Dialog.Overlay class="dialog-overlay" /> 

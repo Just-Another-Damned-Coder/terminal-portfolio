@@ -1,21 +1,22 @@
 import { get } from "svelte/store";
-import { history, past_commands, username, pwd, empty } from "$lib/js/constants.js";
+import { history, past_commands, username, pwd, empty, COMMANDS, FILELIST } from "$lib/js/constants.js";
 import { command_parser } from "$lib/js/parser/parser.js";
 
 export function add(input: string, output: App.CommandOutput): void {
-  // 1. Update the plain text history for up/down arrow usage
   history.update(h => [...h, input]);
 
   past_commands.update(pc => {
-    const lastIndex = pc.length - 1;
     const next = [...pc];
+    const lastIndex = next.length - 1;
     
-    const [originalUser, originalPath, _c, _o, _e, originalTime] = next[lastIndex];
+    // FIX: Only close the previous line if it actually exists!
+    // (The 'clear' command makes lastIndex evaluate to -1)
+    if (lastIndex >= 0) {
+        const [originalUser, originalPath, _c, _o, _e, originalTime] = next[lastIndex];
+        next[lastIndex] = [originalUser, originalPath, input, output, false, originalTime];
+    }
 
-    // Close the previous line using its original metadata
-    next[lastIndex] = [originalUser, originalPath, input, output, false, originalTime];
-
-    // new line using the CURRENT store values (which the parser may have changed)
+    // Push the fresh, new prompt line
     let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
     next.push([get(username), get(pwd), '', empty, true, date]);
 
@@ -23,77 +24,117 @@ export function add(input: string, output: App.CommandOutput): void {
   });
 }
 
-export function handler(element: HTMLElement, params: {active: boolean}) {
-  element.setAttribute('contenteditable', params?.active ? 'true' : 'false');
-  if (params.active) element.focus();
 
-  let historyIndex = -1;
+class TerminalHandler {
+    private element: HTMLElement;
+    private historyIndex: number = -1;
 
-  function onKeydown(e: KeyboardEvent) {
+    constructor(element: HTMLElement, active: boolean) {
+        this.element = element;
+        // Bind methods to preserve 'this' context FIRST
+        this.onKeydown = this.onKeydown.bind(this);
+        // Then call setActive which will handle both focusing and event listeners
+        this.setActive(active); 
+    }
 
-    const historyList = get(history);
-
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (historyList.length > 0) {
-        // Move back in history
-        if (historyIndex === -1) {
-          historyIndex = historyList.length - 1;
-        } else if (historyIndex > 0) {
-          historyIndex--;
-        }
-        element.innerText = historyList[historyIndex];
-        placeCaretAtEnd(element);
-      }
-    } 
-    
-    else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (historyIndex !== -1) {
-        if (historyIndex < historyList.length - 1) {
-          // Move forward in history
-          historyIndex++;
-          element.innerText = historyList[historyIndex];
+    public setActive(active: boolean) {
+        this.element.setAttribute('contenteditable', active ? 'true' : 'false');
+        
+        if (active) {
+            this.element.focus();
+            // Re-attach the event listener in case it was removed by previous handleSubmit
+            this.element.addEventListener('keydown', this.onKeydown);
         } else {
-          // Reached end; return ''
-          historyIndex = -1;
-          element.innerText = '';
+            // Good practice: remove it when inactive so you don't get duplicate fires
+            this.element.removeEventListener('keydown', this.onKeydown);
         }
-        placeCaretAtEnd(element);
-      }
     }
-    if (e.key === 'Enter') {
-      e.preventDefault(); // avoid newline in contenteditable
-      const content = element.innerText.trim();
-      const result = command_parser.parse(content);
-      add(content, result?? empty);
-      console.log(result);
-      element.contentEditable = 'false';
-      element.removeEventListener('keydown', onKeydown);
-      element.blur();
+
+    private placeCaretAtEnd() {
+        const range = document.createRange();
+        const sel = globalThis.getSelection();
+        range.selectNodeContents(this.element);
+        range.collapse(false);
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+ 
+ 
     }
-  }
 
-  // ensure the cursor stays at the end of the text
-  function placeCaretAtEnd(el: HTMLElement) {
-    const range = document.createRange();
-    const sel = globalThis.getSelection();
-    range.selectNodeContents(el);
-    range.collapse(false);
-    sel?.removeAllRanges();
-    sel?.addRange(range);
-  }
+    private handleHistoryNavigation(direction: 'up' | 'down', e: KeyboardEvent) {
+        e.preventDefault();
+        const historyList = get(history);
 
-  element.addEventListener('keydown', onKeydown);
+        if (direction === 'up' && historyList.length > 0) {
+            if (this.historyIndex === -1) this.historyIndex = historyList.length - 1;
+            else if (this.historyIndex > 0) this.historyIndex--;
+            
+            this.element.innerText = historyList[this.historyIndex];
+            this.placeCaretAtEnd();
+        } 
+        else if (direction === 'down' && this.historyIndex !== -1) {
+            if (this.historyIndex < historyList.length - 1) {
+            this.historyIndex++;
+            this.element.innerText = historyList[this.historyIndex];
+            } else {
+            this.historyIndex = -1;
+            this.element.innerText = '';
+            }
+            this.placeCaretAtEnd();
+        }
+    }
+
+    private handleSubmit(e: KeyboardEvent) {
+        e.preventDefault();
+        const content = this.element.innerText.trim();
+        const result = command_parser.parse(content);
+        
+        this.historyIndex = -1;
+        add(content, result ?? empty);
+        
+        // You can now optionally replace these lines with `this.setActive(false);` 
+        // to keep it DRY, but leaving it as-is works perfectly fine too!
+        this.element.contentEditable = 'false';
+        this.element.removeEventListener('keydown', this.onKeydown);
+        this.element.blur();
+    }
+
+    // Helper method to keep things DRY
+    private restoreFocus() {
+        this.element.contentEditable = 'true';
+        this.element.focus();
+        this.placeCaretAtEnd();
+    }
+
+    public destroy() {
+        this.element.removeEventListener('keydown', this.onKeydown);
+    }
+
+    public onKeydown(e: KeyboardEvent) {
+        switch (e.key) {
+            case 'ArrowUp':
+                this.handleHistoryNavigation('up', e);
+                break;
+            case 'ArrowDown':
+                this.handleHistoryNavigation('down', e);
+                break;
+            case 'Enter':
+                this.handleSubmit(e);
+                break;
+        }
+    }
+}
+
+export function handler(element: HTMLElement, params: {active: boolean}) {
+  const session = new TerminalHandler(element, params?.active);
 
   return {
-    update(params: {active: boolean}) {
-      element.setAttribute('contenteditable', params.active ? 'true' : 'false');
-      if (params.active) element.focus();
-      element.addEventListener('keydown', onKeydown);
+    update(newParams: {active: boolean}) {
+      session.setActive(newParams.active);
     },
     destroy() {
-      element.removeEventListener('keydown', onKeydown);
+      session.destroy();
     }
   };
 }
+

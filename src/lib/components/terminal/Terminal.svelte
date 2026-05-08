@@ -1,12 +1,13 @@
 <script lang="ts">
     import { past_commands, history, clear, empty, username, pwd} from '$lib/js/constants';
 	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants';
-    import {PromptString, Help, Ls, ErrorCodes, History} from '$lib/components';
+    import {PromptString, Help, Ls, ErrorCodes, History, Modal} from '$lib/components';
 	const mapping = {
 		'ErrorCodes': ErrorCodes,
 		"Help" : Help,
 		"Ls": Ls,
-		"History": History
+		"History": History,
+		"Modal": Modal
 	};
     $: {
 		if ($clear){
