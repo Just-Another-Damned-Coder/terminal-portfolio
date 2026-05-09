@@ -35,7 +35,7 @@ Visit the live site at [morisjohnson.in](https://morisjohnson.in/).
 | `clear` | Clear the terminal output |
 | `history` | Show command history with timestamps |
 | `rm` | Easter egg |
-| `vim` | Edit files in a simple text editor interface |
+| `vim` | View files in a modal interface|
 | `pwd` | Show current working directory |
 | `echo` | Echo input text back to the terminal |
 | `date` | Display current date and time |  
