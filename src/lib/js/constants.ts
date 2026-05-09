@@ -36,8 +36,8 @@ export const history = writable<string[]>([]);
 let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
 export let empty: App.CommandOutput = {type: "text", name: null, parameters: ""} 
 export const past_commands = writable([[get(username), get(pwd), '', empty, true, date]])
-export const LIMIT_HISTORY = 10;
-export const LIMIT_PAST = 10;
+export const LIMIT_HISTORY = 30;
+export const LIMIT_PAST = 30;
 
 
 /* Documentation

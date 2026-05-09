@@ -7,7 +7,7 @@
 
 ### Fixed
 - Fixed an issue where the `clear` command would not properly clear the terminal output in some cases.
-
+- `clear` command  made the next prompt not editable due to a state management issue, which has been resolved.
 
 ## Changed
 - Refactored terminal command handling to improve performance and maintainability, including better error handling as well.
