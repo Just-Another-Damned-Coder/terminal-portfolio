@@ -88,6 +88,15 @@
   });
 </script>
 
+<svelte:window on:keydown={(e) => {
+    if (dialogOpen && e.key.toLowerCase() === 'q') {
+        e.preventDefault();
+        dialogOpen = false;
+    }
+}} 
+/>
+
+
 <Dialog.Root bind:open={dialogOpen}>
   {#if !hideTrigger}
       <Dialog.Trigger class="doc-trigger">
@@ -108,6 +117,7 @@
             </div>
             {/if}
             <Dialog.Close class="dialog-close"><X /></Dialog.Close>
+            <div class="dialog-quit-text">Press 'q' to quit</div>
           <!-- 2. The Content Body: Scrollable area -->
           <Dialog.Description class="dialog-desc">
             {#if errorMsg}

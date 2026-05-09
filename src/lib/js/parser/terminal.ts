@@ -37,18 +37,6 @@ class TerminalHandler {
         this.setActive(active); 
     }
 
-    public setActive(active: boolean) {
-        this.element.setAttribute('contenteditable', active ? 'true' : 'false');
-        
-        if (active) {
-            this.element.focus();
-            // Re-attach the event listener in case it was removed by previous handleSubmit
-            this.element.addEventListener('keydown', this.onKeydown);
-        } else {
-            // Good practice: remove it when inactive so you don't get duplicate fires
-            this.element.removeEventListener('keydown', this.onKeydown);
-        }
-    }
 
     private placeCaretAtEnd() {
         const range = document.createRange();
@@ -84,19 +72,38 @@ class TerminalHandler {
         }
     }
 
-    private handleSubmit(e: KeyboardEvent) {
+    public handleSubmit(e: KeyboardEvent) {
         e.preventDefault();
         const content = this.element.innerText.trim();
+        
+        // 1. Manually wipe the text if clear is called, because Svelte will reuse this active node!
+        if (content.toLowerCase() === 'clear') {
+            this.element.innerHTML = '&nbsp;';
+        }
+
         const result = command_parser.parse(content);
         
         this.historyIndex = -1;
         add(content, result ?? empty);
         
-        // You can now optionally replace these lines with `this.setActive(false);` 
-        // to keep it DRY, but leaving it as-is works perfectly fine too!
-        this.element.contentEditable = 'false';
-        this.element.removeEventListener('keydown', this.onKeydown);
-        this.element.blur();
+        // 2. DO NOT manually deactivate if it's 'clear'. Svelte will recycle this node 
+        // for the new prompt and skip the update cycle since its prop remains 'true'.
+        if (content.toLowerCase() !== 'clear') {
+            this.setActive(false);
+        }
+    }
+
+    public setActive(active: boolean) {
+        if (active) {
+            // 3. When Svelte recycles an old deactivated node (e.g., clear on the 5th command), wipe it!
+            this.element.innerHTML = '&nbsp;';
+            this.restoreFocus();
+            this.element.addEventListener('keydown', this.onKeydown);
+        } else {
+            this.element.contentEditable = 'false';
+            this.element.removeEventListener('keydown', this.onKeydown);
+            this.element.blur();
+        }
     }
 
     // Helper method to keep things DRY

@@ -16,16 +16,6 @@
   /* If you ever want a dimmer effect without transparency, consider a darker var like --black */
 }
 
-/* Full-viewport content layer (portal container) */
-.dialog-content {
-  position: fixed;
-  inset: 0;
-  z-index: 1001;
-  /* No centering grid since the panel is full-screen */
-  padding: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
 
 /* Full-screen modal panel using theme variables */
 .dialog-panel {
@@ -78,18 +68,38 @@
   border-top: 1px solid var(--selection-background);
 }
 
-/* Close button (icon in corner) */
-.dialog-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  display: inline-flex;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--foreground);
+/* 1. Restore scrolling to the main wrapper */
+.dialog-content {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  padding: 0;
+  overflow-y: auto !important; /* <-- Restores scrolling */
+  display: flex;
+  flex-direction: column;
 }
 
+.dialog-close {
+    /* 1. Force it to break out of the flex layout */
+    position: absolute !important; 
+    
+    /* 2. Anchor it perfectly relative to the top right of the screen */
+    top: 1.25rem !important; /* Adjusted slightly so it aligns nicely with the header text */
+    right: 1.5rem !important;
+    
+    /* 3. Visuals */
+    background-color: var(--background) !important;
+    border: 1px solid var(--selection-background) !important;
+    border-radius: 0.375rem !important;
+    cursor: pointer !important;
+    color: var(--foreground) !important;
+    padding: 0.5rem !important;
+    z-index: 99999 !important;
+
+    /* 4. Strip out any leftover sticky/margin rules from previous iterations */
+    margin: 0 !important;
+    align-self: auto !important;
+}
 /* Example button baseline using theme colors */
 .btn {
   padding: 0.5rem 0.875rem;
@@ -318,4 +328,33 @@
 /* Trim bottom spacing inside dialog */
 .dialog-desc .md> :last-child {
   margin-bottom: 0;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.dialog-content::-webkit-scrollbar,
+.dialog-desc::-webkit-scrollbar,
+.dialog-panel::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.dialog-content,
+.dialog-desc,
+.dialog-panel {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+}
+
+.dialog-quit-text {
+  position: absolute !important; 
+  bottom: 1.5rem;
+  background-color: var(--green);
+  padding: 0.5rem 1rem; /* Slightly wider padding for text */
+  font-size: 0.975rem; /* Slightly smaller text */
+  font-weight: bold;
+  color: var(--black);
+  z-index: 99999;
+  opacity: 0.8; /* Makes it look slightly faded/unobtrusive */
+  pointer-events: none; /* Ensures you can still scroll if your mouse is over it */
 }

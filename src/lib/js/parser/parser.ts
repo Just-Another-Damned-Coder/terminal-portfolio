@@ -143,6 +143,13 @@ class Parser {
                 parameters: new Date().toString() 
             };
         }
+        // Handle clear command directly in the parser to reset history and past commands
+        if (command_name === 'clear') {
+            // Don't manipulate past_commands here — just signal via the store.
+            // The Terminal.svelte reactive block + add() will handle the new prompt.
+            Constants.clear.set(true);
+            return Constants.empty;
+        }
         // --- Dynamic VIM Implementation ---
         if (command_name === 'vim') {
             if (!target) {
