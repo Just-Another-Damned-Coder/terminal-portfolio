@@ -9,15 +9,21 @@
   export let triggerText;
   export let doc; 
   export let docPath: string;// Added to receive docPath from ls.svelte
+  export let open = false;
+  export let hideTrigger = false;
   
   let MdComponent: any = null;
   let errorMsg: string | null = null;
   let isSvx = false;
   let blogProps: any = null;
 
+  // 1. Create a local internal state for the dialog
+  let dialogOpen = false;
+
   const svxModules = import.meta.glob('/src/lib/docs/**/*.svx');
 
   onMount(async () => {
+      dialogOpen = open; // Sync local state with prop on mount
       if (!doc) return;
 
       // Determine if it's an SVX based on whether docPath exists and ends with .svx
@@ -82,11 +88,21 @@
   });
 </script>
 
-<Dialog.Root>
-  <Dialog.Trigger class="doc-trigger">
-      {triggerText}
-  </Dialog.Trigger>
-  
+<svelte:window on:keydown={(e) => {
+    if (dialogOpen && e.key.toLowerCase() === 'q') {
+        e.preventDefault();
+        dialogOpen = false;
+    }
+}} 
+/>
+
+
+<Dialog.Root bind:open={dialogOpen}>
+  {#if !hideTrigger}
+      <Dialog.Trigger class="doc-trigger">
+          {triggerText}
+      </Dialog.Trigger>
+  {/if}
   <Dialog.Portal>
       <Dialog.Overlay class="dialog-overlay" /> 
       
@@ -101,6 +117,7 @@
             </div>
             {/if}
             <Dialog.Close class="dialog-close"><X /></Dialog.Close>
+            <div class="dialog-quit-text">Press 'q' to quit</div>
           <!-- 2. The Content Body: Scrollable area -->
           <Dialog.Description class="dialog-desc">
             {#if errorMsg}

@@ -1,12 +1,13 @@
 <script lang="ts">
     import { past_commands, history, clear, empty, username, pwd} from '$lib/js/constants';
 	import { LIMIT_HISTORY, LIMIT_PAST } from '$lib/js/constants';
-    import {PromptString, Help, Ls, ErrorCodes, History} from '$lib/components';
+    import {PromptString, Help, Ls, ErrorCodes, History, Modal} from '$lib/components';
 	const mapping = {
 		'ErrorCodes': ErrorCodes,
 		"Help" : Help,
 		"Ls": Ls,
-		"History": History
+		"History": History,
+		"Modal": Modal
 	};
     $: {
 		if ($clear){
@@ -17,7 +18,7 @@
 			if (text !== null) text.textContent = "";
 			clear.set(false);
 		}
-		// limit on past_commands (clear if > LIMIT_PAST)
+		// limit on past_commands
 		if ($past_commands.length > LIMIT_PAST) {
 			let date = new Date().toISOString().replace('T', ' ').slice(0, 19);
 			past_commands.set([[$username, $pwd, '', empty, true, date]]);

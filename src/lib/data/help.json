@@ -5,5 +5,9 @@
     "whoami": "Prints out your name, 'visitor' by default.",
     "history": "Shows the past commands you have entered,",
     "cd": "Change directory. Eg. cd about",
-    "help": "Show this message."
+    "help": "Show this message.",
+    "pwd": "Print the current directory path.",
+    "echo": "Echo the input text. Eg. echo Hello World",
+    "date": "Show the current date and time.",
+    "vim": "Open a file in the Vim editor. Eg. vim README.md"
 }

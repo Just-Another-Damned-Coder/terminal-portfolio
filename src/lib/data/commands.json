@@ -62,5 +62,10 @@
     "date": {
         "returns": "text",
         "textContent": "{arg}"
+    },
+    "vim": {
+        "returns": "component",
+        "componentName": "Modal",
+        "argRegex": "vim\\s+(.*)"
     }
 }

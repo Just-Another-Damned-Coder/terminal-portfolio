@@ -6,21 +6,14 @@ Visit the live site at [morisjohnson.in](https://morisjohnson.in/).
 ![](docs/website.gif)
 
 ## Version
-- **Current release:** `v1.3.1`
+- **Current release:** `v1.3.2`
 
 ## What's new in this version
-- Full Markdown blog support with parsed frontmatter metadata, word count, and estimated read time.
-- `.svx` blog rendering enabling interactive Svelte-enhanced posts.
-- New blog components: `src/lib/components/blog/Blog.svelte` and `src/lib/components/blog/BlogTitle.svelte`.
-- New terminal UI components: expandable history panels, accordion output, and updated command prompt styling.
-- Modal component redesign using Bits UI dialog system.
-- New `about` and `contact` pages using `.svx` content.
-- Extended terminal command data and filesystem configuration.
-- Syntax highlighting via Shiki with the Material theme.
-- System information display showing OS, browser, uptime, resolution, CPU, and memory.
-- New terminal commands: `pwd`, `echo`, and `date` for enhanced interactivity.
-- Added `ArrowDown` and `ArrowUp` key support for navigating through command history in the terminal.
-- Resolved issue where `whoami` command would not display anything in the terminal output.
+- Added `vim` command to the terminal, providing a simple text editor interface for file editing.
+- Resolved an issue where the `clear` command would fail to properly clear the terminal output in some instances.
+- Fixed a state management bug related to the `clear` command that caused the subsequent command prompt to become uneditable.
+- Refactored the terminal command handling logic to improve performance, maintainability, and error handling.
+
 
 ## Features
 
@@ -42,6 +35,7 @@ Visit the live site at [morisjohnson.in](https://morisjohnson.in/).
 | `clear` | Clear the terminal output |
 | `history` | Show command history with timestamps |
 | `rm` | Easter egg |
+| `vim` | Edit files in a simple text editor interface |
 | `pwd` | Show current working directory |
 | `echo` | Echo input text back to the terminal |
 | `date` | Display current date and time |  

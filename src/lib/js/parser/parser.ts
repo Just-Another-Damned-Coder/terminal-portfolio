@@ -143,6 +143,51 @@ class Parser {
                 parameters: new Date().toString() 
             };
         }
+        // Handle clear command directly in the parser to reset history and past commands
+        if (command_name === 'clear') {
+            // Don't manipulate past_commands here — just signal via the store.
+            // The Terminal.svelte reactive block + add() will handle the new prompt.
+            Constants.clear.set(true);
+            return Constants.empty;
+        }
+        // --- Dynamic VIM Implementation ---
+        if (command_name === 'vim') {
+            if (!target) {
+                return { type: "text", name: null, parameters: "vim: missing file operand" };
+            }
+
+            // 1. Resolve the full path and split into directory and filename
+            const fullPath = this.check_directory(currentPath, target);
+            const lastSlashIndex = fullPath.lastIndexOf('/');
+            const parentPath = lastSlashIndex > 0 ? fullPath.substring(0, lastSlashIndex) : "~/home";
+            const fileName = fullPath.substring(lastSlashIndex + 1);
+
+            // 2. Access the filesystem constants
+            const parentDir = (Constants as any).FILELIST[parentPath];
+            const fileData = parentDir ? parentDir[fileName] : null;
+
+            // 3. Validate file exists and is openable in a modal
+            if (fileData && fileData.type === 'modal') {
+                return {
+                    type: "component",
+                    name: "Modal",
+                    parameters: { 
+                        doc: fileData.doc, 
+                        docPath: fileData.docPath, 
+                        triggerText: fileName,
+                        open: true, // Pass a prop to open it automatically
+                        hideTrigger: true // Hide the trigger button
+                    }
+                };
+            }
+
+            // 4. Handle errors (not a file or not found)
+            if (fileData && fileData.type !== 'modal') {
+                return { type: "text", name: null, parameters: `vim: ${target}: Not a text file` };
+            }
+
+            return this.dirError('vim', target, '2', 'not_found');
+        }
 
         const config = (Constants.COMMANDS as any)[command_name];
         if (!config) return Constants.empty;
