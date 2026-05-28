@@ -9,7 +9,7 @@ import { get, writable } from 'svelte/store';
 export const version = "v1.3.2";
 // The title of the username;
 export const name = "Moris Johnson";
-
+export const github = "https://github.com/morisjohnson";
 
 // Constants for the application, color schemes and command list
 // Used for theme switching and command parser.

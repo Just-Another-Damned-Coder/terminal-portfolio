@@ -1,24 +1,23 @@
-<script lang='ts'>
-    import {Avatar, Title, ThemeSelector, DisplayInfo, Terminal} from "$lib/components";
-    import {tableHeightStore} from '$lib/js/constants';
-    let tableHeight: number;
-    $: if (tableHeight) {
-        tableHeightStore.set(tableHeight);
-    }
+<script>
+    import {Navbar, LatestPosts} from "$lib/components";
 
+    export let data;
 </script>
 
+<div class="home">
+    <Navbar />
 
+    <main>
+        <section class="hero">
+            <h1 class="hero-title">Welcome</h1>
+            <p class="hero-subtitle">
+                A terminal-inspired portfolio and blog. Explore projects, read posts, or switch to the
+                <a href="/terminal">full terminal experience</a>.
+            </p>
+        </section>
 
-<div class="column">
-    <Title />
-    <div class="row" style="margin-bottom: 1%;">
-        <Avatar />
-        <div class="column" bind:clientHeight={tableHeight}>
-            <DisplayInfo />
-            <ThemeSelector />
-        </div>
-    </div>
+        <section class="latest-section">
+            <LatestPosts {data} />
+        </section>
+    </main>
 </div>
-
-<Terminal />

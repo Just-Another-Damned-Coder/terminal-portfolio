@@ -26,42 +26,57 @@
         }
     },
     "~/home/blogs": {
-        "some-topic": {
-            "type": "directory"
+        "..": {
+            "type": "directory",
+            "target": "~/home"
         },
-        "my-first-post.md": {
+        "nested.md": {
+            "type": "modal",
+            "doc": "blogs/nested.md"
+        },
+        "sample.md": {
             "type": "modal",
             "doc": "blogs/sample.md"
         },
+        "some-topic1": {
+            "type": "directory"
+        },
+        "some-topic2": {
+            "type": "directory"
+        }
+    },
+    "~/home/projects": {
         "..": {
             "type": "directory",
             "target": "~/home"
         }
     },
-    "~/home/blogs/some-topic": {
-        "post-inside-topic.md": {
+    "~/home/blogs/some-topic1": {
+        "some-post1.md": {
             "type": "modal",
-            "doc": "blogs/nested.md"
+            "doc": "blogs/some-topic1/some-post1.md"
+        },
+        "some-post2.md": {
+            "type": "modal",
+            "doc": "blogs/some-topic1/some-post2.md"
         },
         "..": {
             "type": "directory",
             "target": "~/home/blogs"
         }
     },
-    "~/home/projects": {
-        "some-topic": {
-            "type": "directory"
-        },
-        "my-first-post.md": {
+    "~/home/blogs/some-topic2": {
+        "some-post3.md": {
             "type": "modal",
-            "doc": "blogs/sample.md"
+            "doc": "blogs/some-topic2/some-post3.md"
+        },
+        "some-post4.md": {
+            "type": "modal",
+            "doc": "blogs/some-topic2/some-post4.md"
         },
         "..": {
             "type": "directory",
-            "target": "~/home"
+            "target": "~/home/blogs"
         }
-    },
-     "~/home/projects/some-topic": {
-     }
-     
+    }
 }

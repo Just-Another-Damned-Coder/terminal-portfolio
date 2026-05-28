@@ -19,3 +19,7 @@ export {default as List} from './home/terminal-output/Accordion.svelte';
 export {default as History} from './home/terminal-output/History.svelte';
 
 export {default as Blog} from './blog/Blog.svelte';
+
+// Root page
+export {default as Navbar} from './root/Navbar.svelte';
+export {default as LatestPosts} from './root/LatestPosts.svelte';
