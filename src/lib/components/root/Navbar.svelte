@@ -1,59 +1,24 @@
 <script>
 	import { name, version, github, COLORS, scheme } from '$lib/js/constants';
+	import { Palette } from '@lucide/svelte';
 
 	const themeKeys = Object.keys(COLORS);
 
 	let themeOpen = false;
-	let mobileNavOpen = false;
 </script>
 
 <nav>
-	<!-- Mobile header: brand + hamburger -->
-	<div class="nav-header">
-		<a href="/" class="brand">
-			<span class="name">{name}</span>
-			<span class="version">{version}</span>
-		</a>
-		<button class="hamburger" on:click={() => (mobileNavOpen = !mobileNavOpen)} aria-label="Toggle navigation">
-			<span class:open={mobileNavOpen}></span>
-			<span class:open={mobileNavOpen}></span>
-			<span class:open={mobileNavOpen}></span>
-		</button>
-	</div>
-	<!-- Nav links: vertical on mobile, row on desktop -->
-	<ul class:show={mobileNavOpen}>
-		<li class="brand-li">
-			<a href="/" class="brand">
-				<span class="name">{name}</span>
-				<span class="version">{version}</span>
-			</a>
-		</li>
-		<li class="spacer"></li>
-		<li>
-			<a href="/terminal" on:click={() => (mobileNavOpen = false)}>[Terminal]</a>
-		</li>
-		<li>
-			<a href="/about" on:click={() => (mobileNavOpen = false)}>About</a>
-		</li>
-		<li>
-			<a href="/contact" on:click={() => (mobileNavOpen = false)}>Contact</a>
-		</li>
-		<li>
-			<a href={github} on:click={() => (mobileNavOpen = false)}>Github</a>
-		</li>
-		<li>
-			<a href="/blogs" on:click={() => (mobileNavOpen = false)}>Blogs</a>
-		</li>
-		<li class="theme-wrapper">
+	<div class="theme-wrapper">
+		<div class="theme-inner">
 			<button
 				class="theme-btn"
-				style="background-color: {COLORS[$scheme].cyan}; color: {COLORS[$scheme].background};"
+				style="color: {COLORS[$scheme].foreground};"
 				on:click={() => (themeOpen = !themeOpen)}
 			>
-				Theme &#x25BE;
+				<Palette size={16} />
 			</button>
 			{#if themeOpen}
-				<div class="theme-dropdown" role="menu" tabindex="-1" style="background: {COLORS[$scheme].background}; border-color: {COLORS[$scheme].brightBlack};"  on:mouseleave={() => (themeOpen = false)}>
+				<div class="theme-dropdown" role="menu" tabindex="-1" style="background: {COLORS[$scheme].background}; border-color: {COLORS[$scheme].brightBlack};" on:mouseleave={() => (themeOpen = false)}>
 					{#each themeKeys as key}
 						<button
 							class="theme-option"
@@ -70,10 +35,19 @@
 					{/each}
 				</div>
 			{/if}
-		</li>
+		</div>
+	</div>
+	<div class="top-row">
+		<a href="/" class="brand">
+			{name}
+			<span class="version">{version}</span>
+		</a>
+	</div>
+	<ul class="links">
+		<li><a href="/terminal">[Terminal]</a></li>
+		<li><a href="/about">About</a></li>
+		<li><a href="/contact">Contact</a></li>
+		<li><a href={github}>Github</a></li>
+		<li><a href="/blogs">Blogs</a></li>
 	</ul>
 </nav>
-
-<style>
-	
-</style>

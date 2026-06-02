@@ -9,7 +9,9 @@
   @import './css/global.css';   /* Defines your variables cite: 14, 16 */
   @import './css/markdown.css'; /* Your cleaned Markdown styles cite: 14, 15 */
   @import './css/terminal.css'; 
-  @import './css/modal.css';    
+  @import './css/modal.css';
+  @import './css/navbar.css';
+  @import './css/latest-posts.css';
 }
 
 @font-face {

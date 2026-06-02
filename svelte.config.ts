@@ -13,7 +13,7 @@ const mdsvexOptions = {
       if (!highlighter) {
         highlighter = await createHighlighter({
           themes: ['material-theme'],
-          langs: ['javascript', 'typescript', 'bash', 'svelte', 'json', 'html', 'css', 'python']
+          langs: ['bash', 'rust', 'json', 'python']
         });
       }
 

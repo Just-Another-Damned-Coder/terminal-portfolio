@@ -1,0 +1,129 @@
+nav {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.top-row,
+.links {
+    width: 100%;
+    max-width: 1200px;
+}
+.top-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.brand {
+    text-decoration: none;
+    color: inherit;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: clamp(1rem, 10vw, 2.5rem);
+    color: var(--yellow);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.2;
+}
+.version {
+    font-family: monospace;
+    font-size: clamp(0.4rem, 0.9vw, 0.7rem);
+    color: var(--cyan);
+    line-height: 1;
+}
+.theme-wrapper {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+}
+.theme-inner {
+    position: relative;
+}
+.theme-btn {
+    border: 1px solid var(--selection-background);
+    border-radius: 6px;
+    padding: 0.35rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+.theme-btn:hover {
+    border-color: var(--foreground);
+}
+.theme-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    border: 1px solid;
+    border-radius: 6px;
+    padding: 0.4rem 0;
+    z-index: 100;
+    min-width: 160px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.4rem 0.75rem;
+    border: none;
+    background: transparent;
+    font-family: monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+}
+.theme-option:hover {
+    background: color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+.theme-option.active {
+    background: color-mix(in srgb, var(--foreground) 15%, transparent);
+}
+.swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.links {
+    list-style: none;
+    margin: 0.35rem 0 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 2.2vw, 1.25rem);
+    flex-wrap: wrap;
+}
+.links a {
+    color: var(--foreground);
+    text-decoration: none;
+    font-size: clamp(0.72rem, 3vw, 1.5rem);
+}
+.links a:hover {
+    color: var(--blue);
+}
+
+@media (min-width: 600px) {
+    nav {
+        padding: 0.5rem 1.5rem;
+    }
+    .links {
+        gap: 1.25rem;
+    }
+    .theme-dropdown {
+        min-width: 180px;
+    }
+    .theme-option {
+        font-size: 0.8rem;
+    }
+}

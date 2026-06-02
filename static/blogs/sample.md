@@ -4,7 +4,7 @@ date: 2025-10-05
 author: "Moris Johnson"
 tags: [contact, email]
 draft: false
-description: "How to contact."
+description: "How to contact, long ass description, lipsum lorun dwda dw ad aw d as dwadasd w  ad  a  d w da w da wdaw d  wa  d aw wd  aw d"
 slug: contact
 layout: post
 toc: false
