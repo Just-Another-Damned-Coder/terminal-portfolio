@@ -30,6 +30,12 @@
             "type": "directory",
             "target": "~/home"
         },
+        "advent-of-code": {
+            "type": "directory"
+        },
+        "maths": {
+            "type": "directory"
+        },
         "nested.md": {
             "type": "modal",
             "doc": "blogs/nested.md"
@@ -49,6 +55,44 @@
         "..": {
             "type": "directory",
             "target": "~/home"
+        }
+    },
+    "~/home/blogs/advent-of-code/2025": {
+        "Problem 1.md": {
+            "type": "modal",
+            "doc": "blogs/advent-of-code/2025/Problem 1.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs/advent-of-code"
+        }
+    },
+    "~/home/blogs/advent-of-code": {
+        "2025": {
+            "type": "directory"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs"
+        }
+    },
+    "~/home/blogs/maths/quantitative-aptitude": {
+        "Successive Percentage.md": {
+            "type": "modal",
+            "doc": "blogs/maths/quantitative-aptitude/Successive Percentage.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs/maths"
+        }
+    },
+    "~/home/blogs/maths": {
+        "quantitative-aptitude": {
+            "type": "directory"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs"
         }
     },
     "~/home/blogs/some-topic1": {

@@ -24,7 +24,7 @@ let clientHighlighter: any = null;
 export async function parseWithHighlights(markdownString: string) {
     if (!clientHighlighter) {
         clientHighlighter = await createHighlighter({
-            themes: ['material-theme'],
+            themes: ['github-dark-high-contrast'],
             langs: ['javascript', 'typescript', 'bash', 'python', 'json', 'html', 'css']
         });
         
@@ -33,7 +33,7 @@ export async function parseWithHighlights(markdownString: string) {
                 const validLang = clientHighlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
                 return clientHighlighter.codeToHtml(code, {
                     lang: validLang,
-                    theme: 'material-theme'
+                    theme: 'github-dark-high-contrast'
                 });
             }
         }));

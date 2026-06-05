@@ -1,7 +1,7 @@
 {
 	"name": "blog",
 	"private": true,
-	"version": "1.3.2",
+	"version": "1.4.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -46,8 +46,12 @@
 	"dependencies": {
 		"front-matter": "^4.0.2",
 		"gray-matter": "^4.0.3",
+		"katex": "^0.17.0",
 		"marked": "^17.0.0",
+		"marked-katex-extension": "^5.1.10",
 		"marked-shiki": "^1.2.1",
+		"rehype-katex": "^7.0.1",
+		"remark-math": "^6.0.0",
 		"shiki": "^4.0.2"
 	}
 }

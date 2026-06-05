@@ -4,17 +4,19 @@ import path from "path";
 import matter from "gray-matter";
 import { Marked } from "marked";
 import markedShiki from "marked-shiki";
+import markedKatex from "marked-katex-extension";
 import { createHighlighter } from "shiki";
 
 const highlighter = await createHighlighter({
-  themes: ["material-theme"],
+  themes: ["github-dark-high-contrast"],
   langs: ["javascript", "typescript", "bash", "svelte", "json", "html", "css", "python", "markdown", "text"]
 });
 
 const marked = new Marked(
   markedShiki({
-    highlight: (code, lang) => highlighter.codeToHtml(code, { lang: lang || "text", theme: "material-theme" })
-  })
+    highlight: (code, lang) => highlighter.codeToHtml(code, { lang: lang || "text", theme: "github-dark-high-contrast" })
+  }),
+  markedKatex({ throwOnError: false })
 );
 
 export async function load({ params }) {
