@@ -14,7 +14,7 @@ async function getMarked() {
   if (!customMarked) {
     highlighter = await createHighlighter({
       themes: ["github-dark-high-contrast"],
-      langs: ["javascript", "typescript", "bash", "svelte", "json", "html", "css", "python", "markdown", "text"]
+      langs: ["json", "html", "bash", "python", "rust", "text"]
     });
     customMarked = new Marked(
       markedShiki({

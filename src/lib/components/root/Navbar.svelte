@@ -1,6 +1,6 @@
 <script>
 	import { name, version, github, COLORS, scheme } from '$lib/js/constants';
-	import { Palette } from '@lucide/svelte';
+	import { Palette, SquareTerminal } from '@lucide/svelte';
 
 	const themeKeys = Object.keys(COLORS);
 
@@ -8,6 +8,11 @@
 </script>
 
 <nav>
+	<div class="terminal-wrapper">
+		<a href="/terminal" class="terminal-btn" aria-label="Terminal">
+			<SquareTerminal size={28} />
+		</a>
+	</div>
 	<div class="theme-wrapper">
 		<div class="theme-inner">
 			<button
@@ -44,10 +49,10 @@
 		</a>
 	</div>
 	<ul class="links">
-		<li><a href="/terminal">[Terminal]</a></li>
 		<li><a href="/about">About</a></li>
 		<li><a href="/contact">Contact</a></li>
 		<li><a href={github}>Github</a></li>
 		<li><a href="/blogs">Blogs</a></li>
+		<li><a href="/blogs">Projects</a></li>
 	</ul>
 </nav>

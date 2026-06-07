@@ -22,7 +22,7 @@ nav {
     text-decoration: none;
     color: inherit;
     font-family: 'Press Start 2P', sans-serif;
-    font-size: clamp(1rem, 10vw, 2.5rem);
+    font-size: clamp(1rem, 4vw, 2rem);
     color: var(--yellow);
     display: inline-flex;
     flex-direction: column;
@@ -35,10 +35,37 @@ nav {
     color: var(--cyan);
     line-height: 1;
 }
+.terminal-wrapper {
+    position: absolute;
+    left: 1rem;
+    top: 0.5rem;
+    z-index: 50;
+}
+.terminal-btn {
+    border: 1px solid var(--selection-background);
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: inherit;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+.terminal-btn:hover {
+    border-color: var(--foreground);
+    color: var(--cyan);
+}
 .theme-wrapper {
     position: absolute;
     right: 1rem;
     top: 0.5rem;
+    z-index: 50;
 }
 .theme-inner {
     position: relative;
@@ -46,12 +73,16 @@ nav {
 .theme-btn {
     border: 1px solid var(--selection-background);
     border-radius: 6px;
-    padding: 0.35rem;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     background: transparent;
+    box-sizing: border-box;
 }
 .theme-btn:hover {
     border-color: var(--foreground);
@@ -121,9 +152,16 @@ nav {
         gap: 1.25rem;
     }
     .theme-dropdown {
-        min-width: 180px;
+        min-width: 220px;
     }
     .theme-option {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 599px) {
+    .brand {
+        font-size: clamp(0.9rem, 4.5vw, 1.2rem);
     }
 }

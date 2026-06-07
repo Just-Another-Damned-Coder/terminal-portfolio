@@ -99,19 +99,19 @@
 
 <style>
     .blog-listing { min-height: 100vh; display: flex; flex-direction: column; }
-    .top-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; position: relative; }
-    .home-btn { display: flex; align-items: center; justify-content: center; color: var(--foreground); text-decoration: none; padding: 0.4rem; border: 1px solid var(--selection-background); border-radius: 6px; transition: border-color 0.2s; }
+    .top-bar { height: 60px; position: relative; width: 100%; box-sizing: border-box; }
+    .home-btn { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; color: var(--foreground); text-decoration: none; width: 36px; height: 36px; padding: 0; margin: 0; border: 1px solid var(--selection-background); border-radius: 6px; transition: border-color 0.2s; box-sizing: border-box; }
     .home-btn:hover { border-color: var(--blue); color: var(--blue); }
-    .theme-wrapper { position: relative; }
-    .theme-inner { position: relative; }
-    .theme-btn { border: 1px solid var(--selection-background); border-radius: 6px; padding: 0.35rem; cursor: pointer; display: flex; align-items: center; justify-content: center; background: transparent; }
+    .theme-wrapper { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; align-items: center; height: 36px; margin: 0; padding: 0; z-index: 50; }
+    .theme-inner { position: relative; display: flex; align-items: center; height: 100%; }
+    .theme-btn { border: 1px solid var(--selection-background); border-radius: 6px; width: 36px; height: 36px; padding: 0; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; background: transparent; box-sizing: border-box; color: inherit; }
     .theme-btn:hover { border-color: var(--foreground); }
     .theme-dropdown { position: absolute; right: 0; top: calc(100% + 6px); border: 1px solid; border-radius: 6px; padding: 0.4rem 0; z-index: 100; min-width: 160px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
     .theme-option { display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.4rem 0.75rem; border: none; background: transparent; font-family: monospace; font-size: 0.75rem; cursor: pointer; text-align: left; color: inherit; }
     .theme-option:hover { background: color-mix(in srgb, var(--foreground) 10%, transparent); }
     .theme-option.active { background: color-mix(in srgb, var(--foreground) 15%, transparent); }
     .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    main { flex: 1; width: 100%; max-width: 900px; margin: 0 auto; padding: 0 1.5rem 2rem; box-sizing: border-box; }
+    main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; box-sizing: border-box; }
     .page-title { font-family: 'Press Start 2P', sans-serif; font-size: var(--title-size); color: var(--yellow); margin: 0 0 1.5rem 0; text-align: center; }
     .search-wrapper { display: flex; justify-content: center; align-items: center; margin-bottom: 2rem; position: relative; }
     :global(.search-icon) { position: absolute; left: calc(50% - 250px + 0.75rem); color: var(--bright-black); pointer-events: none; }
@@ -132,10 +132,16 @@
     .tag { background: color-mix(in srgb, var(--background) 70%, var(--bright-black) 30%); color: var(--cyan); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.85rem; border: 1px solid var(--selection-background); }
     @media (max-width: 599px) {
         main { padding: 0 1rem 2rem; }
+        .home-btn { left: 1rem; }
+        .theme-wrapper { right: 1rem; }
         .page-title { font-size: calc(var(--title-size) * 0.9); margin-bottom: 1rem; }
         .post { padding: 0.9rem; }
         .search-bar { max-width: 100%; }
-        :global(.search-icon) { left: 1.75rem; }
+        :global(.search-icon) { left: 0.75rem; }
+        .post h2 a { font-size: 1rem; }
+        .post p { font-size: 0.8rem; margin-bottom: 0.5rem; }
+        .date { font-size: 0.75rem; }
+        .tag { font-size: 0.7rem; padding: 0.15rem 0.4rem; }
     }
     @media (min-width: 600px) and (max-width: 899px) {
         main { padding: 0 1.5rem 2rem; }
