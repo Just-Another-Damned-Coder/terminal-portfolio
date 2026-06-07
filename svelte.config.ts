@@ -1,49 +1,50 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import { mdsvex, escapeSvelte } from 'mdsvex';
-import { createHighlighter } from 'shiki';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
 
-let highlighter;
+let mdsvexProcessor;
 
-/** @type {import('mdsvex').MdsvexOptions} */
-const mdsvexOptions = {
-  extensions: ['.svx', '.md'],
-  remarkPlugins: [remarkMath],
-  rehypePlugins: [rehypeKatex],
-  highlight: {
-    highlighter: async (code, lang = 'text') => {
-      if (!highlighter) {
-        highlighter = await createHighlighter({
-          themes: ['github-dark-high-contrast'],
-          langs: ['bash', 'rust', 'json', 'python']
-        });
-      }
+const lazyMdsvex = {
+  markup: async (args) => {
+    if (!mdsvexProcessor) {
+      const { mdsvex, escapeSvelte } = await import('mdsvex');
+      const { createHighlighter } = await import('shiki');
+      const remarkMath = (await import('remark-math')).default;
+      const rehypeKatex = (await import('rehype-katex')).default;
 
-      // FIXED: getLoadedLanguages() instead of getLoadedLangs()
-      const validLang = highlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
+      let highlighter;
       
-      const html = escapeSvelte(
-        highlighter.codeToHtml(code, {
-          lang: validLang,
-          theme: 'github-dark-high-contrast'
-        })
-      );
-
-      return `{@html \`${html}\` }`;
+      mdsvexProcessor = mdsvex({
+        extensions: ['.svx', '.md'],
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+        highlight: {
+          highlighter: async (code, lang = 'text') => {
+            if (!highlighter) {
+              highlighter = await createHighlighter({
+                themes: ['github-dark-high-contrast'],
+                langs: ['bash', 'rust', 'json', 'python']
+              });
+            }
+            const validLang = highlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
+            const html = escapeSvelte(
+              highlighter.codeToHtml(code, {
+                lang: validLang,
+                theme: 'github-dark-high-contrast'
+              })
+            );
+            return `{@html \`${html}\` }`;
+          }
+        }
+      });
     }
+    return mdsvexProcessor.markup ? mdsvexProcessor.markup(args) : undefined;
   }
 };
 
-
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  // 1. Move mdsvex to the FRONT of the array
-  // 2. Add .svelte to the mdsvex extensions if you have issues, 
-  // but usually just .svx and .md is fine.
   preprocess: [
-    mdsvex(mdsvexOptions), 
+    lazyMdsvex, 
     vitePreprocess()
   ],
 

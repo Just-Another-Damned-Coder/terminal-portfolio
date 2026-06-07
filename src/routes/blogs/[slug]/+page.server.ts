@@ -7,17 +7,24 @@ import markedShiki from "marked-shiki";
 import markedKatex from "marked-katex-extension";
 import { createHighlighter } from "shiki";
 
-const highlighter = await createHighlighter({
-  themes: ["github-dark-high-contrast"],
-  langs: ["javascript", "typescript", "bash", "svelte", "json", "html", "css", "python", "markdown", "text"]
-});
+let highlighter: any = null;
+let customMarked: any = null;
 
-const marked = new Marked(
-  markedShiki({
-    highlight: (code, lang) => highlighter.codeToHtml(code, { lang: lang || "text", theme: "github-dark-high-contrast" })
-  }),
-  markedKatex({ throwOnError: false })
-);
+async function getMarked() {
+  if (!customMarked) {
+    highlighter = await createHighlighter({
+      themes: ["github-dark-high-contrast"],
+      langs: ["javascript", "typescript", "bash", "svelte", "json", "html", "css", "python", "markdown", "text"]
+    });
+    customMarked = new Marked(
+      markedShiki({
+        highlight: (code, lang) => highlighter.codeToHtml(code, { lang: lang || "text", theme: "github-dark-high-contrast" })
+      }),
+      markedKatex({ throwOnError: false })
+    );
+  }
+  return customMarked;
+}
 
 export async function load({ params }) {
     const { slug } = params;
@@ -38,7 +45,8 @@ export async function load({ params }) {
     }
 
     const { data, content } = matter(fileContent);
-    const contentHtml = String(await marked.parse(content));
+    const markedInstance = await getMarked();
+    const contentHtml = String(await markedInstance.parse(content));
 
     return {
         post: {

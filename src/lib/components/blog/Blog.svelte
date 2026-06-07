@@ -30,6 +30,21 @@
     </div>
 </article>
 
+<article class="blog-container">
+    <header class="blog-header">
+        <h1 class="name">{title}</h1>
+        <div class="metadata">
+            <span>[ Author: {author} ]</span>
+            {#if date}<span>[ Date: {formattedDate} ]</span>{/if}
+            <span>[ {wordCount} words | {readTime} min read ]</span>
+        </div>
+    </header>
+
+    <div bind:this={container} class="markdown-body markdown-content">
+        {@html contentHtml}
+    </div>
+</article>
+
 <style>
 
     :global(.markdown-body h1),

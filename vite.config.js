@@ -11,7 +11,10 @@ export default defineConfig({
   },
   server: {
     port: 5173, // default Vite port
-    open: true, // open browser on start
+    open: false, // do not open browser on start
+  },
+  optimizeDeps: {
+    exclude: ['shiki', 'marked', 'marked-shiki', 'marked-katex-extension']
   }
 });
 

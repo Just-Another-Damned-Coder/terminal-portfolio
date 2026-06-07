@@ -144,3 +144,24 @@
     border-top: 1px solid var(--selection-background);
     margin: 1.5rem 0;
 }
+
+/* KaTeX display math - scrollable on overflow */
+.markdown-content .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    padding: 0.5rem 0;
+}
+
+.markdown-content .katex-display > .katex {
+    max-width: 100%;
+}
+
+.markdown-content .katex-display::-webkit-scrollbar {
+    height: 4px;
+}
+
+.markdown-content .katex-display::-webkit-scrollbar-thumb {
+    background: var(--selection-background);
+    border-radius: 2px;
+}
