@@ -58,6 +58,9 @@ const config = {
       precompress: false,
       strict: true
     }),
+    paths: {
+      relative: false
+    },
     // If you are using aliases like $lib, ensure they are resolved
     alias: {
       $lib: 'src/lib'
