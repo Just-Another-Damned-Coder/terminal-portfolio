@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href="/images/sample.svg" />
+	<!-- Add your real favicon here later: <link rel="icon" href="/favicon.png" /> -->
 </svelte:head>
 
 {@render children?.()}

@@ -46,15 +46,6 @@
 </Accordion.Root>
 
 <style>
-  .accordion-root {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    color: var(--foreground);
-    border: 1px solid var(--selection-background);
-    border-radius: 6px;
-    overflow: hidden;
-  }
 
   :global(.accordion-item) {
     border-bottom: 1px solid var(--selection-background);
