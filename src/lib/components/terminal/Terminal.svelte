@@ -37,30 +37,32 @@
 </script>
 
 {#each $past_commands as data: App.PastCommands}
-  <PromptString
-    editable={data[4] ? "false" : "true"}
-	latest_username={data[0]}
-	latest_pwd={data[1]}
-  />
+  <div>
+    <PromptString
+      editable={data[4] ? "false" : "true"}
+      latest_username={data[0]}
+      latest_pwd={data[1]}
+    />
 
-  <!-- type App.CommandOutput = {
-    type: string;
-    name: string | null;
-    parameters: string[] | null;
-} -->
-	{#if data[3] && (data[3] as App.CommandOutput).type === 'component'}
-    <!-- Render the mapped component -->
-		{#if data[3].name && data[3].name in mapping}
-			<svelte:component this={mapping[data[3].name]} {...data[3].parameters} />
-		{/if}
-			{#if data[3] && ((data[3] as App.CommandOutput).parameters as { codeType?: string })?.codeType === 'ERROR'}
-				<div class="prompt-output">
-					💡 Type 'help' to find more about available commands and use cases.
-				</div>
-			{/if}
-		{:else}
-			<div class="prompt-output">
-				{data[3] ? (data[3] as App.CommandOutput).parameters : ''}
-			</div>
-	{/if}
+    <!-- type App.CommandOutput = {
+      type: string;
+      name: string | null;
+      parameters: string[] | null;
+  } -->
+    {#if data[3] && (data[3] as App.CommandOutput).type === 'component'}
+      <!-- Render the mapped component -->
+      {#if data[3].name && data[3].name in mapping}
+        <svelte:component this={mapping[data[3].name]} {...data[3].parameters} />
+      {/if}
+      {#if data[3] && ((data[3] as App.CommandOutput).parameters as { codeType?: string })?.codeType === 'ERROR'}
+        <div class="prompt-output">
+          💡 Type 'help' to find more about available commands and use cases.
+        </div>
+      {/if}
+    {:else}
+      <div class="prompt-output">
+        {data[3] ? (data[3] as App.CommandOutput).parameters : ''}
+      </div>
+    {/if}
+  </div>
 {/each}
