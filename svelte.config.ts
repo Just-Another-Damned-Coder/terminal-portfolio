@@ -54,12 +54,12 @@ const config = {
     adapter: adapter({
       pages: 'build',
       assets: 'build',
-      fallback: '404.html', // Recommended for static sites
+      fallback: 'index.html', // Recommended for static sites
       precompress: false,
       strict: true
     }),
     paths: {
-      relative: false
+      relative: true
     },
     // If you are using aliases like $lib, ensure they are resolved
     alias: {

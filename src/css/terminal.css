@@ -1,6 +1,4 @@
 .prompt-string {
-    display: flex;
-    flex-direction: row;
     margin-right: 2%;
     margin-left: 2%;
     font-size: var(--font-size);
@@ -8,17 +6,15 @@
     align-items: baseline;
     outline: none;
     box-shadow: none;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: anywhere;
 }
 .command {
-    flex: 1;
     margin-left: 0.5%;
     white-space: pre-wrap; 
-    text-overflow: wrap;
     height: 1em;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: anywhere;
     cursor: pointer;
     max-width: 100%;
 }
@@ -36,7 +32,7 @@
     align-items: baseline;
     outline: none;
     box-shadow: none;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: anywhere;
     color: var(--foreground);
 }
