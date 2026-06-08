@@ -13,6 +13,10 @@ body {
   justify-content: center;
 }
 
+.ghost-text {
+  color: var(--bright-black);
+}
+
 .column {
   display: flex;
   flex-direction: column;

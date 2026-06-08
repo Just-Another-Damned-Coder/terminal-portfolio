@@ -28,15 +28,70 @@ export function add(input: string, output: App.CommandOutput): void {
 class TerminalHandler {
     private element: HTMLElement;
     private historyIndex: number = -1;
+    private animInterval: number | null = null;
+    private originalText: string = '';
+    private animText: string = '';
+    private animIndex: number = 0;
+    private ghostSpan: HTMLSpanElement | null = null;
 
     constructor(element: HTMLElement, active: boolean) {
         this.element = element;
         // Bind methods to preserve 'this' context FIRST
         this.onKeydown = this.onKeydown.bind(this);
+        this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
         // Then call setActive which will handle both focusing and event listeners
         this.setActive(active); 
     }
 
+    private clearAnimation() {
+        if (this.animInterval !== null) {
+            clearInterval(this.animInterval);
+            this.animInterval = null;
+        }
+        if (this.ghostSpan && this.element.contains(this.ghostSpan)) {
+            this.element.removeChild(this.ghostSpan);
+        }
+        this.ghostSpan = null;
+    }
+
+    private onFocus() {
+        this.clearAnimation();
+        this.element.innerText = this.originalText || '\u00A0';
+        this.placeCaretAtEnd();
+    }
+
+    private onBlur() {
+        this.clearAnimation();
+        
+        let baseText = this.element.innerText;
+        if (baseText === '\u00A0' || baseText.trim() === '') {
+            this.originalText = '';
+            baseText = '';
+            this.animText = "Click here to type and enter to execute the command..";
+        } else {
+            this.originalText = baseText;
+            this.animText = " Click here and continue typing..";
+        }
+        
+        this.element.innerText = baseText; // ensure base text is clean
+        this.ghostSpan = document.createElement('span');
+        this.ghostSpan.className = 'ghost-text';
+        this.ghostSpan.innerText = baseText ? '' : '\u00A0';
+        this.element.appendChild(this.ghostSpan);
+        
+        this.animIndex = 0;
+        this.animInterval = window.setInterval(() => {
+            this.animIndex++;
+            
+            if (this.animIndex <= this.animText.length) {
+                if (this.ghostSpan) this.ghostSpan.innerText = this.animText.substring(0, this.animIndex);
+            } else if (this.animIndex > this.animText.length + 40) { // pause for 2 seconds (40 * 50ms) before looping
+                this.animIndex = 0;
+                if (this.ghostSpan) this.ghostSpan.innerText = baseText ? '' : '\u00A0';
+            }
+        }, 50) as unknown as number;
+    }
 
     private placeCaretAtEnd() {
         const range = document.createRange();
@@ -97,11 +152,17 @@ class TerminalHandler {
         if (active) {
             // 3. When Svelte recycles an old deactivated node (e.g., clear on the 5th command), wipe it!
             this.element.innerHTML = '&nbsp;';
-            this.restoreFocus();
+            this.originalText = '';
             this.element.addEventListener('keydown', this.onKeydown);
+            this.element.addEventListener('focus', this.onFocus);
+            this.element.addEventListener('blur', this.onBlur);
+            this.restoreFocus();
         } else {
             this.element.contentEditable = 'false';
             this.element.removeEventListener('keydown', this.onKeydown);
+            this.element.removeEventListener('focus', this.onFocus);
+            this.element.removeEventListener('blur', this.onBlur);
+            this.clearAnimation();
             this.element.blur();
         }
     }
@@ -115,6 +176,9 @@ class TerminalHandler {
 
     public destroy() {
         this.element.removeEventListener('keydown', this.onKeydown);
+        this.element.removeEventListener('focus', this.onFocus);
+        this.element.removeEventListener('blur', this.onBlur);
+        this.clearAnimation();
     }
 
     public onKeydown(e: KeyboardEvent) {
