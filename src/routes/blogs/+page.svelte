@@ -1,6 +1,7 @@
 <script>
     import { Search, House, Palette } from '@lucide/svelte';
     import { COLORS, scheme } from '$lib/js/constants';
+    import { Skeleton } from '$lib/components';
 
     let { data } = $props();
 
@@ -72,28 +73,33 @@
             />
         </div>
 
-        {#if filteredPosts.length === 0}
+        {#if posts.length === 0 && !query}
+            <!-- Skeleton placeholders while posts load -->
+            <div class="posts-list" aria-label="Loading posts...">
+                <Skeleton variant="post-card" count={5} />
+            </div>
+        {:else if filteredPosts.length === 0}
             <p class="empty">No posts found.</p>
-        {/if}
-
-        <div class="posts-list">
-            {#each filteredPosts as post}
-                <article class="post">
-                    <h2>
-                        <a href={`/blogs/${post.slug}`}>{post.title}</a>
-                    </h2>
-                    <p>{post.description}</p>
-                    <div class="meta">
-                        <span class="date">{formatDate(post.date)}</span>
-                        <div class="tags">
-                            {#each post.tags as tag}
-                                <span class="tag">{tag}</span>
-                            {/each}
+        {:else}
+            <div class="posts-list">
+                {#each filteredPosts as post}
+                    <article class="post">
+                        <h2>
+                            <a href={`/blogs/${post.slug}`}>{post.title}</a>
+                        </h2>
+                        <p>{post.description}</p>
+                        <div class="meta">
+                            <span class="date">{formatDate(post.date)}</span>
+                            <div class="tags">
+                                {#each post.tags as tag}
+                                    <span class="tag">{tag}</span>
+                                {/each}
+                            </div>
                         </div>
-                    </div>
-                </article>
-            {/each}
-        </div>
+                    </article>
+                {/each}
+            </div>
+        {/if}
     </main>
 </div>
 
