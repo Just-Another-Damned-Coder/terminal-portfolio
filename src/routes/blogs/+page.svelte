@@ -25,6 +25,24 @@
     }
 </script>
 
+<svelte:head>
+    <title>Blog — Moris Johnson</title>
+    <meta name="description" content="Articles on competitive programming, mathematics, and software engineering by Moris Johnson." />
+    <meta name="author" content="Moris Johnson" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blog — Moris Johnson" />
+    <meta property="og:description" content="Articles on competitive programming, mathematics, and software engineering by Moris Johnson." />
+    <meta property="og:url" content="https://morisjohnson.in/blogs" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Blog — Moris Johnson" />
+    <meta name="twitter:description" content="Articles on competitive programming, mathematics, and software engineering by Moris Johnson." />
+    <!-- RSS autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="Moris Johnson Blog" href="/rss.xml" />
+    <link rel="canonical" href="https://morisjohnson.in/blogs" />
+</svelte:head>
+
 <div class="blog-listing">
     <div class="top-bar">
         <a href="/" class="home-btn" aria-label="Home">

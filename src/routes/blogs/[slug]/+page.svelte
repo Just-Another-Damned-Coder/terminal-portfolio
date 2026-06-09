@@ -11,7 +11,47 @@
         rawText: data.post.rawText,
         contentHtml: data.post.contentHtml
     });
+
+    let formattedDate = $derived(
+        data.post.date
+            ? new Date(data.post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            : ''
+    );
+
+    let pageDescription = $derived(
+        data.post.description ||
+        (data.post.rawText ? data.post.rawText.replace(/[#*`>\[\]]/g, '').trim().slice(0, 155) + '…' : '')
+    );
 </script>
+
+<svelte:head>
+    <title>{data.post.title} — Moris Johnson</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="author" content={data.post.author} />
+    {#if data.post.tags?.length}
+        <meta name="keywords" content={data.post.tags.join(', ')} />
+    {/if}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={data.post.title} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={`https://morisjohnson.in/blogs/${data.post.slug}`} />
+    {#if data.post.date}
+        <meta property="article:published_time" content={data.post.date} />
+    {/if}
+    {#each data.post.tags as tag}
+        <meta property="article:tag" content={tag} />
+    {/each}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={data.post.title} />
+    <meta name="twitter:description" content={pageDescription} />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={`https://morisjohnson.in/blogs/${data.post.slug}`} />
+</svelte:head>
 
 <div class="blog-page">
     <div class="top-bar">
