@@ -21,14 +21,8 @@ export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
 export const scheme = writable<SchemeType>('Argonaut');
 
-// filesystem is loaded at runtime from /filesystem.json (static asset)
+// Populated synchronously by +layout.ts load() before any child renders.
 export const FILELIST = writable<Record<string, Record<string, any>>>({});
-export async function loadFilesystem() {
-  const res = await fetch('/filesystem.json');
-  if (!res.ok) throw new Error('Failed to load filesystem.json');
-  const data = await res.json();
-  FILELIST.set(data);
-}
 
 export const tableHeightStore = writable(0);
 

@@ -1,14 +1,13 @@
 <script>
 	import '../app.css';
-	import { onMount } from 'svelte';
-	import { scheme, COLORS, loadFilesystem } from '$lib/js/constants';
+	import { scheme, COLORS, FILELIST } from '$lib/js/constants';
 	import { applyTheme } from '$lib/js/utils/SVG';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
-	onMount(() => {
-		loadFilesystem();
-	});
+	// Set filesystem data synchronously before any child renders.
+	// data is already resolved by SvelteKit's load() before this runs.
+	FILELIST.set(data.filesystem);
 
 	$effect(() => {
 		if (typeof document !== 'undefined') {
