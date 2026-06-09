@@ -83,6 +83,10 @@
         }
     },
     "~/home/blogs/maths/quantitative-aptitude": {
+        "Divisiblity Rules.md": {
+            "type": "modal",
+            "doc": "blogs/maths/quantitative-aptitude/Divisiblity Rules.md"
+        },
         "Successive Percentage.md": {
             "type": "modal",
             "doc": "blogs/maths/quantitative-aptitude/Successive Percentage.md"

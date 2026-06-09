@@ -1,9 +1,14 @@
 <script>
 	import '../app.css';
-	import { scheme, COLORS } from '$lib/js/constants';
+	import { onMount } from 'svelte';
+	import { scheme, COLORS, loadFilesystem } from '$lib/js/constants';
 	import { applyTheme } from '$lib/js/utils/SVG';
 
 	let { children } = $props();
+
+	onMount(() => {
+		loadFilesystem();
+	});
 
 	$effect(() => {
 		if (typeof document !== 'undefined') {

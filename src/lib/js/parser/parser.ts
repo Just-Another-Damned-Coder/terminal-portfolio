@@ -140,7 +140,7 @@ class Parser {
             const newPath = this.check_directory(currentPath, target);
             
             // 1. Check if it is a valid directory
-            if ((Constants as any).FILELIST[newPath]) {
+            if (get(Constants.FILELIST)[newPath]) {
                 Constants.pwd.set(newPath);
                 return Constants.empty;
             }
@@ -150,7 +150,7 @@ class Parser {
             const parentPath = lastSlashIndex > 0 ? newPath.substring(0, lastSlashIndex) : "~/home";
             const itemName = newPath.substring(lastSlashIndex + 1);
             
-            const parentDir = (Constants as any).FILELIST[parentPath];
+            const parentDir = get(Constants.FILELIST)[parentPath];
             const isFile = parentDir && (parentDir[itemName] || parentDir[`${itemName}/`]);
 
             if (isFile) {
@@ -167,14 +167,14 @@ class Parser {
             const lookupPath = target ? this.check_directory(currentPath, target) : currentPath;
             
             // Verify path exists before listing
-            if (!(Constants as any).FILELIST[lookupPath]) {
+            if (!get(Constants.FILELIST)[lookupPath]) {
                 return this.dirError('ls', target, '2', 'not_found');
             }
 
             return {
                 type: "component",
                 name: "Ls",
-                parameters: { list: (Constants as any).FILELIST[lookupPath] }
+                parameters: { list: get(Constants.FILELIST)[lookupPath] }
             };
         }
 
@@ -205,7 +205,7 @@ class Parser {
             const fileName = fullPath.substring(lastSlashIndex + 1);
 
             // 2. Access the filesystem constants
-            const parentDir = (Constants as any).FILELIST[parentPath];
+            const parentDir = get(Constants.FILELIST)[parentPath];
             const fileData = parentDir ? parentDir[fileName] : null;
 
             // 3. Validate file exists and is openable in a modal

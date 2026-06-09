@@ -1,5 +1,5 @@
 import { get } from "svelte/store";
-import { history, past_commands, username, pwd, empty, COMMANDS, FILELIST } from "$lib/js/constants.js";
+import { history, past_commands, username, pwd, empty, COMMANDS } from "$lib/js/constants.js";
 import { command_parser } from "$lib/js/parser/parser.js";
 
 export function add(input: string, output: App.CommandOutput): void {

@@ -10,7 +10,7 @@ const ROOT = path.resolve(__dirname, '..');
 const STATIC_DIR = path.join(ROOT, 'static');
 const BLOGS_DIR = path.join(STATIC_DIR, 'blogs');
 const HOME_JSON_PATH = path.join(STATIC_DIR, 'home.json');
-const FILESYSTEM_OUT = path.join(ROOT, 'src', 'lib', 'data', 'filesystem.json');
+const FILESYSTEM_OUT = path.join(ROOT, 'static', 'filesystem.json');
 const LATEST_POSTS_OUT = path.join(STATIC_DIR, 'latest_posts.json');
 const MAX_LATEST_POSTS = 9;
 

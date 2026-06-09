@@ -16,11 +16,19 @@ export const github = "https://github.com/morisjohnson";
 import COLORS from '$lib/data/color_schemes.json';
 import COMMANDS from '$lib/data/commands.json';
 import command_docs from '$lib/data/help.json';
-import FILELIST from '$lib/data/filesystem.json';
-export {COLORS, COMMANDS, command_docs, FILELIST};
+export {COLORS, COMMANDS, command_docs};
 export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
 export const scheme = writable<SchemeType>('Argonaut');
+
+// filesystem is loaded at runtime from /filesystem.json (static asset)
+export const FILELIST = writable<Record<string, Record<string, any>>>({});
+export async function loadFilesystem() {
+  const res = await fetch('/filesystem.json');
+  if (!res.ok) throw new Error('Failed to load filesystem.json');
+  const data = await res.json();
+  FILELIST.set(data);
+}
 
 export const tableHeightStore = writable(0);
 

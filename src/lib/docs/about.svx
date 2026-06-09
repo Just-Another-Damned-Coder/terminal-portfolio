@@ -12,33 +12,18 @@ toc: false
 ## Profile
 Senior Speech Application Engineer with 5 years of experience in developing advanced chatbots and voicebots using transformer models and LLMs. I specialize in designing and deploying microservices architectures and conversational systems, enhancing capabilities in handling bulk interactions.
 
+<script>
+  import Mermaid from '$lib/components/Mermaid.svelte';
+</script>
+
 ## Experience
 
-<div class="timeline">
-  <div class="timeline-item">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
-      <h3>Senior Speech Application Engineer</h3>
-      <h4><span class="timeline-meta">GoVivace | Remote, India | 11/2023 - present</span></h4>
-    </div>
-  </div>
-
-  <div class="timeline-item">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
-      <h3>Speech Recognition Engineer</h3>
-      <h4><span class="timeline-meta">08/2021 - 10/2023 | Remote, India</span></h4>
-    </div>
-  </div>
-
-  <div class="timeline-item">
-    <div class="timeline-marker"></div>
-    <div class="timeline-content">
-      <h3>Speech Recognition Intern</h3>
-      <h4><span class="timeline-meta">01/2021 - 07/2021 | Remote, India</span></h4>
-    </div>
-  </div>
-</div>
+<Mermaid code={`
+timeline
+    01/2021 - 07/2021 : Speech Recognition Intern : Remote, India : GoVivace
+    08/2021 - 10/2023 : Speech Recognition Engineer : Remote, India : GoVivace
+    11/2023 - present : Senior Speech Application Engineer : Remote, India : GoVivace
+`} />
 
 ## Education & Awards
 * **B.Tech Electronics and Communication Engineering (92%)** - (08/2017 - 05/2021).
@@ -48,34 +33,4 @@ Senior Speech Application Engineer with 5 years of experience in developing adva
 * **Languages:** Python, Rust (intermediate), bash, perl.
 * **Frameworks & Tools:** SpaCy, transformers, PyTorch, Tensorflow, Fastapi, Falcon, Flask, RabbitMQ, Langchain, Langflow, Asterisk, ONNX.
 * **Deployments & DBs:** Docker, Azure, Oracle, MongoDB, MySQL, Redis.
-
-<style>
-  .timeline {
-    border-left: 2px solid var(--green, #4a90e2);
-    padding-left: 1.5rem;
-    margin: 2rem 0;
-    font-family: inherit;
-  }
-  .timeline-item {
-    position: relative;
-    margin-bottom: 1vh;
-  }
-  .timeline-marker {
-    position: absolute;
-    left: -1.9rem; /* Adjust based on padding/border */
-    top: 0.4rem;
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 50%;
-    background: var(--bg-color, #1a1a1a);
-    border: 2px solid var(--bright-green, #4a90e2);
-  }
-  .timeline-content h4 {
-    color: var(--text-highlight, #ffffff);
-  }
-  .timeline-meta {
-    color: var(--text-muted, #888888);
-    display: block;
-    margin-bottom: 0.8rem;
-  }
-</style>
+
