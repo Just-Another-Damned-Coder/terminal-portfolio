@@ -1,25 +1,34 @@
-<script>
+<script lang="ts">
     import { Search, House, Palette } from '@lucide/svelte';
-    import { COLORS, scheme } from '$lib/js/constants';
+    import { COLORS, scheme, type SchemeType } from '$lib/js/constants';
     import { Skeleton } from '$lib/components';
 
-    let { data } = $props();
+    interface Post {
+        title: string;
+        author: string;
+        date: string;
+        tags: string[];
+        description: string;
+        slug: string;
+        doc: string;
+    }
 
-    let posts = $derived(data?.posts || []);
+    let { data } = $props();
+    let posts = $derived((data?.posts as Post[]) || []);
     let query = $state("");
     let themeOpen = $state(false);
-    let themeKeys = $derived(Object.keys(COLORS));
+    let themeKeys = $derived(Object.keys(COLORS) as SchemeType[]);
 
     let filteredPosts = $derived(query.trim() === ""
         ? posts
-        : posts.filter(p => {
+        : posts.filter((p) => {
             const q = query.toLowerCase();
             return p.title.toLowerCase().includes(q)
                 || p.description.toLowerCase().includes(q)
-                || p.tags?.some(t => t.toLowerCase().includes(q));
+                || p.tags?.some((t) => t.toLowerCase().includes(q));
         }));
 
-    function formatDate(dateStr) {
+    function formatDate(dateStr: string) {
         if (!dateStr) return "";
         return dateStr.split("T")[0];
     }

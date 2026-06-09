@@ -62,6 +62,7 @@ export async function load({ fetch, params }) {
             author: postMeta.author || "Unknown",
             date: postMeta.date || "",
             tags: postMeta.tags || [],
+            description: postMeta.description || "",
             contentHtml,
             rawText: content
         }
