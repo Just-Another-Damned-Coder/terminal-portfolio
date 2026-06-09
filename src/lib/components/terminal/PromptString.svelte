@@ -10,8 +10,6 @@
 <span class="prompt-string" spellcheck="false">
   <span contenteditable="false" style="color:{COLORS[$scheme].green}">{latest_username}@morisjohnson.in</span>
   <span contenteditable="false" style="color:{COLORS[$scheme].brightBlue}">:{latest_pwd}</span>
-  <span contenteditable="false" style="color:{COLORS[$scheme].brightBlack}">$</span>
-  <!-- <span bind:this={area} contenteditable="{editable ? "true" : undefined}" class="command">&nbsp;</span> -->
-   <span use:handler={{ active: editable !== 'true' }} class="command">&nbsp;</span>
+  <span contenteditable="false" style="color:{COLORS[$scheme].brightBlack}">$</span><span use:handler={{ active: editable !== 'true' }} class="command">&nbsp;</span>
 </span>
 

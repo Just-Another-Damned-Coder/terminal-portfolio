@@ -1,12 +1,12 @@
 /* Scope everything to the .md class without :global() */
 .md h1, .md h2, .md h3, .md p, .md a, .md li {
-  color: var(--bright-yellow); /*cite: 15, 16*/
+  color: var(--bright-yellow);
 }
 
 .dialog-desc .md h1 {
-  font-size: 2.5rem; /* Avoid massive 9.75rem unless intended */
+  font-size: 2.5rem;
   font-weight: 700;
-  color: var(--bright-yellow); /*cite: 15, 16*/
+  color: var(--bright-yellow);
   border-bottom: 1px solid var(--selection-background);
   padding-bottom: 0.25rem;
   margin-bottom: 0.75rem;
@@ -17,28 +17,151 @@
   line-height: 1.6;
 }
 
-/* The ID outranks Tailwind's base resets automatically */
-#markdown-content h1 {
+/* Blog content styles */
+.markdown-content h1 {
   color: var(--green);
   margin: 0 0 0.75rem 0;
   padding-bottom: 0.25rem;
 }
 
-#markdown-content p {
+.markdown-content p {
   color: var(--foreground);
 }
 
-#markdown-content h2 {
+.markdown-content h2 {
     font-size: calc(var(--title-size) * 0.6);
     color: var(--blue);
 }
 
-#markdown-content  h3 {
+.markdown-content h3 {
     font-size: calc(var(--title-size) * 0.4);
     color: var(--cyan);
 }
 
-#markdown-content h4 {
+.markdown-content h4 {
     font-size: calc(var(--title-size) * 0.3);
     color: var(--yellow);
+}
+
+/* Blockquotes */
+.markdown-content blockquote {
+    border-left: 3px solid var(--blue);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    background: color-mix(in srgb, var(--background) 80%, var(--blue) 20%);
+    border-radius: 0 4px 4px 0;
+    color: var(--bright-white);
+    font-style: italic;
+}
+.markdown-content blockquote p {
+    margin: 0.25rem 0;
+}
+.markdown-content blockquote ul,
+.markdown-content blockquote ol {
+    margin: 0.25rem 0;
+    padding-left: 1.5rem;
+}
+
+/* Tables */
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: var(--font-size);
+}
+.markdown-content th,
+.markdown-content td {
+    border: 1px solid var(--selection-background);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}
+.markdown-content th {
+    background: color-mix(in srgb, var(--background) 70%, var(--bright-black) 30%);
+    color: var(--yellow);
+    font-weight: 700;
+}
+.markdown-content td {
+    color: var(--foreground);
+}
+.markdown-content tr:nth-child(even) td {
+    background: color-mix(in srgb, var(--background) 85%, var(--bright-black) 15%);
+}
+
+/* Lists - override Tailwind reset */
+.markdown-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin: 0.75rem 0;
+    color: var(--foreground);
+}
+.markdown-content ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin: 0.75rem 0;
+    color: var(--foreground);
+}
+.markdown-content li {
+    margin-bottom: 0.35rem;
+    line-height: 1.6;
+    display: list-item;
+}
+.markdown-content ul ul {
+    list-style-type: circle;
+    margin: 0.25rem 0;
+}
+.markdown-content ol ol {
+    list-style-type: lower-alpha;
+    margin: 0.25rem 0;
+}
+.markdown-content ul ol,
+.markdown-content ol ul {
+    margin: 0.25rem 0;
+}
+
+/* Task lists */
+.markdown-content ul:has(input[type="checkbox"]),
+.markdown-content ol:has(input[type="checkbox"]) {
+    list-style: none;
+    padding-left: 0;
+}
+.markdown-content input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: var(--blue);
+}
+
+/* Inline code */
+.markdown-content code:not(.shiki code) {
+    background: color-mix(in srgb, var(--background) 70%, var(--bright-black) 30%);
+    color: var(--cyan);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Horizontal rule */
+.markdown-content hr {
+    border: none;
+    border-top: 1px solid var(--selection-background);
+    margin: 1.5rem 0;
+}
+
+/* KaTeX display math - scrollable on overflow */
+.markdown-content .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    padding: 0.5rem 0;
+}
+
+.markdown-content .katex-display > .katex {
+    max-width: 100%;
+}
+
+.markdown-content .katex-display::-webkit-scrollbar {
+    height: 4px;
+}
+
+.markdown-content .katex-display::-webkit-scrollbar-thumb {
+    background: var(--selection-background);
+    border-radius: 2px;
 }

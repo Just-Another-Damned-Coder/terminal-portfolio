@@ -26,42 +26,93 @@
         }
     },
     "~/home/blogs": {
-        "some-topic": {
+        "..": {
+            "type": "directory",
+            "target": "~/home"
+        },
+        "advent-of-code": {
             "type": "directory"
         },
-        "my-first-post.md": {
-            "type": "modal",
-            "doc": "blogs/sample.md"
+        "maths": {
+            "type": "directory"
         },
+        "rust": {
+            "type": "directory"
+        }
+    },
+    "~/home/projects": {
         "..": {
             "type": "directory",
             "target": "~/home"
         }
     },
-    "~/home/blogs/some-topic": {
-        "post-inside-topic.md": {
+    "~/home/blogs/advent-of-code/2015": {
+        "Problem 1.md": {
             "type": "modal",
-            "doc": "blogs/nested.md"
+            "doc": "blogs/advent-of-code/2015/Problem 1.md"
+        },
+        "Problem 2.md": {
+            "type": "modal",
+            "doc": "blogs/advent-of-code/2015/Problem 2.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs/advent-of-code"
+        }
+    },
+    "~/home/blogs/advent-of-code/2025": {
+        "Problem 1.md": {
+            "type": "modal",
+            "doc": "blogs/advent-of-code/2025/Problem 1.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs/advent-of-code"
+        }
+    },
+    "~/home/blogs/advent-of-code": {
+        "2015": {
+            "type": "directory"
+        },
+        "2025": {
+            "type": "directory"
         },
         "..": {
             "type": "directory",
             "target": "~/home/blogs"
         }
     },
-    "~/home/projects": {
-        "some-topic": {
-            "type": "directory"
-        },
-        "my-first-post.md": {
+    "~/home/blogs/maths/quantitative-aptitude": {
+        "Divisiblity Rules.md": {
             "type": "modal",
-            "doc": "blogs/sample.md"
+            "doc": "blogs/maths/quantitative-aptitude/Divisiblity Rules.md"
+        },
+        "Successive Percentage.md": {
+            "type": "modal",
+            "doc": "blogs/maths/quantitative-aptitude/Successive Percentage.md"
         },
         "..": {
             "type": "directory",
-            "target": "~/home"
+            "target": "~/home/blogs/maths"
         }
     },
-     "~/home/projects/some-topic": {
-     }
-     
+    "~/home/blogs/maths": {
+        "quantitative-aptitude": {
+            "type": "directory"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs"
+        }
+    },
+    "~/home/blogs/rust": {
+        "demystifying-strings.md": {
+            "type": "modal",
+            "doc": "blogs/rust/demystifying-strings.md"
+        },
+        "..": {
+            "type": "directory",
+            "target": "~/home/blogs"
+        }
+    }
 }

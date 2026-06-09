@@ -1,7 +1,3 @@
-import { marked } from 'marked';
-import markedShiki from 'marked-shiki';
-import { createHighlighter } from 'shiki';
-
 // Existing fetch function
 export async function readMarkdownFile(targetPath: string) {
     let route = targetPath;
@@ -20,11 +16,16 @@ export async function readMarkdownFile(targetPath: string) {
 
 // NEW: Client-side singleton for highlighting
 let clientHighlighter: any = null;
+let customMarked: any = null;
 
 export async function parseWithHighlights(markdownString: string) {
     if (!clientHighlighter) {
+        const { createHighlighter } = await import('shiki');
+        const { marked } = await import('marked');
+        const markedShiki = (await import('marked-shiki')).default || await import('marked-shiki');
+
         clientHighlighter = await createHighlighter({
-            themes: ['material-theme'],
+            themes: ['github-dark-high-contrast'],
             langs: ['javascript', 'typescript', 'bash', 'python', 'json', 'html', 'css']
         });
         
@@ -33,10 +34,11 @@ export async function parseWithHighlights(markdownString: string) {
                 const validLang = clientHighlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
                 return clientHighlighter.codeToHtml(code, {
                     lang: validLang,
-                    theme: 'material-theme'
+                    theme: 'github-dark-high-contrast'
                 });
             }
         }));
+        customMarked = marked;
     }
-    return marked.parse(markdownString);
+    return customMarked.parse(markdownString);
 }

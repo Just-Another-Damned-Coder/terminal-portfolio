@@ -6,21 +6,23 @@ import { get, writable } from 'svelte/store';
 // The colors are taken from : https://windowsterminalthemes.dev/
 // Add more to the JSON from the website.
 // The website/terminal version.
-export const version = "v1.3.2";
+export const version = "v1.4.0";
 // The title of the username;
 export const name = "Moris Johnson";
-
+export const github = "https://github.com/morisjohnson";
 
 // Constants for the application, color schemes and command list
 // Used for theme switching and command parser.
 import COLORS from '$lib/data/color_schemes.json';
 import COMMANDS from '$lib/data/commands.json';
 import command_docs from '$lib/data/help.json';
-import FILELIST from '$lib/data/filesystem.json';
-export {COLORS, COMMANDS, command_docs, FILELIST};
+export {COLORS, COMMANDS, command_docs};
 export type SchemeType = keyof typeof COLORS;
 // initialize with your default theme key
 export const scheme = writable<SchemeType>('Argonaut');
+
+// Populated synchronously by +layout.ts load() before any child renders.
+export const FILELIST = writable<Record<string, Record<string, any>>>({});
 
 export const tableHeightStore = writable(0);
 

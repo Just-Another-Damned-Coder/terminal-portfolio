@@ -1,0 +1,1 @@
+// No data loading needed — modal loads .svx content dynamically

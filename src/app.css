@@ -4,12 +4,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
 
 @import "tailwindcss";
+@source "../src";
+@import "katex/dist/katex.min.css";
 
 @layer components {
   @import './css/global.css';   /* Defines your variables cite: 14, 16 */
   @import './css/markdown.css'; /* Your cleaned Markdown styles cite: 14, 15 */
   @import './css/terminal.css'; 
-  @import './css/modal.css';    
+  @import './css/modal.css';
+  @import './css/navbar.css';
+  @import './css/latest-posts.css';
 }
 
 @font-face {
