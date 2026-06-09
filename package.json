@@ -12,7 +12,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"lint": "eslint . && prettier --check .",
 		"format": "prettier --write .",
-		"create-fs": "node --experimental-strip-types scripts/create-filesystem.ts"
+		"create-fs": "node --experimental-strip-types scripts/create-filesystem.ts",
+		"update-blogs": "node --experimental-strip-types scripts/update-blogs.ts"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",

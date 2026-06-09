@@ -162,6 +162,21 @@ toc: false
 
 4. The blog post will be accessible via the terminal's `ls` command in the `~/home/blogs/` directory.
 
+### Fast Blog Deployment
+
+If you are only adding or updating blog posts and don't want to run a full `npm run build` (which recompiles the whole site), you can use the `update-blogs` script:
+
+```bash
+npm run update-blogs
+```
+
+This script will instantly:
+1. Update your `filesystem.json`, `latest_posts.json`, `sitemap.xml`, and `rss.xml` metadata.
+2. Copy these files and your new `static/blogs/` folder directly to the `build/` directory.
+3. Generate compressed `.gz` and `.br` files for the updated files.
+
+You can then just upload the modified files in your `build/` directory to your web server without waiting for Vite to recompile everything.
+
 ### Markdown Features
 
 - Standard Markdown syntax (headings, lists, code blocks, links, images).
@@ -283,6 +298,7 @@ npm run preview
 | `npm run lint`      | Lint code with ESLint and Prettier                                 |
 | `npm run format`    | Format all files with Prettier                                     |
 | `npm run create-fs` | Generate `filesystem.json` and `latest_posts.json` from blog files |
+| `npm run update-blogs` | Fast-update metadata and `build/` directory for new blog posts without a full build |
 
 ### Deployment
 
