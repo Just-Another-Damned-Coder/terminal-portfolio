@@ -23,3 +23,6 @@ export {default as Blog} from './blog/Blog.svelte';
 // Root page
 export {default as Navbar} from './root/Navbar.svelte';
 export {default as LatestPosts} from './root/LatestPosts.svelte';
+
+// UI primitives
+export {default as Skeleton} from './ui/Skeleton.svelte';

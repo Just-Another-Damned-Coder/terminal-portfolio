@@ -5,6 +5,7 @@
   import fm from 'front-matter';
   import { readMarkdownFile , parseWithHighlights} from '$lib/js/markdown';
   import {Blog, ModalTitle} from '$lib/components';
+  import { Skeleton } from '$lib/components';
 
   export let triggerText;
   export let doc; 
@@ -135,7 +136,8 @@
                 </div>
                
             {:else}
-               <p class="loading-text">Fetching {doc}...</p>
+               <!-- Skeleton while markdown/svx is loading — mirrors Blog.svelte layout -->
+               <Skeleton variant="blog-modal" />
             {/if}
           </Dialog.Description>
           
@@ -191,6 +193,5 @@
       color: var(--foreground);
       padding: 0.5rem;
   }
-
 
 </style>

@@ -55,7 +55,7 @@ const config = {
       pages: 'build',
       assets: 'build',
       fallback: 'index.html', // Recommended for static sites
-      precompress: false,
+      precompress: true,
       strict: true
     }),
     paths: {

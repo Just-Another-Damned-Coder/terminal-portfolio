@@ -23,12 +23,20 @@ export async function parseWithHighlights(markdownString: string) {
         const { createHighlighter } = await import('shiki');
         const { marked } = await import('marked');
         const markedShiki = (await import('marked-shiki')).default || await import('marked-shiki');
+        const markedKatex = (await import('marked-katex-extension')).default || await import('marked-katex-extension');
 
         clientHighlighter = await createHighlighter({
             themes: ['github-dark-high-contrast'],
             langs: ['javascript', 'typescript', 'bash', 'python', 'json', 'html', 'css']
         });
-        
+
+        // KaTeX must be applied before Shiki so math blocks are extracted
+        // before code highlighting runs over the remaining markdown.
+        marked.use(markedKatex({
+            throwOnError: false,
+            output: 'html'
+        }));
+
         marked.use(markedShiki({
             highlight(code, lang) {
                 const validLang = clientHighlighter.getLoadedLanguages().includes(lang) ? lang : 'text';

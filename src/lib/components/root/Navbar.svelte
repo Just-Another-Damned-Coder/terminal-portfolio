@@ -1,6 +1,9 @@
-<script>
+<script lang="ts">
 	import { name, version, github, COLORS, scheme } from '$lib/js/constants';
 	import { Palette, SquareTerminal } from '@lucide/svelte';
+
+	/** Size of the terminal icon in px — defaults to match the theme-picker Palette icon */
+	export let terminalIconSize: number = 16;
 
 	const themeKeys = Object.keys(COLORS);
 
@@ -10,7 +13,7 @@
 <nav>
 	<div class="terminal-wrapper">
 		<a href="/terminal" class="terminal-btn" aria-label="Terminal">
-			<SquareTerminal size={28} />
+			<SquareTerminal size={terminalIconSize} />
 		</a>
 	</div>
 	<div class="theme-wrapper">

@@ -1,28 +1,56 @@
-<script>
+<script lang="ts">
     import { Search, House, Palette } from '@lucide/svelte';
-    import { COLORS, scheme } from '$lib/js/constants';
+    import { COLORS, scheme, type SchemeType } from '$lib/js/constants';
+    import { Skeleton } from '$lib/components';
+
+    interface Post {
+        title: string;
+        author: string;
+        date: string;
+        tags: string[];
+        description: string;
+        slug: string;
+        doc: string;
+    }
 
     let { data } = $props();
-
-    let posts = $derived(data?.posts || []);
+    let posts = $derived((data?.posts as Post[]) || []);
     let query = $state("");
     let themeOpen = $state(false);
-    let themeKeys = $derived(Object.keys(COLORS));
+    let themeKeys = $derived(Object.keys(COLORS) as SchemeType[]);
 
     let filteredPosts = $derived(query.trim() === ""
         ? posts
-        : posts.filter(p => {
+        : posts.filter((p) => {
             const q = query.toLowerCase();
             return p.title.toLowerCase().includes(q)
                 || p.description.toLowerCase().includes(q)
-                || p.tags?.some(t => t.toLowerCase().includes(q));
+                || p.tags?.some((t) => t.toLowerCase().includes(q));
         }));
 
-    function formatDate(dateStr) {
+    function formatDate(dateStr: string) {
         if (!dateStr) return "";
         return dateStr.split("T")[0];
     }
 </script>
+
+<svelte:head>
+    <title>Blog — Moris Johnson</title>
+    <meta name="description" content="Articles on competitive programming, mathematics, and software engineering by Moris Johnson." />
+    <meta name="author" content="Moris Johnson" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blog — Moris Johnson" />
+    <meta property="og:description" content="Articles on competitive programming, mathematics, and software engineering by Moris Johnson." />
+    <meta property="og:url" content="https://morisjohnson.in/blogs" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Blog — Moris Johnson" />
+    <meta name="twitter:description" content="Articles on competitive programming, mathematics, and software engineering by Moris Johnson." />
+    <!-- RSS autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="Moris Johnson Blog" href="/rss.xml" />
+    <link rel="canonical" href="https://morisjohnson.in/blogs" />
+</svelte:head>
 
 <div class="blog-listing">
     <div class="top-bar">
@@ -72,28 +100,33 @@
             />
         </div>
 
-        {#if filteredPosts.length === 0}
+        {#if posts.length === 0 && !query}
+            <!-- Skeleton placeholders while posts load -->
+            <div class="posts-list" aria-label="Loading posts...">
+                <Skeleton variant="post-card" count={5} />
+            </div>
+        {:else if filteredPosts.length === 0}
             <p class="empty">No posts found.</p>
-        {/if}
-
-        <div class="posts-list">
-            {#each filteredPosts as post}
-                <article class="post">
-                    <h2>
-                        <a href={`/blogs/${post.slug}`}>{post.title}</a>
-                    </h2>
-                    <p>{post.description}</p>
-                    <div class="meta">
-                        <span class="date">{formatDate(post.date)}</span>
-                        <div class="tags">
-                            {#each post.tags as tag}
-                                <span class="tag">{tag}</span>
-                            {/each}
+        {:else}
+            <div class="posts-list">
+                {#each filteredPosts as post}
+                    <article class="post">
+                        <h2>
+                            <a href={`/blogs/${post.slug}`}>{post.title}</a>
+                        </h2>
+                        <p>{post.description}</p>
+                        <div class="meta">
+                            <span class="date">{formatDate(post.date)}</span>
+                            <div class="tags">
+                                {#each post.tags as tag}
+                                    <span class="tag">{tag}</span>
+                                {/each}
+                            </div>
                         </div>
-                    </div>
-                </article>
-            {/each}
-        </div>
+                    </article>
+                {/each}
+            </div>
+        {/if}
     </main>
 </div>
 
