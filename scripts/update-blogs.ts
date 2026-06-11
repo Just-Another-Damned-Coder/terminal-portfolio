@@ -4,6 +4,7 @@ import * as path from 'path';
 import { execSync } from 'child_process';
 import * as zlib from 'zlib';
 import { promisify } from 'util';
+import fm from 'front-matter';
 
 const gzip = promisify(zlib.gzip);
 const brotli = promisify(zlib.brotliCompress);
@@ -32,6 +33,18 @@ async function compressFile(filePath: string) {
     console.log(`Compressed: ${path.relative(ROOT, filePath)} (.gz, .br)`);
 }
 
+function isDraftMarkdownFile(filePath: string): boolean {
+    if (!filePath.endsWith('.md')) return false;
+
+    try {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const parsed = fm<Record<string, any>>(raw);
+        return parsed.attributes?.draft === true;
+    } catch {
+        return false;
+    }
+}
+
 function copyRecursiveSync(src: string, dest: string) {
     if (!fs.existsSync(src)) return;
     const stats = fs.statSync(src);
@@ -41,6 +54,10 @@ function copyRecursiveSync(src: string, dest: string) {
             copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
         });
     } else {
+        if (isDraftMarkdownFile(src)) {
+            console.log(`Skipped draft: ${path.relative(ROOT, src)}`);
+            return;
+        }
         fs.copyFileSync(src, dest);
     }
 }
@@ -88,6 +105,10 @@ async function main() {
     console.log('\n3. Copying and compressing blogs directory...');
     const srcBlogs = path.join(STATIC_DIR, 'blogs');
     const destBlogs = path.join(BUILD_DIR, 'blogs');
+
+    if (fs.existsSync(destBlogs)) {
+        fs.rmSync(destBlogs, { recursive: true, force: true });
+    }
     
     // Copy the uncompressed files
     copyRecursiveSync(srcBlogs, destBlogs);

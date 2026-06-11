@@ -32,8 +32,8 @@ vite.config.ts.timestamp-*
 
 
 # Static files.
-static/
-
+# static/
+temp/
 
 # AI Agent config files.
 .kilo/

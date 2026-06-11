@@ -38,6 +38,15 @@ interface FilesystemEntry {
     target?: string;
 }
 
+function isDraftPost(raw: string): boolean {
+    try {
+        const parsed = fm<Record<string, any>>(raw);
+        return parsed.attributes?.draft === true;
+    } catch {
+        return false;
+    }
+}
+
 function scanBlogsRecursive(
     dirPath: string,
     fsysPath: string,
@@ -65,6 +74,11 @@ function scanBlogsRecursive(
             }
             filesystem[childFsysPath]['..'] = { type: 'directory', target: fsysPath };
         } else if (entry.name.endsWith('.md')) {
+            const raw = fs.readFileSync(fullPath, 'utf-8');
+            if (isDraftPost(raw)) {
+                continue;
+            }
+
             const relBlogPath = path.relative(BLOGS_DIR, fullPath).replace(/\\/g, '/');
             const docPath = 'blogs/' + relBlogPath;
 
@@ -73,7 +87,6 @@ function scanBlogsRecursive(
                 doc: docPath,
             };
 
-            const raw = fs.readFileSync(fullPath, 'utf-8');
             try {
                 const parsed = fm<Record<string, any>>(raw);
                 const attrs = parsed.attributes || {};
