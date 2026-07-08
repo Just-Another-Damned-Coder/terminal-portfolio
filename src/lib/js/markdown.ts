@@ -1,4 +1,6 @@
 // Existing fetch function
+import { isMermaidLanguage, renderMermaidBlock } from "./mermaid";
+
 export async function readMarkdownFile(targetPath: string) {
     let route = targetPath;
     if (targetPath.startsWith('~/home')) {
@@ -39,6 +41,10 @@ export async function parseWithHighlights(markdownString: string) {
 
         marked.use(markedShiki({
             highlight(code, lang) {
+                if (isMermaidLanguage(lang)) {
+                    return renderMermaidBlock(code);
+                }
+
                 const validLang = clientHighlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
                 return clientHighlighter.codeToHtml(code, {
                     lang: validLang,

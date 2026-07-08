@@ -1,10 +1,22 @@
 <!-- src/lib/components/Blog.svelte -->
 <script lang="ts">
+    import { afterUpdate, onMount } from "svelte";
+    import { renderMermaidDiagrams } from "$lib/js/mermaid";
+
     export let title: string = "Untitled";
     export let author: string = "Unknown";
     export let date: string = "";
     export let contentHtml: string = "";
     export let rawText: string = "";
+    let markdownBody: HTMLElement;
+
+    async function renderDiagrams() {
+        if (!markdownBody) return;
+        await renderMermaidDiagrams(markdownBody);
+    }
+
+    onMount(renderDiagrams);
+    afterUpdate(renderDiagrams);
 
     $: wordCount = rawText.trim().split(/\s+/).length;
     $: readTime = Math.ceil(wordCount / 150);
@@ -30,7 +42,7 @@
         </div>
     </header>
 
-    <div class="markdown-body markdown-content">
+    <div class="markdown-body markdown-content" bind:this={markdownBody}>
         {@html contentHtml}
     </div>
 </article>
@@ -58,6 +70,25 @@
         max-width: 100%;
         overflow-x: auto;
         overflow-y: hidden;
+    }
+
+    :global(.markdown-body .mermaid-diagram) {
+        display: flex;
+        justify-content: center;
+        max-width: 100%;
+        margin: 1.5rem 0;
+        overflow-x: auto;
+    }
+
+    :global(.markdown-body .mermaid-diagram svg) {
+        max-width: 100%;
+        height: auto;
+    }
+
+    :global(.markdown-body .mermaid-error) {
+        display: block;
+        color: var(--red);
+        font-family: monospace;
     }
 
     .mobile-only { display: none; }

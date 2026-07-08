@@ -3,6 +3,7 @@ import { Marked } from "marked";
 import markedShiki from "marked-shiki";
 import markedKatex from "marked-katex-extension";
 import { createHighlighter } from "shiki";
+import { isMermaidLanguage, renderMermaidBlock } from "$lib/js/mermaid";
 
 let highlighter: any = null;
 let customMarked: any = null;
@@ -15,11 +16,17 @@ async function getMarked() {
     });
     customMarked = new Marked(
       markedShiki({
-        highlight: (code: string, lang: string) =>
-          highlighter.codeToHtml(code, {
-            lang: lang || "text",
+        highlight: (code: string, lang: string) => {
+          if (isMermaidLanguage(lang)) {
+            return renderMermaidBlock(code);
+          }
+
+          const validLang = highlighter.getLoadedLanguages().includes(lang) ? lang : "text";
+          return highlighter.codeToHtml(code, {
+            lang: validLang,
             theme: "github-dark-high-contrast"
-          })
+          });
+        }
       }),
       markedKatex({ throwOnError: false })
     );
